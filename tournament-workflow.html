@@ -1680,17 +1680,7 @@ buildTeams();buildRoundTabs();buildSchedule('all');buildStandings();
   a.download = (c.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase() || 'tournament') + '.html';
   a.click();
   URL.revokeObjectURL(url);
-  showToast('Tournament page downloaded!');
-
-  // Also show preview
-  document.getElementById('generated-tournament').innerHTML = `
-    <div style="margin-top:24px;background:rgba(57,255,132,0.08);border:1px solid rgba(57,255,132,0.3);border-radius:8px;padding:16px;text-align:center;">
-      <div style="font-size:28px;margin-bottom:8px;">&#127942;</div>
-      <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--green);letter-spacing:1px;">Tournament Page Generated!</div>
-      <p style="color:var(--muted);font-size:13px;margin-top:6px;">Open the downloaded HTML file in any browser. Share it with participants — scores sync via localStorage.</p>
-      <p style="color:var(--accent2);font-size:13px;margin-top:4px;font-weight:600;">Organiser PIN: ${escHTML(c.pin)}</p>
-    </div>
-  `;
+  showExportSuccess(c.pin);
 }
 
 function buildKnockoutHTML(numTeams, format) { return ''; }
@@ -1783,9 +1773,9 @@ const FIREBASE_CONFIG = {
   authDomain: "iag-pickleball.firebaseapp.com",
   databaseURL: "https://iag-pickleball-default-rtdb.firebaseio.com",
   projectId: "iag-pickleball",
-  storageBucket: "iag-pickleball.appspot.com",
-  messagingSenderId: "826551086937",
-  appId: "1:826551086937:web:placeholder"
+  storageBucket: "iag-pickleball.firebasestorage.app",
+  messagingSenderId: "1032967317528",
+  appId: "1:1032967317528:web:8742c451537507ca37fb6d"
 };
 
 let _fbApp = null;
