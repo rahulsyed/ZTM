@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAG Pickleball — Open 3.5 Tournament</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050a14; --surface: #0d1826; --card: #111e30;
+  --border: rgba(255,124,42,0.18); --accent: #ff7c2a; --accent2: #f7c948;
+  --accent3: #ff4d6d; --green: #39ff84; --text: #e8f4f8; --muted: #5e7a8f;
+  --gold: #f7c948; --silver: #c0cfd8; --bronze: #cd7f32;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Exo 2', sans-serif; min-height: 100vh; overflow-x: hidden; }
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: linear-gradient(rgba(255,124,42,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,124,42,0.03) 1px,transparent 1px);
+  background-size: 40px 40px; pointer-events: none; z-index: 0;
+}
+.wrapper { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
+header { text-align: center; padding: 40px 0 30px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+header .badge {
+  display: inline-block; background: linear-gradient(135deg,rgba(255,124,42,0.15),rgba(255,124,42,0.05));
+  border: 1px solid var(--accent); color: var(--accent); font-family: 'Rajdhani',sans-serif;
+  font-size: 12px; letter-spacing: 3px; text-transform: uppercase; padding: 5px 16px; border-radius: 2px; margin-bottom: 14px;
+}
+header h1 {
+  font-family: 'Rajdhani', sans-serif; font-size: clamp(28px,5vw,52px); font-weight: 700;
+  letter-spacing: 2px; line-height: 1.1;
+  background: linear-gradient(135deg,#fff 0%,var(--accent) 60%,var(--accent2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+header .meta { margin-top: 10px; color: var(--muted); font-size: 14px; letter-spacing: 1px; }
+header .meta span { margin: 0 10px; color: var(--accent); }
+.back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); text-decoration: none; font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; opacity: 0.8; transition: opacity 0.2s; }
+.back-btn:hover { opacity: 1; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 4px; margin-bottom: 28px; }
+.tab-btn { flex: 1; padding: 10px 8px; background: transparent; border: none; color: var(--muted); font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 1px; cursor: pointer; border-radius: 4px; transition: all 0.2s; text-transform: uppercase; }
+.tab-btn.active { background: linear-gradient(135deg,rgba(255,124,42,0.2),rgba(255,124,42,0.08)); color: var(--accent); border: 1px solid rgba(255,124,42,0.35); }
+.tab-btn:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.04); }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+/* Section title */
+.section-title {
+  font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg,var(--accent),transparent); opacity: 0.3; }
+
+/* Groups grid */
+.groups-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 16px; margin-bottom: 28px; }
+.group-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.group-card .group-header { background: rgba(255,124,42,0.1); padding: 10px 16px; font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border); }
+.group-card .team-entry { padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.group-card .team-entry:last-child { border-bottom: none; }
+.team-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; opacity: 0.6; }
+
+/* Schedule table */
+.schedule-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-size: 14px; }
+.schedule-table th { background: rgba(255,124,42,0.1); padding: 12px 14px; text-align: left; font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border); }
+.schedule-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text); }
+.schedule-table tr:last-child td { border-bottom: none; }
+.schedule-table tr:hover td { background: rgba(255,124,42,0.04); }
+.time-cell { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 15px; color: var(--accent2); white-space: nowrap; }
+.court-cell { font-family: 'Rajdhani', sans-serif; font-weight: 700; color: var(--accent); white-space: nowrap; }
+.grp-badge { display: inline-block; background: rgba(255,124,42,0.12); border: 1px solid rgba(255,124,42,0.25); color: var(--accent); font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; }
+.vs { color: var(--muted); font-size: 12px; }
+
+/* Standings */
+.standings-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.standings-table th { background: rgba(255,124,42,0.1); padding: 11px 14px; text-align: center; font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border); }
+.standings-table th:first-child, .standings-table th:nth-child(2), .standings-table th:nth-child(3) { text-align: left; }
+.standings-table td { padding: 10px 14px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 14px; }
+.standings-table td:first-child, .standings-table td:nth-child(2), .standings-table td:nth-child(3) { text-align: left; }
+.standings-table tr:last-child td { border-bottom: none; }
+.standings-table tr:hover td { background: rgba(255,124,42,0.03); }
+.rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 14px; }
+.rank-1 { background: rgba(247,201,72,0.2); color: var(--gold); border: 1px solid var(--gold); }
+.rank-2 { background: rgba(192,207,216,0.2); color: var(--silver); border: 1px solid var(--silver); }
+.rank-3 { background: rgba(205,127,50,0.2); color: var(--bronze); border: 1px solid var(--bronze); }
+.rank-n { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid rgba(255,255,255,0.1); }
+.win-count { color: var(--green); font-weight: 600; }
+.loss-count { color: var(--accent3); }
+.pts { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 16px; color: var(--accent2); }
+.grp-label { font-size: 11px; color: var(--accent); font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; }
+.editable-score { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text); width: 40px; text-align: center; border-radius: 4px; padding: 2px 4px; font-family: 'Exo 2', sans-serif; font-size: 14px; }
+.editable-score:focus { outline: none; border-color: var(--accent); }
+.score-display { display: none; }
+body:not(.organiser-mode) .editable-score { display: none !important; }
+body:not(.organiser-mode) .score-separator { display: none !important; }
+body:not(.organiser-mode) .score-display { display: inline !important; }
+body:not(.organiser-mode) .org-only { display: none !important; }
+body.organiser-mode .score-display { display: none !important; }
+body.organiser-mode .org-only { display: flex !important; }
+.ko-score-view { display: none; }
+body:not(.organiser-mode) .ko-score-view { display: block !important; text-align: center; padding: 3px 0; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 12px; color: var(--accent2); }
+body.organiser-mode .ko-score-view { display: none !important; }
+
+/* Knockout */
+.knockout-mode-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+.ko-option { background: var(--card); border: 2px solid var(--border); border-radius: 10px; padding: 20px; cursor: pointer; transition: all 0.25s; text-align: center; position: relative; overflow: hidden; }
+.ko-option.selected { border-color: var(--accent); background: rgba(255,124,42,0.06); }
+.ko-option:hover { border-color: rgba(255,124,42,0.4); }
+.ko-option .ko-icon { font-size: 28px; margin-bottom: 8px; }
+.ko-option h3 { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
+.ko-option.selected h3 { color: var(--accent); }
+.ko-option p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.ko-selected-badge { position: absolute; top: 10px; right: 10px; background: var(--accent); color: #000; font-size: 10px; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: none; }
+.ko-option.selected .ko-selected-badge { display: block; }
+body:not(.organiser-mode) .ko-option { pointer-events: none; opacity: 0.85; }
+body:not(.organiser-mode) #ko-format-label { display: none; }
+
+/* Bracket */
+.bracket-container { margin-top: 24px; }
+.bracket-round-label { font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; text-align: center; }
+.bracket-flow { display: flex; gap: 0; align-items: center; overflow-x: auto; padding-bottom: 10px; }
+.bracket-col { display: flex; flex-direction: column; gap: 16px; min-width: 200px; flex-shrink: 0; }
+.bracket-col-title { text-align: center; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
+.bracket-connector { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 40px; flex-shrink: 0; }
+.connector-line { width: 2px; background: linear-gradient(180deg,transparent,var(--accent),transparent); opacity: 0.3; flex: 1; }
+.connector-arrow { color: var(--accent); font-size: 18px; opacity: 0.5; }
+.match-slot { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
+.match-slot:hover { border-color: rgba(255,124,42,0.35); }
+.match-slot .slot-header { background: rgba(255,124,42,0.07); padding: 4px 10px; font-family: 'Rajdhani', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+.match-slot .team-row { display: flex; align-items: center; padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.match-slot .team-row:last-child { border-bottom: none; }
+.seed-badge { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-family: 'Rajdhani', sans-serif; font-weight: 700; margin-right: 8px; flex-shrink: 0; }
+.seed-1 { background: rgba(247,201,72,0.15); color: var(--gold); border: 1px solid var(--gold); }
+.seed-2 { background: rgba(192,207,216,0.15); color: var(--silver); border: 1px solid var(--silver); }
+.seed-3 { background: rgba(205,127,50,0.15); color: var(--bronze); border: 1px solid var(--bronze); }
+.seed-4 { background: rgba(57,255,132,0.1); color: var(--green); border: 1px solid rgba(57,255,132,0.4); }
+.team-slot-name { flex: 1; font-size: 13px; font-weight: 600; }
+.tbd { color: var(--muted); font-style: italic; font-weight: 400; }
+.winner-slot { background: linear-gradient(135deg,rgba(247,201,72,0.1),rgba(247,201,72,0.05)); border: 1px solid rgba(247,201,72,0.3); border-radius: 8px; padding: 20px; text-align: center; }
+.winner-slot .trophy { font-size: 32px; margin-bottom: 8px; }
+.winner-slot h3 { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; color: var(--gold); letter-spacing: 1px; }
+.winner-slot p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+/* Btn */
+.btn { padding: 10px 24px; border-radius: 4px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border: none; transition: all 0.2s; }
+.btn-primary { background: linear-gradient(135deg,var(--accent),#d05a00); color: #000; }
+.btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Info bar */
+.info-bar { display: flex; gap: 20px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 18px; margin-bottom: 24px; font-size: 13px; color: var(--muted); }
+.info-item strong { color: var(--accent2); margin-left: 4px; }
+
+/* Org bar + PIN */
+.org-bar { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-bottom: 16px; }
+.org-status { font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 1px; color: var(--muted); }
+.org-status.active { color: var(--green); }
+.org-btn { display: flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 4px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all 0.2s; }
+.org-btn:hover { border-color: var(--accent); color: var(--accent); }
+.org-btn.unlocked { border-color: var(--green); color: var(--green); }
+.pin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); z-index: 1000; align-items: center; justify-content: center; }
+.pin-overlay.show { display: flex; }
+.pin-modal { background: var(--card); border: 1px solid rgba(255,124,42,0.25); border-radius: 12px; padding: 36px 32px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 0 60px rgba(255,124,42,0.1); animation: modalIn 0.25s ease; }
+@keyframes modalIn { from{opacity:0;transform:scale(0.92) translateY(10px)}to{opacity:1;transform:none} }
+.pin-modal .pin-icon { font-size: 36px; margin-bottom: 12px; }
+.pin-modal h2 { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; }
+.pin-modal p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.pin-input { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; color: var(--text); font-family: 'Rajdhani', sans-serif; font-size: 20px; letter-spacing: 6px; text-align: center; margin-bottom: 8px; outline: none; transition: border-color 0.2s; }
+.pin-input:focus { border-color: var(--accent); }
+.pin-input.error { border-color: var(--accent3); animation: shake 0.3s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)} }
+.pin-error { font-size: 12px; color: var(--accent3); min-height: 18px; margin-bottom: 16px; }
+.pin-actions { display: flex; gap: 10px; }
+.pin-actions button { flex: 1; }
+
+/* Group tabs for standings/results */
+.grp-tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.grp-tab { padding: 6px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; cursor: pointer; color: var(--muted); transition: all 0.2s; }
+.grp-tab.active { background: rgba(255,124,42,0.15); border-color: var(--accent); color: var(--accent); }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .knockout-mode-selector { grid-template-columns: 1fr; }
+  .bracket-col { min-width: 140px; }
+  .tabs { flex-wrap: nowrap; overflow-x: auto; gap: 2px; padding: 3px; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { font-size: 12px; padding: 8px 8px; white-space: nowrap; flex-shrink: 0; flex: 0 0 auto; }
+  .wrapper { padding: 12px 10px 50px; }
+  header { padding: 20px 0 16px; margin-bottom: 20px; }
+  header h1 { font-size: clamp(22px,7vw,36px); }
+  header .meta { font-size: 12px; }
+  header .meta span { margin: 0 5px; }
+  .info-bar { gap: 10px; padding: 10px 12px; font-size: 12px; }
+  .section-title { font-size: 16px; margin-bottom: 10px; }
+  .schedule-table, .standings-table { font-size: 12px; display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+  .schedule-table th, .schedule-table td { padding: 8px 10px; }
+  .standings-table th, .standings-table td { padding: 8px 8px; font-size: 12px; }
+  .time-cell { font-size: 12px; }
+  .bracket-flow { flex-direction: column; gap: 12px; }
+  .bracket-connector { flex-direction: row; height: 30px; width: 100%; }
+  .connector-line { height: 2px; width: 100%; flex: 1; background: linear-gradient(90deg,transparent,var(--accent),transparent); }
+  .connector-arrow { transform: rotate(90deg); }
+  .bracket-col { min-width: 100%; }
+  .ko-option { padding: 14px; }
+  .ko-option .ko-icon { font-size: 22px; }
+  .ko-option h3 { font-size: 15px; }
+  .ko-option p { font-size: 12px; }
+  .org-bar { margin-bottom: 10px; }
+  .pin-modal { padding: 28px 20px; margin: 16px; }
+  .editable-score { width: 36px; font-size: 13px; }
+  .match-slot .team-row { padding: 8px 10px; }
+  .team-slot-name { font-size: 12px; }
+  .seed-badge { width: 18px; height: 18px; font-size: 9px; }
+  .groups-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .group-card .team-entry { font-size: 12px; padding: 8px 12px; }
+  .grp-tab { font-size: 12px; padding: 5px 12px; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
+  <a href="index.html" class="back-btn" style="text-decoration:none;">← Tournament Hub</a>
+  <a href="player-match-finder.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(138,43,226,0.15);border:1px solid rgba(138,43,226,0.4);border-radius:20px;color:#b47ef5;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">🔍 FIND MY MATCHES</a>
+</div>
+
+<div class="pin-overlay" id="pin-overlay">
+  <div class="pin-modal">
+    <div class="pin-icon">🔐</div>
+    <h2>ORGANISER ACCESS</h2>
+    <p>Enter your PIN to unlock score editing</p>
+    <input class="pin-input" id="pin-input" type="password" maxlength="8" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()" />
+    <div class="pin-error" id="pin-error"></div>
+    <div class="pin-actions">
+      <button class="btn btn-ghost" onclick="closePin()">Cancel</button>
+      <button class="btn btn-primary" onclick="checkPin()">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<a href="index.html" class="back-btn">← Back to Tournament Hub</a>
+
+<header>
+  <div class="badge">🏓 IAG Pickleball 2026</div>
+  <h1>OPEN 3.5 DIVISION</h1>
+  <div class="meta">
+    <span>🕗 7:30 AM Start</span>
+    <span>🏟 6 Courts</span>
+    <span>👥 20 Teams · 5 Groups</span>
+    <span>📅 Feb 28, 2026</span>
+  </div>
+</header>
+
+<div class="org-bar">
+  <span class="org-status" id="org-status">👁 View Only</span>
+  <span id="sync-status" style="font-size:11px;letter-spacing:0.5px;color:var(--muted);margin:0 12px">⏳ Connecting...</span>
+  <button class="org-btn" id="org-btn" onclick="toggleOrg()">🔒 Organiser Login</button>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="groups" onclick="switchTab('groups',event)">👥 Groups</button>
+  <button class="tab-btn" data-tab="schedule" onclick="switchTab('schedule',event)">📋 Schedule</button>
+  <button class="tab-btn" data-tab="results" onclick="switchTab('results',event)">📊 Standings</button>
+  <button class="tab-btn" data-tab="knockout" onclick="switchTab('knockout',event)">⚡ Knockout</button>
+</div>
+
+<!-- GROUPS TAB -->
+<div id="tab-groups" class="tab-content active">
+  <div class="section-title">Group Draw</div>
+  <div class="groups-grid" id="groups-grid"></div>
+</div>
+
+<!-- SCHEDULE TAB -->
+<div id="tab-schedule" class="tab-content">
+  <div class="info-bar">
+    <div>🕗 Start: <strong>7:30 AM</strong></div>
+    <div>🔚 End: <strong>~10:00 AM</strong></div>
+    <div>⏱ Per Match: <strong>15 min</strong></div>
+    <div>🏟 Courts: <strong>6</strong></div>
+    <div>👥 Teams: <strong>20</strong></div>
+    <div>🎯 Matches: <strong>30</strong></div>
+  </div>
+
+  <div class="grp-tabs" id="sched-grp-tabs">
+    <button class="grp-tab active" onclick="filterSchedule('all',this)">All Matches</button>
+    <button class="grp-tab" onclick="filterSchedule('Group 5',this)">Group 5</button>
+    <button class="grp-tab" onclick="filterSchedule('Group 1',this)">Group 1</button>
+    <button class="grp-tab" onclick="filterSchedule('Group 2',this)">Group 2</button>
+    <button class="grp-tab" onclick="filterSchedule('Group 3',this)">Group 3</button>
+    <button class="grp-tab" onclick="filterSchedule('Group 4',this)">Group 4</button>
+  </div>
+
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+  <table class="schedule-table">
+    <thead><tr><th>Time</th><th>Court</th><th>Group</th><th>Match</th><th>Score</th></tr></thead>
+    <tbody id="schedule-body"></tbody>
+  </table>
+  </div>
+</div>
+
+<!-- RESULTS TAB -->
+<div id="tab-results" class="tab-content">
+  <div class="section-title" id="results-section-title">Results & Standings</div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:16px;" id="results-subtitle">Live standings update as scores are entered.</p>
+
+  <div class="grp-tabs">
+    <button class="grp-tab active" onclick="showStandingsGroup('overall',this)" id="tab-overall-btn">🏆 Overall Ranking</button>
+    <button class="grp-tab" onclick="showStandingsGroup('all',this)">All Groups</button>
+    <button class="grp-tab" onclick="showStandingsGroup('Group 5',this)">Group 5</button>
+    <button class="grp-tab" onclick="showStandingsGroup('Group 1',this)">Group 1</button>
+    <button class="grp-tab" onclick="showStandingsGroup('Group 2',this)">Group 2</button>
+    <button class="grp-tab" onclick="showStandingsGroup('Group 3',this)">Group 3</button>
+    <button class="grp-tab" onclick="showStandingsGroup('Group 4',this)">Group 4</button>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:12px;" id="standings-hint">📊 <strong style="color:var(--accent)">Overall Ranking</strong> = all 20 teams ranked by: Wins → Points Diff → Games Won ratio. Seeds 1–12 go direct to R16; seeds 13–20 play Pre-R16 knockouts.</p>
+  <div id="standings-container"></div>
+
+  <div class="org-only" style="margin-top:16px;text-align:right">
+    <button class="btn btn-primary" onclick="switchTab('knockout',event)">Generate Knockout ⚡</button>
+  </div>
+</div>
+
+<!-- KNOCKOUT TAB -->
+<div id="tab-knockout" class="tab-content">
+  <div class="section-title">Knockout Draw</div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
+    <div style="padding:5px 14px;background:rgba(94,122,143,0.15);border:1px solid rgba(94,122,143,0.4);border-radius:20px;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--muted);">⚡ Pre-R16: Seeds 13–20 (1 Set)</div>
+    <div style="padding:5px 14px;background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);border-radius:20px;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#ff4d6d;">🎯 R16: 1 Set</div>
+    <div style="padding:5px 14px;background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);border-radius:20px;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#ff4d6d;">🎯 QF: 1 Set</div>
+    <div style="padding:5px 14px;background:rgba(247,201,72,0.1);border:1px solid rgba(247,201,72,0.3);border-radius:20px;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--gold);">🏆 SF: Best of 3</div>
+    <div style="padding:5px 14px;background:rgba(247,201,72,0.1);border:1px solid rgba(247,201,72,0.3);border-radius:20px;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--gold);">🏆 Final: Best of 3</div>
+  </div>
+
+  <!-- PRE-ROUND OF 16 (Seeds 13–20) -->
+  <div style="margin-bottom:28px;">
+    <div style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">Pre-Round of 16 — Seeds 13–20</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;">Winners join the corresponding seed (13–16) in the Round of 16. Seeds 1–12 advance directly.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+      <!-- Pre-Q1: 20 vs 13 → joins Seed 13 -->
+      <div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:1px;color:var(--muted);margin-bottom:5px;">PRE-Q1 · Winner joins Seed 13 in R16</div>
+        <div class="match-slot">
+          <div class="slot-header">Pre-Q1 — Seed 20 vs 13</div>
+          <div class="team-row"><div class="seed-badge rank-n">20</div><div class="team-slot-name" id="preq1-t1">Seed 20</div></div>
+          <div class="team-row"><div class="seed-badge rank-n">13</div><div class="team-slot-name" id="preq1-t2">Seed 13</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-preq1-s1" onchange="updateKOScore('preq1','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-preq1-s2" onchange="updateKOScore('preq1','s2',this.value)" />
+  <span id="ko-preq1-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div>
+        </div>
+      </div>
+      <!-- Pre-Q2: 19 vs 14 → joins Seed 14 -->
+      <div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:1px;color:var(--muted);margin-bottom:5px;">PRE-Q2 · Winner joins Seed 14 in R16</div>
+        <div class="match-slot">
+          <div class="slot-header">Pre-Q2 — Seed 19 vs 14</div>
+          <div class="team-row"><div class="seed-badge rank-n">19</div><div class="team-slot-name" id="preq2-t1">Seed 19</div></div>
+          <div class="team-row"><div class="seed-badge rank-n">14</div><div class="team-slot-name" id="preq2-t2">Seed 14</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-preq2-s1" onchange="updateKOScore('preq2','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-preq2-s2" onchange="updateKOScore('preq2','s2',this.value)" />
+  <span id="ko-preq2-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div>
+        </div>
+      </div>
+      <!-- Pre-Q3: 18 vs 15 → joins Seed 15 -->
+      <div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:1px;color:var(--muted);margin-bottom:5px;">PRE-Q3 · Winner joins Seed 15 in R16</div>
+        <div class="match-slot">
+          <div class="slot-header">Pre-Q3 — Seed 18 vs 15</div>
+          <div class="team-row"><div class="seed-badge rank-n">18</div><div class="team-slot-name" id="preq3-t1">Seed 18</div></div>
+          <div class="team-row"><div class="seed-badge rank-n">15</div><div class="team-slot-name" id="preq3-t2">Seed 15</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-preq3-s1" onchange="updateKOScore('preq3','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-preq3-s2" onchange="updateKOScore('preq3','s2',this.value)" />
+  <span id="ko-preq3-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div>
+        </div>
+      </div>
+      <!-- Pre-Q4: 17 vs 16 → joins Seed 16 -->
+      <div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:1px;color:var(--muted);margin-bottom:5px;">PRE-Q4 · Winner joins Seed 16 in R16</div>
+        <div class="match-slot">
+          <div class="slot-header">Pre-Q4 — Seed 17 vs 16</div>
+          <div class="team-row"><div class="seed-badge rank-n">17</div><div class="team-slot-name" id="preq4-t1">Seed 17</div></div>
+          <div class="team-row"><div class="seed-badge rank-n">16</div><div class="team-slot-name" id="preq4-t2">Seed 16</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-preq4-s1" onchange="updateKOScore('preq4','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-preq4-s2" onchange="updateKOScore('preq4','s2',this.value)" />
+  <span id="ko-preq4-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDE 1 -->
+  <div style="margin-bottom:28px;">
+    <div style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;color:#ff7c2a;text-transform:uppercase;margin-bottom:10px;">Side 1 — Seeds 1, 3, 5, 7</div>
+    <div style="display:flex;gap:0;align-items:stretch;overflow-x:auto;padding-bottom:10px;">
+      <div style="display:flex;flex-direction:column;flex-shrink:0;">
+        <div style="text-align:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 6px;border-bottom:1px solid var(--border);margin-bottom:8px;color:var(--muted);">ROUND OF 16</div>
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:185px;padding:0 6px;">
+          <div class="match-slot"><div class="slot-header">M1 — Seed 1 vs Pre-Q4W</div><div class="team-row"><div class="seed-badge seed-1">1</div><div class="team-slot-name" id="r16-s1-t1">—</div></div><div class="team-row"><div class="seed-badge rank-n">16</div><div class="team-slot-name tbd" id="r16-s1-t2">Pre-Q4 Winner</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m1-s1" onchange="updateKOScore('r16m1','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m1-s2" onchange="updateKOScore('r16m1','s2',this.value)" />
+  <span id="ko-r16m1-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+          <div class="match-slot"><div class="slot-header">M2 — Seed 7 vs 10</div><div class="team-row"><div class="seed-badge rank-n">7</div><div class="team-slot-name" id="r16-s1-t3">—</div></div><div class="team-row"><div class="seed-badge rank-n">10</div><div class="team-slot-name" id="r16-s1-t4">—</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m2-s1" onchange="updateKOScore('r16m2','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m2-s2" onchange="updateKOScore('r16m2','s2',this.value)" />
+  <span id="ko-r16m2-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+          <div class="match-slot"><div class="slot-header">M3 — Seed 5 vs 12</div><div class="team-row"><div class="seed-badge rank-n">5</div><div class="team-slot-name" id="r16-s1-t5">—</div></div><div class="team-row"><div class="seed-badge rank-n">12</div><div class="team-slot-name" id="r16-s1-t6">—</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m3-s1" onchange="updateKOScore('r16m3','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m3-s2" onchange="updateKOScore('r16m3','s2',this.value)" />
+  <span id="ko-r16m3-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+          <div class="match-slot"><div class="slot-header">M4 — Seed 3 vs Pre-Q2W</div><div class="team-row"><div class="seed-badge seed-3">3</div><div class="team-slot-name" id="r16-s1-t7">—</div></div><div class="team-row"><div class="seed-badge rank-n">14</div><div class="team-slot-name tbd" id="r16-s1-t8">Pre-Q2 Winner</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m4-s1" onchange="updateKOScore('r16m4','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m4-s2" onchange="updateKOScore('r16m4','s2',this.value)" />
+  <span id="ko-r16m4-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;width:26px;flex-shrink:0;"><div style="width:2px;background:linear-gradient(180deg,transparent,#ff7c2a,transparent);opacity:0.25;flex:1;"></div><div style="color:#ff7c2a;font-size:14px;opacity:0.4;">›</div><div style="width:2px;background:linear-gradient(180deg,transparent,#ff7c2a,transparent);opacity:0.25;flex:1;"></div></div>
+      <div style="display:flex;flex-direction:column;flex-shrink:0;">
+        <div style="text-align:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 6px;border-bottom:1px solid var(--border);margin-bottom:8px;color:var(--muted);">QUARTER-FINALS</div>
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:185px;padding:0 6px;justify-content:space-around;flex:1;">
+          <div class="match-slot"><div class="slot-header">QF1 — M1W vs M2W</div><div class="team-row"><div class="seed-badge seed-1">Q</div><div class="team-slot-name tbd" id="qf-s1-t1">M1 Winner</div></div><div class="team-row"><div class="seed-badge rank-n">Q</div><div class="team-slot-name tbd" id="qf-s1-t2">M2 Winner</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-qf1-s1" onchange="updateKOScore('qf1','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-qf1-s2" onchange="updateKOScore('qf1','s2',this.value)" />
+  <span id="ko-qf1-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+          <div class="match-slot"><div class="slot-header">QF2 — M3W vs M4W</div><div class="team-row"><div class="seed-badge rank-n">Q</div><div class="team-slot-name tbd" id="qf-s1-t3">M3 Winner</div></div><div class="team-row"><div class="seed-badge seed-3">Q</div><div class="team-slot-name tbd" id="qf-s1-t4">M4 Winner</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-qf2-s1" onchange="updateKOScore('qf2','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-qf2-s2" onchange="updateKOScore('qf2','s2',this.value)" />
+  <span id="ko-qf2-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;width:26px;flex-shrink:0;"><div style="width:2px;background:linear-gradient(180deg,transparent,#ff7c2a,transparent);opacity:0.25;flex:1;"></div><div style="color:#ff7c2a;font-size:14px;opacity:0.4;">›</div><div style="width:2px;background:linear-gradient(180deg,transparent,#ff7c2a,transparent);opacity:0.25;flex:1;"></div></div>
+      <div style="display:flex;flex-direction:column;flex-shrink:0;">
+        <div style="text-align:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 6px;border-bottom:1px solid rgba(247,201,72,0.35);margin-bottom:8px;color:var(--gold);">SF 1 ★ BEST OF 3</div>
+        <div style="display:flex;flex-direction:column;min-width:185px;padding:0 6px;justify-content:center;flex:1;">
+          <div class="match-slot" style="border-color:rgba(247,201,72,0.3);"><div class="slot-header" style="background:rgba(247,201,72,0.08);color:var(--gold);">SF1 — QF1W vs QF2W</div><div class="team-row"><div class="seed-badge seed-1">SF</div><div class="team-slot-name tbd" id="sf1-t1">QF1 Winner</div></div><div class="team-row"><div class="seed-badge seed-2">SF</div><div class="team-slot-name tbd" id="sf1-t2">QF2 Winner</div>
+<div class="org-only" style="display:none;flex-direction:column;gap:5px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(247,201,72,0.25);">
+  <div style="font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-align:center;margin-bottom:3px;text-transform:uppercase;">★ Best of 3 Sets</div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5px;">
+    <span style="font-size:10px;color:var(--muted);width:32px;text-align:right;">Set 1</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf1-s1a" onchange="updateKOScore('sf1','s1a',this.value)" style="width:38px;" />
+    <span style="color:var(--muted);font-size:11px;">:</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf1-s1b" onchange="updateKOScore('sf1','s1b',this.value)" style="width:38px;" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5px;">
+    <span style="font-size:10px;color:var(--muted);width:32px;text-align:right;">Set 2</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf1-s2a" onchange="updateKOScore('sf1','s2a',this.value)" style="width:38px;" />
+    <span style="color:var(--muted);font-size:11px;">:</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf1-s2b" onchange="updateKOScore('sf1','s2b',this.value)" style="width:38px;" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5px;" id="ko-sf1-set3row">
+    <span style="font-size:10px;color:var(--muted);width:32px;text-align:right;opacity:0.45;">Set 3</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf1-s3a" onchange="updateKOScore('sf1','s3a',this.value)" style="width:38px;opacity:0.45;" />
+    <span style="color:var(--muted);font-size:11px;opacity:0.45;">:</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf1-s3b" onchange="updateKOScore('sf1','s3b',this.value)" style="width:38px;opacity:0.45;" />
+  </div>
+  <div style="text-align:center;margin-top:4px;min-height:16px;">
+    <span id="ko-sf1-winner" style="font-size:12px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;"></span>
+    <span id="ko-sf1-series" style="font-size:11px;color:var(--muted);margin-left:6px;font-family:'Rajdhani',sans-serif;"></span>
+  </div>
+</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDE 2 -->
+  <div style="margin-bottom:28px;">
+    <div style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;color:#ff7c2a;text-transform:uppercase;margin-bottom:10px;">Side 2 — Seeds 2, 4, 6, 8</div>
+    <div style="display:flex;gap:0;align-items:stretch;overflow-x:auto;padding-bottom:10px;">
+      <div style="display:flex;flex-direction:column;flex-shrink:0;">
+        <div style="text-align:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 6px;border-bottom:1px solid var(--border);margin-bottom:8px;color:var(--muted);">ROUND OF 16</div>
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:185px;padding:0 6px;">
+          <div class="match-slot"><div class="slot-header">M5 — Seed 2 vs Pre-Q3W</div><div class="team-row"><div class="seed-badge seed-2">2</div><div class="team-slot-name" id="r16-s2-t1">—</div></div><div class="team-row"><div class="seed-badge rank-n">15</div><div class="team-slot-name tbd" id="r16-s2-t2">Pre-Q3 Winner</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m5-s1" onchange="updateKOScore('r16m5','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m5-s2" onchange="updateKOScore('r16m5','s2',this.value)" />
+  <span id="ko-r16m5-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+          <div class="match-slot"><div class="slot-header">M6 — Seed 8 vs 9</div><div class="team-row"><div class="seed-badge rank-n">8</div><div class="team-slot-name" id="r16-s2-t3">—</div></div><div class="team-row"><div class="seed-badge rank-n">9</div><div class="team-slot-name" id="r16-s2-t4">—</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m6-s1" onchange="updateKOScore('r16m6','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m6-s2" onchange="updateKOScore('r16m6','s2',this.value)" />
+  <span id="ko-r16m6-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+          <div class="match-slot"><div class="slot-header">M7 — Seed 6 vs 11</div><div class="team-row"><div class="seed-badge rank-n">6</div><div class="team-slot-name" id="r16-s2-t5">—</div></div><div class="team-row"><div class="seed-badge rank-n">11</div><div class="team-slot-name" id="r16-s2-t6">—</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m7-s1" onchange="updateKOScore('r16m7','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m7-s2" onchange="updateKOScore('r16m7','s2',this.value)" />
+  <span id="ko-r16m7-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+          <div class="match-slot"><div class="slot-header">M8 — Seed 4 vs Pre-Q1W</div><div class="team-row"><div class="seed-badge seed-4">4</div><div class="team-slot-name" id="r16-s2-t7">—</div></div><div class="team-row"><div class="seed-badge rank-n">13</div><div class="team-slot-name tbd" id="r16-s2-t8">Pre-Q1 Winner</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m8-s1" onchange="updateKOScore('r16m8','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-r16m8-s2" onchange="updateKOScore('r16m8','s2',this.value)" />
+  <span id="ko-r16m8-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;width:26px;flex-shrink:0;"><div style="width:2px;background:linear-gradient(180deg,transparent,#ff7c2a,transparent);opacity:0.25;flex:1;"></div><div style="color:#ff7c2a;font-size:14px;opacity:0.4;">›</div><div style="width:2px;background:linear-gradient(180deg,transparent,#ff7c2a,transparent);opacity:0.25;flex:1;"></div></div>
+      <div style="display:flex;flex-direction:column;flex-shrink:0;">
+        <div style="text-align:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 6px;border-bottom:1px solid var(--border);margin-bottom:8px;color:var(--muted);">QUARTER-FINALS</div>
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:185px;padding:0 6px;justify-content:space-around;flex:1;">
+          <div class="match-slot"><div class="slot-header">QF3 — M5W vs M6W</div><div class="team-row"><div class="seed-badge seed-2">Q</div><div class="team-slot-name tbd" id="qf-s2-t1">M5 Winner</div></div><div class="team-row"><div class="seed-badge rank-n">Q</div><div class="team-slot-name tbd" id="qf-s2-t2">M6 Winner</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-qf3-s1" onchange="updateKOScore('qf3','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-qf3-s2" onchange="updateKOScore('qf3','s2',this.value)" />
+  <span id="ko-qf3-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+          <div class="match-slot"><div class="slot-header">QF4 — M7W vs M8W</div><div class="team-row"><div class="seed-badge rank-n">Q</div><div class="team-slot-name tbd" id="qf-s2-t3">M7 Winner</div></div><div class="team-row"><div class="seed-badge seed-4">Q</div><div class="team-slot-name tbd" id="qf-s2-t4">M8 Winner</div>
+<div class="org-only" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);">
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-qf4-s1" onchange="updateKOScore('qf4','s1',this.value)" />
+  <span style="color:var(--muted);font-size:12px;">:</span>
+  <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-qf4-s2" onchange="updateKOScore('qf4','s2',this.value)" />
+  <span id="ko-qf4-winner" style="font-size:11px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;margin-left:4px;"></span>
+</div></div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;width:26px;flex-shrink:0;"><div style="width:2px;background:linear-gradient(180deg,transparent,#ff7c2a,transparent);opacity:0.25;flex:1;"></div><div style="color:#ff7c2a;font-size:14px;opacity:0.4;">›</div><div style="width:2px;background:linear-gradient(180deg,transparent,#ff7c2a,transparent);opacity:0.25;flex:1;"></div></div>
+      <div style="display:flex;flex-direction:column;flex-shrink:0;">
+        <div style="text-align:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 6px;border-bottom:1px solid rgba(247,201,72,0.35);margin-bottom:8px;color:var(--gold);">SF 2 ★ BEST OF 3</div>
+        <div style="display:flex;flex-direction:column;min-width:185px;padding:0 6px;justify-content:center;flex:1;">
+          <div class="match-slot" style="border-color:rgba(247,201,72,0.3);"><div class="slot-header" style="background:rgba(247,201,72,0.08);color:var(--gold);">SF2 — QF3W vs QF4W</div><div class="team-row"><div class="seed-badge seed-1">SF</div><div class="team-slot-name tbd" id="sf2-t1">QF3 Winner</div></div><div class="team-row"><div class="seed-badge seed-2">SF</div><div class="team-slot-name tbd" id="sf2-t2">QF4 Winner</div>
+<div class="org-only" style="display:none;flex-direction:column;gap:5px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(247,201,72,0.25);">
+  <div style="font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-align:center;margin-bottom:3px;text-transform:uppercase;">★ Best of 3 Sets</div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5px;">
+    <span style="font-size:10px;color:var(--muted);width:32px;text-align:right;">Set 1</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf2-s1a" onchange="updateKOScore('sf2','s1a',this.value)" style="width:38px;" />
+    <span style="color:var(--muted);font-size:11px;">:</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf2-s1b" onchange="updateKOScore('sf2','s1b',this.value)" style="width:38px;" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5px;">
+    <span style="font-size:10px;color:var(--muted);width:32px;text-align:right;">Set 2</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf2-s2a" onchange="updateKOScore('sf2','s2a',this.value)" style="width:38px;" />
+    <span style="color:var(--muted);font-size:11px;">:</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf2-s2b" onchange="updateKOScore('sf2','s2b',this.value)" style="width:38px;" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5px;" id="ko-sf2-set3row">
+    <span style="font-size:10px;color:var(--muted);width:32px;text-align:right;opacity:0.45;">Set 3</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf2-s3a" onchange="updateKOScore('sf2','s3a',this.value)" style="width:38px;opacity:0.45;" />
+    <span style="color:var(--muted);font-size:11px;opacity:0.45;">:</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-sf2-s3b" onchange="updateKOScore('sf2','s3b',this.value)" style="width:38px;opacity:0.45;" />
+  </div>
+  <div style="text-align:center;margin-top:4px;min-height:16px;">
+    <span id="ko-sf2-winner" style="font-size:12px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;"></span>
+    <span id="ko-sf2-series" style="font-size:11px;color:var(--muted);margin-left:6px;font-family:'Rajdhani',sans-serif;"></span>
+  </div>
+</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grand Final -->
+  <div style="max-width:480px;margin:0 auto;">
+    <div style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;color:var(--gold);margin-bottom:12px;text-transform:uppercase;text-align:center;">🏆 Grand Final — Best of 3</div>
+    <div class="match-slot" style="border-color:rgba(247,201,72,0.4);">
+      <div class="slot-header" style="background:rgba(247,201,72,0.12);color:var(--gold);font-size:12px;">SF1 Winner vs SF2 Winner</div>
+      <div class="team-row"><div class="seed-badge seed-1">🏆</div><div class="team-slot-name tbd" id="final-t1">SF1 Winner</div></div>
+      <div class="team-row"><div class="seed-badge seed-2">🏆</div><div class="team-slot-name tbd" id="final-t2">SF2 Winner</div>
+<div class="org-only" style="display:none;flex-direction:column;gap:5px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(247,201,72,0.25);">
+  <div style="font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-align:center;margin-bottom:3px;text-transform:uppercase;">★ Best of 3 Sets</div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5px;">
+    <span style="font-size:10px;color:var(--muted);width:32px;text-align:right;">Set 1</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-final-s1a" onchange="updateKOScore('final','s1a',this.value)" style="width:38px;" />
+    <span style="color:var(--muted);font-size:11px;">:</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-final-s1b" onchange="updateKOScore('final','s1b',this.value)" style="width:38px;" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5px;">
+    <span style="font-size:10px;color:var(--muted);width:32px;text-align:right;">Set 2</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-final-s2a" onchange="updateKOScore('final','s2a',this.value)" style="width:38px;" />
+    <span style="color:var(--muted);font-size:11px;">:</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-final-s2b" onchange="updateKOScore('final','s2b',this.value)" style="width:38px;" />
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:5px;" id="ko-final-set3row">
+    <span style="font-size:10px;color:var(--muted);width:32px;text-align:right;opacity:0.45;">Set 3</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-final-s3a" onchange="updateKOScore('final','s3a',this.value)" style="width:38px;opacity:0.45;" />
+    <span style="color:var(--muted);font-size:11px;opacity:0.45;">:</span>
+    <input class="editable-score" type="text" inputmode="numeric" placeholder="–" id="ko-final-s3b" onchange="updateKOScore('final','s3b',this.value)" style="width:38px;opacity:0.45;" />
+  </div>
+  <div style="text-align:center;margin-top:4px;min-height:16px;">
+    <span id="ko-final-winner" style="font-size:12px;color:var(--green);font-family:'Rajdhani',sans-serif;font-weight:700;"></span>
+    <span id="ko-final-series" style="font-size:11px;color:var(--muted);margin-left:6px;font-family:'Rajdhani',sans-serif;"></span>
+  </div>
+</div></div>
+    </div>
+    <div style="margin-top:16px;background:linear-gradient(135deg,rgba(247,201,72,0.1),rgba(247,201,72,0.05));border:1px solid rgba(247,201,72,0.3);border-radius:8px;padding:20px;text-align:center;">
+      <div style="font-size:32px;margin-bottom:8px;">🏆</div>
+      <h3 style="font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--gold);letter-spacing:1px;">CHAMPION</h3>
+      <p id="ko1-champion" style="color:var(--muted);font-size:13px;margin-top:4px;">TBD</p>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- wrapper -->
+<script>
+const GROUPS = {
+  'Group 1': ['Durbha Murthy & Rajanikanth','Vivek & Rajiv','Vanith & Prabakar','Lisa & April'],
+  'Group 2': ['Welborn & Francis','Varun & Jeremy','Shari & Roz','Thiru & Vamshi'],
+  'Group 3': ['Uma & Shankar','Moksh & Suraj','Jeff & Joy','Venkat & Immanuel'],
+  'Group 4': ['Xavier & David','Anish & Mandy','Kenny & Daniel','Sreeni NK & Chokalingam'],
+  'Group 5': ['Harshil & Parth','Aaryan & Krish','Tarth & Nandi','Sekar & Singha']
+};
+
+const SCHEDULE = [
+  // Group 5 — 7:30 AM–8:45 AM (Court 1 only, round-robin all 6 matches)
+  {time:'7:30 AM',court:1,group:'Group 5',t1:'Harshil & Parth',t2:'Aaryan & Krish'},
+  {time:'7:45 AM',court:1,group:'Group 5',t1:'Tarth & Nandi',t2:'Sekar & Singha'},
+  {time:'8:00 AM',court:1,group:'Group 5',t1:'Harshil & Parth',t2:'Tarth & Nandi'},
+  {time:'8:15 AM',court:1,group:'Group 5',t1:'Aaryan & Krish',t2:'Sekar & Singha'},
+  {time:'8:30 AM',court:1,group:'Group 5',t1:'Harshil & Parth',t2:'Sekar & Singha'},
+  {time:'8:45 AM',court:1,group:'Group 5',t1:'Aaryan & Krish',t2:'Tarth & Nandi'},
+  // Round 1 — 9:00 AM (Courts 1-2: Group 1 | Court 3: Group 2 | Courts 4-5: Group 3 | Court 6: Group 4)
+  {time:'9:00 AM',court:1,group:'Group 1',t1:'Durbha Murthy & Rajanikanth',t2:'Vivek & Rajiv'},
+  {time:'9:00 AM',court:2,group:'Group 1',t1:'Vanith & Prabakar',t2:'Lisa & April'},
+  {time:'9:00 AM',court:3,group:'Group 2',t1:'Welborn & Francis',t2:'Varun & Jeremy'},
+  {time:'9:00 AM',court:4,group:'Group 3',t1:'Uma & Shankar',t2:'Moksh & Suraj'},
+  {time:'9:00 AM',court:5,group:'Group 3',t1:'Jeff & Joy',t2:'Venkat & Immanuel'},
+  {time:'9:00 AM',court:6,group:'Group 4',t1:'Xavier & David',t2:'Anish & Mandy'},
+  // Round 2 — 9:15 AM
+  {time:'9:15 AM',court:1,group:'Group 1',t1:'Durbha Murthy & Rajanikanth',t2:'Vanith & Prabakar'},
+  {time:'9:15 AM',court:2,group:'Group 1',t1:'Vivek & Rajiv',t2:'Lisa & April'},
+  {time:'9:15 AM',court:3,group:'Group 2',t1:'Shari & Roz',t2:'Thiru & Vamshi'},
+  {time:'9:15 AM',court:4,group:'Group 3',t1:'Uma & Shankar',t2:'Jeff & Joy'},
+  {time:'9:15 AM',court:5,group:'Group 3',t1:'Moksh & Suraj',t2:'Venkat & Immanuel'},
+  {time:'9:15 AM',court:6,group:'Group 4',t1:'Kenny & Daniel',t2:'Sreeni NK & Chokalingam'},
+  // Round 3 — 9:30 AM
+  {time:'9:30 AM',court:1,group:'Group 1',t1:'Durbha Murthy & Rajanikanth',t2:'Lisa & April'},
+  {time:'9:30 AM',court:2,group:'Group 2',t1:'Welborn & Francis',t2:'Shari & Roz'},
+  {time:'9:30 AM',court:3,group:'Group 2',t1:'Varun & Jeremy',t2:'Thiru & Vamshi'},
+  {time:'9:30 AM',court:4,group:'Group 3',t1:'Uma & Shankar',t2:'Venkat & Immanuel'},
+  {time:'9:30 AM',court:5,group:'Group 4',t1:'Xavier & David',t2:'Kenny & Daniel'},
+  {time:'9:30 AM',court:6,group:'Group 4',t1:'Anish & Mandy',t2:'Sreeni NK & Chokalingam'},
+  // Round 4 — 9:45 AM
+  {time:'9:45 AM',court:1,group:'Group 1',t1:'Vivek & Rajiv',t2:'Vanith & Prabakar'},
+  {time:'9:45 AM',court:2,group:'Group 2',t1:'Welborn & Francis',t2:'Thiru & Vamshi'},
+  {time:'9:45 AM',court:3,group:'Group 2',t1:'Varun & Jeremy',t2:'Shari & Roz'},
+  {time:'9:45 AM',court:4,group:'Group 3',t1:'Moksh & Suraj',t2:'Jeff & Joy'},
+  {time:'9:45 AM',court:5,group:'Group 4',t1:'Xavier & David',t2:'Sreeni NK & Chokalingam'},
+  {time:'9:45 AM',court:6,group:'Group 4',t1:'Anish & Mandy',t2:'Kenny & Daniel'}
+];
+
+let scores = {};
+let currentSchedFilter = 'all';
+
+function mKey(m) { return `${m.group}|${m.t1}|${m.t2}`; }
+
+// Build groups tab
+function buildGroups() {
+  const grid = document.getElementById('groups-grid');
+  grid.innerHTML = Object.entries(GROUPS).map(([grp,teams]) => `
+    <div class="group-card">
+      <div class="group-header">${grp}</div>
+      ${teams.map(t=>`<div class="team-entry"><div class="team-dot"></div>${t}</div>`).join('')}
+    </div>`).join('');
+}
+
+// Build schedule table
+function buildSchedule(filter) {
+  const tbody = document.getElementById('schedule-body');
+  const rows = filter === 'all' ? SCHEDULE : SCHEDULE.filter(m=>m.group===filter);
+  const isOrg = document.body.classList.contains('organiser-mode');
+  tbody.innerHTML = rows.map((m,i) => {
+    const key = mKey(m);
+    const s = scores[key] || {s1:'',s2:''};
+    const winner = getWinner(s.s1,s.s2,m.t1,m.t2);
+    const scoreDisplay = (s.s1!==''&&s.s2!=='') ? `<span style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--accent2)">${s.s1}:${s.s2}</span>` : `<span style="color:var(--muted)">—</span>`;
+    const winnerDisp = winner !== '—' ? `<span style="color:var(--green);font-size:12px">✓ ${winner}</span>` : `<span style="color:var(--muted)">—</span>`;
+    return `<tr>
+      <td class="time-cell">${m.time}</td>
+      <td class="court-cell">C${m.court}</td>
+      <td><span class="grp-badge">${m.group}</span></td>
+      <td class="match-cell">${m.t1} <span class="vs">vs</span> ${m.t2}</td>
+      <td style="white-space:nowrap">
+        <span class="score-display">${scoreDisplay} ${winnerDisp}</span>
+        <input class="editable-score" type="number" min="0" max="99" placeholder="–" value="${s.s1}" onchange="updateScore('${key}',1,this.value)" />
+        <span class="score-separator" style="background:none;border:none;width:auto;padding:0 4px;color:var(--muted)">:</span>
+        <input class="editable-score" type="number" min="0" max="99" placeholder="–" value="${s.s2}" onchange="updateScore('${key}',2,this.value)" />
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterSchedule(filter, el) {
+  currentSchedFilter = filter;
+  document.querySelectorAll('#sched-grp-tabs .grp-tab').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  buildSchedule(filter);
+}
+
+function getWinner(s1,s2,t1,t2) {
+  if(s1===''||s2===''||s1===undefined||s2===undefined) return '—';
+  const n1=parseInt(s1),n2=parseInt(s2);
+  if(isNaN(n1)||isNaN(n2)) return '—';
+  if(n1>n2) return t1; if(n2>n1) return t2; return 'Draw';
+}
+
+function updateScore(key,pos,val) {
+  if(!scores[key]) scores[key]={s1:'',s2:''};
+  if(pos===1) scores[key].s1=val; else scores[key].s2=val;
+  saveScoreToFirebase(key,scores[key]);
+  buildSchedule(currentSchedFilter);
+  buildStandings(currentStandingsFilter);
+}
+
+// Compute standings per group
+function computeStandings() {
+  const stats = {};
+  Object.entries(GROUPS).forEach(([grp,teams]) => {
+    stats[grp] = {};
+    teams.forEach(t => stats[grp][t]={w:0,l:0,d:0,pf:0,pa:0,pts:0,group:grp});
+  });
+  SCHEDULE.forEach(m => {
+    const s = scores[mKey(m)];
+    if(!s||s.s1===''||s.s2==='') return;
+    const n1=parseInt(s.s1),n2=parseInt(s.s2);
+    if(isNaN(n1)||isNaN(n2)) return;
+    const g = m.group;
+    if(!stats[g]||!stats[g][m.t1]) return;
+    stats[g][m.t1].pf+=n1; stats[g][m.t1].pa+=n2;
+    stats[g][m.t2].pf+=n2; stats[g][m.t2].pa+=n1;
+    if(n1>n2){stats[g][m.t1].w++;stats[g][m.t1].pts+=2;stats[g][m.t2].l++;}
+    else if(n2>n1){stats[g][m.t2].w++;stats[g][m.t2].pts+=2;stats[g][m.t1].l++;}
+    else{stats[g][m.t1].d++;stats[g][m.t1].pts++;stats[g][m.t2].d++;stats[g][m.t2].pts++;}
+  });
+  return stats;
+}
+
+
+// ---- STANDINGS ENGINE ----
+let currentStandingsFilter = 'overall';
+
+function buildStandings(filter) {
+  const stats = computeStandings();
+  const container = document.getElementById('standings-container');
+  const hint = document.getElementById('standings-hint');
+
+  if (filter === 'overall') {
+    // Flat list of all 20 teams sorted overall
+    const allTeams = Object.values(GROUPS).flat();
+    const ranked = allTeams.map(t => {
+      let s = null, grp = null;
+      Object.entries(stats).forEach(([g, gs]) => { if (gs[t]) { s = gs[t]; grp = g; }});
+      return { name: t, grp, w: s?s.w:0, l: s?s.l:0, pf: s?s.pf:0, pa: s?s.pa:0, pts: s?s.pts:0 };
+    }).sort((a,b) => {
+      if (b.w !== a.w) return b.w - a.w;           // 1. Most wins
+      const da = a.pf - a.pa, db = b.pf - b.pa;
+      if (db !== da) return db - da;               // 2. Points diff
+      const ra = a.pf + a.pa > 0 ? a.pf/(a.pf+a.pa) : 0;
+      const rb = b.pf + b.pa > 0 ? b.pf/(b.pf+b.pa) : 0;
+      return rb - ra;                              // 3. Dominance ratio
+    });
+
+    if (hint) hint.style.display = 'block';
+    container.innerHTML = `
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="standings-table">
+        <thead><tr>
+          <th>#</th><th>Team</th><th style="text-align:center">Grp</th>
+          <th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th>
+          <th title="Dominance = PF/(PF+PA)×100">Dom%</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+        ${ranked.map((t,i) => {
+          const diff = t.pf - t.pa;
+          const dc = diff > 0 ? 'var(--green)' : diff < 0 ? 'var(--accent3)' : 'var(--muted)';
+          const dom = (t.pf + t.pa) > 0 ? Math.round(t.pf/(t.pf+t.pa)*100) : 0;
+          const seed = i + 1;
+          const seedBadge = seed <= 4 ? `<span style="font-size:10px;background:rgba(247,201,72,0.15);color:var(--gold);border:1px solid var(--gold);padding:1px 5px;border-radius:3px;margin-left:4px;font-family:'Rajdhani',sans-serif;font-weight:700;">#${seed}</span>` : seed <= 12 ? `<span style="font-size:10px;background:rgba(57,255,132,0.1);color:var(--green);border:1px solid rgba(57,255,132,0.4);padding:1px 5px;border-radius:3px;margin-left:4px;font-family:'Rajdhani',sans-serif;font-weight:700;">#${seed}</span>` : `<span style="font-size:10px;background:rgba(94,122,143,0.15);color:var(--muted);border:1px solid rgba(94,122,143,0.4);padding:1px 5px;border-radius:3px;margin-left:4px;font-family:'Rajdhani',sans-serif;font-weight:700;">Pre-R16</span>`;
+          const rc = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-n';
+          const grpShort = t.grp ? t.grp.replace('Group ','G') : '?';
+          return `<tr>
+            <td><span class="rank-badge ${rc}">${seed}</span></td>
+            <td style="font-weight:600;min-width:120px">${t.name}${seedBadge}</td>
+            <td style="text-align:center"><span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--accent);font-weight:700;">${grpShort}</span></td>
+            <td class="win-count">${t.w}</td><td class="loss-count">${t.l}</td>
+            <td>${t.pf}</td><td style="color:var(--muted)">${t.pa}</td>
+            <td style="font-weight:700;color:${dc}">${t.w+t.l>0?(diff>0?'+'+diff:diff):'—'}</td>
+            <td style="font-weight:700;color:${dom>=60?'var(--green)':dom>=50?'var(--accent2)':'var(--muted)'}">${t.w+t.l>0?dom+'%':'—'}</td>
+            <td class="pts">${t.pts}</td>
+          </tr>`;
+        }).join('')}
+        </tbody>
+      </table></div>`;
+
+    updateKOSeedings(ranked);
+
+  } else if (filter === 'all') {
+    if (hint) hint.style.display = 'none';
+    container.innerHTML = Object.keys(GROUPS).map(grp => {
+      const teams = Object.entries(stats[grp]).sort((a,b) => {
+        if (b[1].w !== a[1].w) return b[1].w - a[1].w;
+        const da = a[1].pf-a[1].pa, db = b[1].pf-b[1].pa;
+        if (db !== da) return db - da;
+        const ra = a[1].pf+a[1].pa>0?a[1].pf/(a[1].pf+a[1].pa):0;
+        const rb = b[1].pf+b[1].pa>0?b[1].pf/(b[1].pf+b[1].pa):0;
+        return rb - ra;
+      });
+      return `<div style="margin-bottom:24px;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">${grp}</div>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+        <table class="standings-table">
+          <thead><tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th><th>Dom%</th><th>Pts</th></tr></thead>
+          <tbody>${teams.map(([t,s],i) => {
+            const diff = s.pf-s.pa;
+            const dc = diff>0?'var(--green)':diff<0?'var(--accent3)':'var(--muted)';
+            const dom = (s.pf+s.pa)>0?Math.round(s.pf/(s.pf+s.pa)*100):0;
+            const rc = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-n';
+            return `<tr>
+              <td><span class="rank-badge ${rc}">${i+1}</span></td>
+              <td style="font-weight:600">${t}</td>
+              <td class="win-count">${s.w}</td><td class="loss-count">${s.l}</td>
+              <td>${s.pf}</td><td style="color:var(--muted)">${s.pa}</td>
+              <td style="font-weight:700;color:${dc}">${s.w+s.l>0?(diff>0?'+'+diff:diff):'—'}</td>
+              <td style="font-weight:700;color:${dom>=60?'var(--green)':dom>=50?'var(--accent2)':'var(--muted)'}">${s.w+s.l>0?dom+'%':'—'}</td>
+              <td class="pts">${s.pts}</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table></div></div>`;
+    }).join('');
+
+  } else {
+    // Single group
+    if (hint) hint.style.display = 'none';
+    const teams = Object.entries(stats[filter]||{}).sort((a,b) => {
+      if (b[1].w !== a[1].w) return b[1].w - a[1].w;
+      const da = a[1].pf-a[1].pa, db = b[1].pf-b[1].pa;
+      if (db !== da) return db - da;
+      const ra = a[1].pf+a[1].pa>0?a[1].pf/(a[1].pf+a[1].pa):0;
+      const rb = b[1].pf+b[1].pa>0?b[1].pf/(b[1].pf+b[1].pa):0;
+      return rb - ra;
+    });
+    container.innerHTML = `<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="standings-table">
+        <thead><tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th><th>Dom%</th><th>Pts</th></tr></thead>
+        <tbody>${teams.map(([t,s],i) => {
+          const diff = s.pf-s.pa;
+          const dc = diff>0?'var(--green)':diff<0?'var(--accent3)':'var(--muted)';
+          const dom = (s.pf+s.pa)>0?Math.round(s.pf/(s.pf+s.pa)*100):0;
+          const rc = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-n';
+          return `<tr>
+            <td><span class="rank-badge ${rc}">${i+1}</span></td>
+            <td style="font-weight:600">${t}</td>
+            <td class="win-count">${s.w}</td><td class="loss-count">${s.l}</td>
+            <td>${s.pf}</td><td style="color:var(--muted)">${s.pa}</td>
+            <td style="font-weight:700;color:${dc}">${s.w+s.l>0?(diff>0?'+'+diff:diff):'—'}</td>
+            <td style="font-weight:700;color:${dom>=60?'var(--green)':dom>=50?'var(--accent2)':'var(--muted)'}">${s.w+s.l>0?dom+'%':'—'}</td>
+            <td class="pts">${s.pts}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table></div>`;
+  }
+}
+
+function showStandingsGroup(filter, el) {
+  currentStandingsFilter = filter;
+  document.querySelectorAll('#tab-results .grp-tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  buildStandings(filter);
+}
+
+function updateKOSeedings(ranked) {
+  // ranked is array of {name, w, pf, pa, ...} sorted #1 to #20
+  const seed = (n) => ranked[n-1] ? ranked[n-1].name : ('Seed ' + n);
+  const set = (id, v) => {
+    const e = document.getElementById(id);
+    if(e) { e.textContent = v; e.classList.toggle('tbd', !ranked[parseInt(v.replace('Seed ',''))-1] && v.startsWith('Seed')); }
+  };
+  // Pre-R16 slots (seeds 13–20)
+  set('preq1-t1', seed(20)); set('preq1-t2', seed(13));
+  set('preq2-t1', seed(19)); set('preq2-t2', seed(14));
+  set('preq3-t1', seed(18)); set('preq3-t2', seed(15));
+  set('preq4-t1', seed(17)); set('preq4-t2', seed(16));
+  // R16 — seeds 1–12 direct; slots 13–16 show "Pre-Qx Winner" (updated after Pre-R16 scores)
+  set('r16-s1-t1', seed(1));
+  set('r16-s1-t3', seed(7));  set('r16-s1-t4', seed(10));
+  set('r16-s1-t5', seed(5));  set('r16-s1-t6', seed(12));
+  set('r16-s1-t7', seed(3));
+  set('r16-s2-t1', seed(2));
+  set('r16-s2-t3', seed(8));  set('r16-s2-t4', seed(9));
+  set('r16-s2-t5', seed(6));  set('r16-s2-t6', seed(11));
+  set('r16-s2-t7', seed(4));
+}
+
+
+// Tabs
+function switchTab(id,e) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  const btn=e?e.target:document.querySelector(`.tab-btn[data-tab="${id}"]`);
+  if(btn) btn.classList.add('active');
+  if(id==='schedule') buildSchedule(currentSchedFilter);
+  if(id==='results') buildStandings(currentStandingsFilter);
+  if(id==='knockout') buildStandings('overall');
+}
+
+// Org / PIN
+const ORGANISER_PIN='IAG2026';
+let isOrganiser=false;
+function toggleOrg() { if(isOrganiser){lockOrg();}else{openPin();} }
+function lockOrg() {
+  isOrganiser=false; document.body.classList.remove('organiser-mode');
+  document.getElementById('org-btn').textContent='🔒 Organiser Login';
+  document.getElementById('org-btn').classList.remove('unlocked');
+  document.getElementById('org-status').textContent='👁 View Only';
+  document.getElementById('org-status').classList.remove('active');
+  buildSchedule(currentSchedFilter);
+}
+function openPin() { document.getElementById('pin-overlay').classList.add('show'); document.getElementById('pin-input').value=''; document.getElementById('pin-error').textContent=''; setTimeout(()=>document.getElementById('pin-input').focus(),100); }
+function closePin() { document.getElementById('pin-overlay').classList.remove('show'); }
+function checkPin() {
+  const val=document.getElementById('pin-input').value.trim();
+  if(val===ORGANISER_PIN) {
+    isOrganiser=true; document.body.classList.add('organiser-mode');
+    document.getElementById('org-btn').textContent='🔓 Lock & Exit';
+    document.getElementById('org-btn').classList.add('unlocked');
+    document.getElementById('org-status').textContent='✅ Organiser Mode';
+    document.getElementById('org-status').classList.add('active');
+    closePin(); buildSchedule(currentSchedFilter);
+  } else {
+    const inp=document.getElementById('pin-input');
+    inp.classList.add('error'); document.getElementById('pin-error').textContent='Incorrect PIN.';
+    inp.value=''; setTimeout(()=>inp.classList.remove('error'),500);
+  }
+}
+
+// KO mode
+let koMode=1;
+function selectKO(n) {
+  koMode=n;
+  document.getElementById('ko1').classList.toggle('selected',n===1);
+  document.getElementById('ko2').classList.toggle('selected',n===2);
+  document.getElementById('bracket-ko1').style.display=n===1?'block':'none';
+  document.getElementById('bracket-ko2').style.display=n===2?'block':'none';
+}
+
+// Init
+buildGroups();
+buildSchedule('all');
+buildStandings('overall');
+</script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBvlflZt28TrZi-nZ6-L8YV1IBqrLiIvsc",
+  authDomain: "iag-pickleball.firebaseapp.com",
+  databaseURL: "https://iag-pickleball-default-rtdb.firebaseio.com",
+  projectId: "iag-pickleball",
+  storageBucket: "iag-pickleball.firebasestorage.app",
+  messagingSenderId: "1032967317528",
+  appId: "1:1032967317528:web:8742c451537507ca37fb6d",
+  measurementId: "G-1TWT6FF8FW"
+};
+let db = null;
+let firebaseReady = false;
+let scoresRef = null;
+
+function updateSyncStatus(msg, color) {
+  const el = document.getElementById('sync-status');
+  if (el) {
+    el.textContent = msg;
+    el.style.color = color === 'green' ? 'var(--green)' : color === 'orange' ? 'var(--accent2)' : color === 'muted' ? 'var(--muted)' : 'var(--accent3)';
+  }
+}
+
+function saveScoreToFirebase(key, scoreObj) {
+  if (db && scoresRef) {
+    scoresRef.child(key).set(scoreObj).catch(err => {
+      try { localStorage.setItem('iag-open35-scores', JSON.stringify(scores)); } catch(e) {}
+    });
+  } else {
+    try { localStorage.setItem('iag-open35-scores', JSON.stringify(scores)); } catch(e) {}
+  }
+}
+
+function initFirebase() {
+  try {
+    if (typeof firebase === 'undefined') {
+      try { const s=localStorage.getItem('iag-open35-scores'); if(s) scores=JSON.parse(s); } catch(e) {}
+      updateSyncStatus('🟡 Local only', 'orange');
+      buildSchedule(currentSchedFilter); buildStandings(currentStandingsFilter); return;
+    }
+    if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.database();
+    scoresRef = db.ref('open35-scores');
+    updateSyncStatus('⏳ Connecting...', 'muted');
+    const tid = setTimeout(() => { if (!firebaseReady) updateSyncStatus('⚠️ Slow connection', 'orange'); }, 5000);
+    scoresRef.on('value', snap => {
+      clearTimeout(tid);
+      scores = snap.val() || {};
+      firebaseReady = true;
+      buildSchedule(currentSchedFilter); buildStandings(currentStandingsFilter);
+      updateSyncStatus('🟢 Live – synced', 'green');
+    }, err => {
+      clearTimeout(tid);
+      updateSyncStatus('🔴 Firebase error', 'red');
+      try { const s=localStorage.getItem('iag-open35-scores'); if(s) scores=JSON.parse(s); } catch(e) {}
+      buildSchedule(currentSchedFilter); buildStandings(currentStandingsFilter);
+    });
+  } catch(e) {
+    db = null;
+    updateSyncStatus('🟡 Local only', 'orange');
+    try { const s=localStorage.getItem('iag-open35-scores'); if(s) scores=JSON.parse(s); } catch(e2) {}
+    buildSchedule(currentSchedFilter); buildStandings(currentStandingsFilter);
+  }
+}
+
+// ── KO Scoring ──────────────────────────────────────────────────────────────
+let koScores = {};
+const BO3_MATCHES = {'sf1':true, 'sf2':true, 'final':true};
+
+function initKOScores() {
+  if (db) {
+    db.ref('open35-scores-ko').on('value', snap => {
+      koScores = snap.val() || {};
+      refreshKOScores();
+    });
+  } else {
+    try { const s = localStorage.getItem('iag-open35-scores-ko'); if(s) koScores = JSON.parse(s); } catch(e) {}
+    refreshKOScores();
+  }
+}
+
+function updateKOScore(matchId, field, val) {
+  if (!koScores[matchId]) koScores[matchId] = {};
+  koScores[matchId][field] = val;
+  if (db) {
+    db.ref('open35-scores-ko/' + matchId).set(koScores[matchId]).catch(()=>{});
+  } else {
+    try { localStorage.setItem('iag-open35-scores-ko', JSON.stringify(koScores)); } catch(e) {}
+  }
+  refreshKOScores();
+}
+
+// BO3 winner: first to win 2 sets
+function kowBO3(matchId, t1id, t2id) {
+  const sc = koScores[matchId] || {};
+  let w1=0, w2=0;
+  [['s1a','s1b'],['s2a','s2b'],['s3a','s3b']].forEach(([ka,kb]) => {
+    const a=parseInt(sc[ka]||''), b=parseInt(sc[kb]||'');
+    if (!isNaN(a) && !isNaN(b) && (a||b)) { if(a>b) w1++; else if(b>a) w2++; }
+  });
+  if (w1>=2) { const t=document.getElementById(t1id); return t?t.textContent.trim():null; }
+  if (w2>=2) { const t=document.getElementById(t2id); return t?t.textContent.trim():null; }
+  return null;
+}
+
+// Single-set winner
+function kowSingle(matchId, t1id, t2id) {
+  const sc = koScores[matchId] || {};
+  if (sc.s1===undefined||sc.s1===''||sc.s2===undefined||sc.s2==='') return null;
+  const n1=parseInt(sc.s1), n2=parseInt(sc.s2);
+  if (isNaN(n1)||isNaN(n2)) return null;
+  const t1=document.getElementById(t1id), t2=document.getElementById(t2id);
+  if (!t1||!t2) return null;
+  return n1>n2?t1.textContent.trim():n2>n1?t2.textContent.trim():null;
+}
+
+// Unified: BO3 or single based on match type
+function kow(matchId, t1id, t2id) {
+  return BO3_MATCHES[matchId] ? kowBO3(matchId,t1id,t2id) : kowSingle(matchId,t1id,t2id);
+}
+
+function setKO(id, val) {
+  const el = document.getElementById(id);
+  if (el && val) { el.textContent = val; el.classList.remove('tbd'); }
+}
+
+function getOrCreateScoreView(matchId) {
+  let v = document.getElementById('kv-'+matchId);
+  if (!v) {
+    const ref = document.getElementById('ko-'+matchId+'-s1') || document.getElementById('ko-'+matchId+'-s1a');
+    if (!ref) return null;
+    const orgDiv = ref.closest('.org-only');
+    if (!orgDiv) return null;
+    v = document.createElement('div');
+    v.id = 'kv-'+matchId;
+    v.className = 'ko-score-view';
+    orgDiv.parentNode.insertBefore(v, orgDiv.nextSibling);
+  }
+  return v;
+}
+
+function refreshKOScores() {
+  Object.keys(koScores).forEach(matchId => {
+    const sc = koScores[matchId] || {};
+    if (BO3_MATCHES[matchId]) {
+      ['s1a','s1b','s2a','s2b','s3a','s3b'].forEach(f => {
+        const el=document.getElementById('ko-'+matchId+'-'+f);
+        if (el && sc[f]!==undefined && sc[f]!=='') el.value = sc[f];
+      });
+      let w1=0, w2=0;
+      [['s1a','s1b'],['s2a','s2b']].forEach(([ka,kb]) => {
+        const a=parseInt(sc[ka]||''), b=parseInt(sc[kb]||'');
+        if (!isNaN(a)&&!isNaN(b)&&(a||b)) { if(a>b) w1++; else if(b>a) w2++; }
+      });
+      const s3row=document.getElementById('ko-'+matchId+'-set3row');
+      if (s3row) {
+        const need3 = w1===1 && w2===1;
+        s3row.querySelectorAll('input,span').forEach(el => el.style.opacity = need3 ? '1' : '0.3');
+      }
+      const a3=parseInt(sc.s3a||''), b3=parseInt(sc.s3b||'');
+      if (!isNaN(a3)&&!isNaN(b3)&&(a3||b3)) { if(a3>b3) w1++; else if(b3>a3) w2++; }
+      const wEl=document.getElementById('ko-'+matchId+'-winner');
+      const serEl=document.getElementById('ko-'+matchId+'-series');
+      const t1el=document.getElementById(matchId+'-t1');
+      const t2el=document.getElementById(matchId+'-t2');
+      if (serEl) serEl.textContent = (w1+w2>0) ? w1+'–'+w2 : '';
+      let winnerName='';
+      if (wEl) {
+        if (w1>=2) { winnerName='🏆 '+(t1el?t1el.textContent.trim():'T1'); wEl.textContent=winnerName; wEl.style.color='var(--green)'; }
+        else if (w2>=2) { winnerName='🏆 '+(t2el?t2el.textContent.trim():'T2'); wEl.textContent=winnerName; wEl.style.color='var(--green)'; }
+        else wEl.textContent='';
+      }
+      const vEl=getOrCreateScoreView(matchId);
+      if (vEl) {
+        if (winnerName) { vEl.innerHTML=`<span style="color:var(--green)">${winnerName}</span><span style="color:var(--muted);font-size:11px;margin-left:4px;">${serEl?serEl.textContent:''}</span>`; }
+        else if (w1+w2>0) { vEl.textContent=(w1+'–'+w2)+' sets'; }
+        else { vEl.textContent=''; }
+      }
+    } else {
+      const s1el=document.getElementById('ko-'+matchId+'-s1');
+      const s2el=document.getElementById('ko-'+matchId+'-s2');
+      const wEl =document.getElementById('ko-'+matchId+'-winner');
+      const t1el=document.getElementById('ko-'+matchId+'-t1');
+      const t2el=document.getElementById('ko-'+matchId+'-t2');
+      if (s1el&&sc.s1!==undefined&&sc.s1!=='') s1el.value=sc.s1;
+      if (s2el&&sc.s2!==undefined&&sc.s2!=='') s2el.value=sc.s2;
+      let winnerText='';
+      if (wEl&&sc.s1!==undefined&&sc.s1!==''&&sc.s2!==undefined&&sc.s2!=='') {
+        const n1=parseInt(sc.s1), n2=parseInt(sc.s2);
+        if (!isNaN(n1)&&!isNaN(n2)) {
+          if (n1>n2) { winnerText='✓ '+(t1el?t1el.textContent.trim():'T1'); wEl.textContent=winnerText; wEl.style.color='var(--green)'; }
+          else if (n2>n1) { winnerText='✓ '+(t2el?t2el.textContent.trim():'T2'); wEl.textContent=winnerText; wEl.style.color='var(--green)'; }
+          else { winnerText='Draw'; wEl.textContent=winnerText; wEl.style.color='var(--accent2)'; }
+        }
+      }
+      const vEl=getOrCreateScoreView(matchId);
+      if (vEl) {
+        if (sc.s1!==undefined&&sc.s1!==''&&sc.s2!==undefined&&sc.s2!=='') {
+          const scoreStr=`<span style="color:var(--accent2)">${sc.s1}:${sc.s2}</span>`;
+          const winStr=winnerText?` <span style="color:${winnerText==='Draw'?'var(--accent2)':'var(--green)'}">${winnerText}</span>`:'';
+          vEl.innerHTML=scoreStr+winStr;
+        } else { vEl.textContent=''; }
+      }
+    }
+  });
+  propagateKO();
+}
+
+function propagateKO() {
+  // Pre-R16 → R16
+  const pq1=kow('preq1','preq1-t1','preq1-t2'); if(pq1)setKO('r16-s2-t8',pq1);
+  const pq2=kow('preq2','preq2-t1','preq2-t2'); if(pq2)setKO('r16-s1-t8',pq2);
+  const pq3=kow('preq3','preq3-t1','preq3-t2'); if(pq3)setKO('r16-s2-t2',pq3);
+  const pq4=kow('preq4','preq4-t1','preq4-t2'); if(pq4)setKO('r16-s1-t2',pq4);
+  // R16 → QF
+  [['r16m1','r16-s1-t1','r16-s1-t2','qf-s1-t1'],['r16m2','r16-s1-t3','r16-s1-t4','qf-s1-t2'],
+   ['r16m3','r16-s1-t5','r16-s1-t6','qf-s1-t3'],['r16m4','r16-s1-t7','r16-s1-t8','qf-s1-t4'],
+   ['r16m5','r16-s2-t1','r16-s2-t2','qf-s2-t1'],['r16m6','r16-s2-t3','r16-s2-t4','qf-s2-t2'],
+   ['r16m7','r16-s2-t5','r16-s2-t6','qf-s2-t3'],['r16m8','r16-s2-t7','r16-s2-t8','qf-s2-t4'],
+  ].forEach(([m,a,b,n])=>{const w=kow(m,a,b);if(w)setKO(n,w);});
+  // QF → SF (BO3)
+  const qf1=kow('qf1','qf-s1-t1','qf-s1-t2');if(qf1)setKO('sf1-t1',qf1);
+  const qf2=kow('qf2','qf-s1-t3','qf-s1-t4');if(qf2)setKO('sf1-t2',qf2);
+  const qf3=kow('qf3','qf-s2-t1','qf-s2-t2');if(qf3)setKO('sf2-t1',qf3);
+  const qf4=kow('qf4','qf-s2-t3','qf-s2-t4');if(qf4)setKO('sf2-t2',qf4);
+  // SF → Final (BO3)
+  const sf1=kow('sf1','sf1-t1','sf1-t2');if(sf1)setKO('final-t1',sf1);
+  const sf2=kow('sf2','sf2-t1','sf2-t2');if(sf2)setKO('final-t2',sf2);
+  // Final → Champion (BO3)
+  const fw=kow('final','final-t1','final-t2');
+  const ch=document.getElementById('ko1-champion');
+  if(ch&&fw){ch.textContent='🏆 '+fw;ch.style.color='var(--gold)';}
+}
+
+// ── Init ──
+initFirebase();
+initKOScores();
+</script>
+</body>
+</html>

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAG Pickleball — Social Division</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050a14;--surface:#0d1826;--card:#111e30;--border:rgba(57,255,132,0.18);--accent:#39ff84;--accent2:#f7c948;--accent3:#ff4d6d;--green:#39ff84;--text:#e8f4f8;--muted:#5e7a8f;--gold:#f7c948;--silver:#c0cfd8;--bronze:#cd7f32;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:"Exo 2",sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(57,255,132,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,132,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrapper{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:20px 16px 60px;}
+header{text-align:center;padding:40px 0 30px;border-bottom:1px solid var(--border);margin-bottom:36px;}
+header .badge{display:inline-block;background:linear-gradient(135deg,rgba(57,255,132,0.15),rgba(57,255,132,0.05));border:1px solid var(--accent);color:var(--accent);font-family:"Rajdhani",sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:5px 16px;border-radius:2px;margin-bottom:14px;}
+header h1{font-family:"Rajdhani",sans-serif;font-size:clamp(28px,5vw,52px);font-weight:700;letter-spacing:2px;line-height:1.1;background:linear-gradient(135deg,#fff 0%,var(--accent) 60%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+header .meta{margin-top:10px;color:var(--muted);font-size:14px;letter-spacing:1px;}
+header .meta span{margin:0 10px;color:var(--accent);}
+.back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--accent);text-decoration:none;font-family:"Rajdhani",sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;opacity:0.8;transition:opacity 0.2s;}
+.back-btn:hover{opacity:1;}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px;margin-bottom:28px;}
+.tab-btn{flex:1;padding:10px 8px;background:transparent;border:none;color:var(--muted);font-family:"Rajdhani",sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;cursor:pointer;border-radius:4px;transition:all 0.2s;text-transform:uppercase;}
+.tab-btn.active{background:linear-gradient(135deg,rgba(57,255,132,0.2),rgba(57,255,132,0.08));color:var(--accent);border:1px solid rgba(57,255,132,0.35);}
+.tab-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.04);}
+.tab-content{display:none;}
+.tab-content.active{display:block;animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.section-title{font-family:"Rajdhani",sans-serif;font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.section-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--accent),transparent);opacity:0.3;}
+.groups-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:28px;}
+.group-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.group-header{background:rgba(57,255,132,0.1);padding:10px 16px;font-family:"Rajdhani",sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border);}
+.team-entry{padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;display:flex;align-items:center;gap:8px;}
+.team-entry:last-child{border-bottom:none;}
+.team-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;opacity:0.6;}
+.schedule-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;font-size:14px;}
+.schedule-table th{background:rgba(57,255,132,0.1);padding:12px 14px;text-align:left;font-family:"Rajdhani",sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border);}
+.schedule-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--text);}
+.schedule-table tr:last-child td{border-bottom:none;}
+.schedule-table tr:hover td{background:rgba(57,255,132,0.04);}
+.time-cell{font-family:"Rajdhani",sans-serif;font-weight:700;font-size:15px;color:var(--accent2);white-space:nowrap;}
+.court-cell{font-family:"Rajdhani",sans-serif;font-weight:700;color:var(--accent);white-space:nowrap;}
+.grp-badge{display:inline-block;background:rgba(57,255,132,0.12);border:1px solid rgba(57,255,132,0.25);color:var(--accent);font-family:"Rajdhani",sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:2px 8px;border-radius:3px;}
+.vs{color:var(--muted);font-size:12px;}
+.standings-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.standings-table th{background:rgba(57,255,132,0.1);padding:11px 14px;text-align:center;font-family:"Rajdhani",sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border);}
+.standings-table th:first-child,.standings-table th:nth-child(2){text-align:left;}
+.standings-table td{padding:10px 14px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;}
+.standings-table td:first-child,.standings-table td:nth-child(2){text-align:left;}
+.standings-table tr:last-child td{border-bottom:none;}
+.standings-table tr:hover td{background:rgba(57,255,132,0.03);}
+.rank-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-family:"Rajdhani",sans-serif;font-weight:700;font-size:14px;}
+.rank-1{background:rgba(247,201,72,0.2);color:var(--gold);border:1px solid var(--gold);}
+.rank-2{background:rgba(192,207,216,0.2);color:var(--silver);border:1px solid var(--silver);}
+.rank-3{background:rgba(205,127,50,0.2);color:var(--bronze);border:1px solid var(--bronze);}
+.rank-n{background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.1);}
+.win-count{color:var(--green);font-weight:600;}
+.loss-count{color:var(--accent3);}
+.pts{font-family:"Rajdhani",sans-serif;font-weight:700;font-size:16px;color:var(--accent2);}
+.editable-score{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);color:var(--text);width:40px;text-align:center;border-radius:4px;padding:2px 4px;font-family:"Exo 2",sans-serif;font-size:14px;}
+.editable-score:focus{outline:none;border-color:var(--accent);}
+.score-display{display:none;}
+body:not(.organiser-mode) .editable-score{display:none!important;}
+body:not(.organiser-mode) .score-separator{display:none!important;}
+body:not(.organiser-mode) .score-display{display:inline!important;}
+body:not(.organiser-mode) .org-only{display:none!important;}
+body.organiser-mode .score-display{display:none!important;}
+body.organiser-mode .org-only{display:flex!important;}
+.btn{padding:10px 24px;border-radius:4px;font-family:"Rajdhani",sans-serif;font-weight:700;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.2s;}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#00cc5a);color:#000;}
+.btn-primary:hover{opacity:0.85;}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.info-bar{display:flex;gap:20px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:12px 18px;margin-bottom:24px;font-size:13px;color:var(--muted);}
+.info-bar strong{color:var(--accent2);}
+.org-bar{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:16px;}
+.org-status{font-family:"Rajdhani",sans-serif;font-size:13px;letter-spacing:1px;color:var(--muted);}
+.org-status.active{color:var(--green);}
+.org-btn{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:4px;font-family:"Rajdhani",sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all 0.2s;}
+.org-btn:hover{border-color:var(--accent);color:var(--accent);}
+.org-btn.unlocked{border-color:var(--green);color:var(--green);}
+.pin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:1000;align-items:center;justify-content:center;}
+.pin-overlay.show{display:flex;}
+.pin-modal{background:var(--card);border:1px solid rgba(57,255,132,0.25);border-radius:12px;padding:36px 32px;width:100%;max-width:380px;text-align:center;box-shadow:0 0 60px rgba(57,255,132,0.1);animation:modalIn 0.25s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(0.92) translateY(10px)}to{opacity:1;transform:none}}
+.pin-modal .pin-icon{font-size:36px;margin-bottom:12px;}
+.pin-modal h2{font-family:"Rajdhani",sans-serif;font-size:22px;font-weight:700;letter-spacing:2px;margin-bottom:6px;}
+.pin-modal p{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.pin-input{width:100%;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:6px;padding:12px 16px;color:var(--text);font-family:"Rajdhani",sans-serif;font-size:20px;letter-spacing:6px;text-align:center;margin-bottom:8px;outline:none;transition:border-color 0.2s;}
+.pin-input:focus{border-color:var(--accent);}
+.pin-input.error{border-color:var(--accent3);animation:shake 0.3s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.pin-error{font-size:12px;color:var(--accent3);min-height:18px;margin-bottom:16px;}
+.pin-actions{display:flex;gap:10px;}
+.pin-actions button{flex:1;}
+.grp-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.grp-tab{padding:6px 16px;background:var(--surface);border:1px solid var(--border);border-radius:4px;font-family:"Rajdhani",sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;cursor:pointer;color:var(--muted);transition:all 0.2s;}
+.grp-tab.active{background:rgba(57,255,132,0.15);border-color:var(--accent);color:var(--accent);}
+.ko-selector{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.ko-card{position:relative;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:18px 20px;cursor:pointer;transition:all 0.25s;user-select:none;}
+.ko-card:hover{border-color:rgba(57,255,132,0.45);background:rgba(57,255,132,0.04);}
+.ko-card.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(57,255,132,0.12),rgba(57,255,132,0.04));box-shadow:0 0 24px rgba(57,255,132,0.14);}
+.ko-badge{display:none;position:absolute;top:14px;right:14px;background:var(--accent);color:#000;font-family:"Rajdhani",sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:3px;}
+.ko-card.selected .ko-badge{display:block;}
+.ko-icon{font-size:20px;margin-bottom:6px;}
+.ko-card h3{font-family:"Rajdhani",sans-serif;font-size:17px;font-weight:700;letter-spacing:1px;color:var(--text);margin-bottom:5px;}
+.ko-card.selected h3{color:var(--accent);}
+.ko-card p{font-size:13px;color:var(--muted);line-height:1.6;margin:0;}
+.bracket-wrap{margin-top:8px;}
+.bracket-flow{display:flex;gap:0;align-items:stretch;overflow-x:auto;padding-bottom:12px;}
+.b-col{display:flex;flex-direction:column;flex-shrink:0;}
+.b-col-title{text-align:center;font-family:"Rajdhani",sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--border);margin-bottom:10px;color:var(--muted);}
+.b-col-title.gold{color:var(--gold);}
+.b-matches{display:flex;flex-direction:column;justify-content:space-around;flex:1;gap:14px;padding:0 8px;min-width:210px;}
+.b-connector{display:flex;flex-direction:column;justify-content:center;align-items:center;width:28px;flex-shrink:0;}
+.b-line{width:2px;background:linear-gradient(180deg,transparent,var(--accent),transparent);opacity:0.2;flex:1;}
+.b-arrow{color:var(--accent);font-size:14px;opacity:0.4;}
+.b-label{font-family:"Rajdhani",sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;padding-left:2px;}
+.m-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color 0.2s;}
+.m-card:hover{border-color:rgba(57,255,132,0.3);}
+.m-card.gold-final{border-color:rgba(247,201,72,0.3);}
+.m-header{background:rgba(57,255,132,0.07);padding:5px 10px;font-family:"Rajdhani",sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+.m-header.gold{background:rgba(247,201,72,0.08);color:var(--gold);}
+.m-team{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.m-team:last-of-type{border-bottom:none;}
+.m-seed{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:"Rajdhani",sans-serif;font-weight:700;flex-shrink:0;}
+.s-gold{background:rgba(247,201,72,0.15);color:var(--gold);border:1px solid var(--gold);}
+.s-silver{background:rgba(192,207,216,0.15);color:var(--silver);border:1px solid var(--silver);}
+.s-bronze{background:rgba(205,127,50,0.15);color:var(--bronze);border:1px solid var(--bronze);}
+.s-grey{background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.12);}
+.m-name{flex:1;font-size:13px;font-weight:600;}
+.m-name.tbd{color:var(--muted);font-style:italic;font-weight:400;}
+.m-score{display:flex;align-items:center;justify-content:flex-end;gap:6px;padding:5px 10px 7px;background:rgba(0,0,0,0.2);border-top:1px solid rgba(255,255,255,0.05);}
+.m-score-static{font-family:"Rajdhani",sans-serif;font-weight:700;font-size:14px;color:var(--accent2);display:none;}
+.m-score-static.show{display:inline;}
+.m-inp{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.12);color:var(--text);width:38px;text-align:center;border-radius:4px;padding:3px 4px;font-family:"Exo 2",sans-serif;font-size:14px;}
+.m-inp:focus{outline:none;border-color:var(--accent);}
+.m-sep{color:var(--muted);font-family:"Rajdhani",sans-serif;font-weight:700;font-size:13px;}
+body:not(.organiser-mode) .m-inp{display:none!important;}
+body:not(.organiser-mode) .m-sep{display:none!important;}
+body:not(.organiser-mode) .m-score-static.show{display:inline!important;}
+body.organiser-mode .m-score-static{display:none!important;}
+.champion-card{background:linear-gradient(135deg,rgba(247,201,72,0.1),rgba(247,201,72,0.04));border:1px solid rgba(247,201,72,0.3);border-radius:10px;padding:22px;text-align:center;margin-top:14px;}
+.champion-card .trophy{font-size:34px;margin-bottom:8px;}
+.champion-card h3{font-family:"Rajdhani",sans-serif;font-size:20px;font-weight:700;color:var(--gold);letter-spacing:1px;margin-bottom:6px;}
+.champion-card .champ-name{font-size:16px;font-weight:700;color:var(--accent2);}
+@media(max-width:600px){
+  .tabs{flex-wrap:nowrap;overflow-x:auto;gap:2px;padding:3px;scrollbar-width:none;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab-btn{font-size:12px;padding:8px 6px;white-space:nowrap;flex-shrink:0;flex:0 0 auto;}
+  .wrapper{padding:12px 10px 50px;}
+  header{padding:20px 0 16px;margin-bottom:20px;}
+  header h1{font-size:clamp(22px,7vw,36px);}
+  header .meta{font-size:11px;}
+  header .meta span{margin:0 4px;}
+  .info-bar{gap:8px;padding:10px 12px;font-size:12px;}
+  .section-title{font-size:16px;}
+  .schedule-table,.standings-table{font-size:12px;display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;}
+  .schedule-table th,.schedule-table td{padding:8px 10px;}
+  .standings-table th,.standings-table td{padding:7px 8px;font-size:11px;}
+  .time-cell{font-size:12px;}
+  .groups-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .team-entry{font-size:12px;padding:8px 12px;}
+  .pin-modal{padding:28px 20px;margin:16px;}
+  .editable-score{width:34px;font-size:12px;}
+  .b-matches{min-width:170px;}
+  .m-name{font-size:12px;}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);">
+  <a href="index.html" class="back-btn" style="text-decoration:none;">← Tournament Hub</a>
+  <a href="player-match-finder.html" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(138,43,226,0.15);border:1px solid rgba(138,43,226,0.4);border-radius:20px;color:#b47ef5;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">🔍 FIND MY MATCHES</a>
+</div>
+
+<div class="pin-overlay" id="pin-overlay">
+  <div class="pin-modal">
+    <div class="pin-icon">&#x1F510;</div>
+    <h2>ORGANISER ACCESS</h2>
+    <p>Enter PIN to unlock score editing</p>
+    <input class="pin-input" id="pin-input" type="password" maxlength="8" placeholder="&bull;&bull;&bull;&bull;" />
+    <div class="pin-error" id="pin-error"></div>
+    <div class="pin-actions">
+      <button class="btn btn-ghost" id="pin-cancel-btn">Cancel</button>
+      <button class="btn btn-primary" id="pin-submit-btn">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<a href="index.html" class="back-btn">&larr; Back to Tournament Hub</a>
+
+<header>
+  <div class="badge">&#x1F3D3; IAG Pickleball 2026</div>
+  <h1>SOCIAL DIVISION</h1>
+  <div class="meta">
+    <span>&#x1F4C5; Feb 28, 2026</span>
+    <span>&#x1F557; 1:45 PM Start</span>
+    <span>&#x1F3DF; Courts C5 &amp; C6</span>
+    <span>&#x1F465; 10 Teams &middot; 2 Groups</span>
+  </div>
+</header>
+
+<div class="org-bar">
+  <span class="org-status" id="org-status">&#x1F441; View Only</span>
+  <span id="sync-status" style="font-size:11px;letter-spacing:0.5px;color:var(--muted);margin:0 12px">⏳ Connecting...</span>
+  <button class="org-btn" id="org-btn">&#x1F512; Organiser Login</button>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="groups">&#x1F465; Groups</button>
+  <button class="tab-btn" data-tab="schedule">&#x1F4CB; Schedule</button>
+  <button class="tab-btn" data-tab="results">&#x1F4CA; Standings</button>
+  <button class="tab-btn" data-tab="final">&#x26A1; Knockout</button>
+</div>
+
+<!-- GROUPS -->
+<div id="tab-groups" class="tab-content active">
+  <div class="section-title">Group Draw</div>
+  <div class="groups-grid" id="groups-grid"></div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-size:13px;color:var(--muted);">
+    &#x2139;&#xFE0F; Social division is fun &amp; inclusive! All 5 teams in each group play each other (round-robin). Top teams advance to the Knockout stage.
+  </div>
+</div>
+
+<!-- SCHEDULE -->
+<div id="tab-schedule" class="tab-content">
+  <div class="info-bar">
+    <div>&#x1F557; Start: <strong>1:45 PM</strong></div>
+    <div>&#x1F51A; End: <strong>~3:30 PM</strong></div>
+    <div>&#x23F1; Per Match: <strong>15 min</strong></div>
+    <div>&#x1F3DF; Courts: <strong>C5 &amp; C6</strong></div>
+    <div>&#x1F465; Teams: <strong>10</strong></div>
+    <div>&#x1F3AF; Matches: <strong>20</strong></div>
+  </div>
+  <div class="grp-tabs" id="sched-grp-tabs">
+    <button class="grp-tab active" data-filter="all">All Matches</button>
+    <button class="grp-tab" data-filter="Group 1">Group 1</button>
+    <button class="grp-tab" data-filter="Group 2">Group 2</button>
+  </div>
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+    <table class="schedule-table">
+      <thead><tr><th>Time</th><th>Court</th><th>Group</th><th>Match</th><th>Score</th></tr></thead>
+      <tbody id="schedule-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- STANDINGS -->
+<div id="tab-results" class="tab-content">
+  <div class="section-title">Results &amp; Standings</div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Standings update live as scores are entered.</p>
+  <div class="grp-tabs" id="standings-grp-tabs">
+    <button class="grp-tab active" data-filter="all">All Groups</button>
+    <button class="grp-tab" data-filter="Group 1">Group 1</button>
+    <button class="grp-tab" data-filter="Group 2">Group 2</button>
+  </div>
+  <div id="standings-container"></div>
+</div>
+
+<!-- KNOCKOUT -->
+<div id="tab-final" class="tab-content">
+  <div class="section-title">Knockout Format</div>
+  <div class="ko-selector">
+    <div class="ko-card selected" data-ko="1" id="ko1">
+      <div class="ko-badge">SELECTED</div>
+      <div class="ko-icon">&#x1F947;&#x1F948; + &#x1F525;</div>
+      <h3>Option 1 &mdash; 6-Team Format</h3>
+      <p>Top 2 teams go direct to Semi-Finals.<br>3rd vs 6th &middot; 4th vs 5th &rarr; winners join semis.</p>
+    </div>
+    <div class="ko-card" data-ko="2" id="ko2">
+      <div class="ko-badge">SELECTED</div>
+      <div class="ko-icon">&#x1F3C6; Top 4</div>
+      <h3>Option 2 &mdash; Top 4 Format</h3>
+      <p>Only top 4 teams advance.<br>1st vs 4th &middot; 2nd vs 3rd &rarr; winners to Final.</p>
+    </div>
+  </div>
+
+  <!-- KO1 Bracket -->
+  <div id="bracket-ko1" class="bracket-wrap">
+    <div class="section-title" style="font-size:17px;margin-bottom:12px;">Bracket &mdash; Option 1 (6-Team)</div>
+    <div class="bracket-flow">
+      <div class="b-col">
+        <div class="b-col-title">Qualification</div>
+        <div class="b-matches">
+          <div>
+            <div class="b-label">Q1 &middot; 3rd vs 6th</div>
+            <div class="m-card">
+              <div class="m-header">Match Q1</div>
+              <div class="m-team"><div class="m-seed s-bronze">3</div><div class="m-name" id="ko1-q1-t1">3rd Place</div></div>
+              <div class="m-team"><div class="m-seed s-grey">6</div><div class="m-name" id="ko1-q1-t2">6th Place</div></div>
+              <div class="m-score">
+                <span class="m-score-static" id="ko1-q1-sd"></span>
+                <input class="m-inp" data-match="ko1-q1" data-pos="1" type="text" inputmode="numeric" placeholder="&ndash;" />
+                <span class="m-sep">:</span>
+                <input class="m-inp" data-match="ko1-q1" data-pos="2" type="text" inputmode="numeric" placeholder="&ndash;" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="b-label">Q2 &middot; 4th vs 5th</div>
+            <div class="m-card">
+              <div class="m-header">Match Q2</div>
+              <div class="m-team"><div class="m-seed s-grey">4</div><div class="m-name" id="ko1-q2-t1">4th Place</div></div>
+              <div class="m-team"><div class="m-seed s-grey">5</div><div class="m-name" id="ko1-q2-t2">5th Place</div></div>
+              <div class="m-score">
+                <span class="m-score-static" id="ko1-q2-sd"></span>
+                <input class="m-inp" data-match="ko1-q2" data-pos="1" type="text" inputmode="numeric" placeholder="&ndash;" />
+                <span class="m-sep">:</span>
+                <input class="m-inp" data-match="ko1-q2" data-pos="2" type="text" inputmode="numeric" placeholder="&ndash;" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="b-connector"><div class="b-line"></div><div class="b-arrow">&rsaquo;</div><div class="b-line"></div></div>
+      <div class="b-col">
+        <div class="b-col-title">Semi-Finals</div>
+        <div class="b-matches">
+          <div>
+            <div class="b-label">SF1 &middot; 1st vs Q2 Winner</div>
+            <div class="m-card">
+              <div class="m-header">Semi-Final 1</div>
+              <div class="m-team"><div class="m-seed s-gold">1</div><div class="m-name" id="ko1-sf1-t1">1st Place</div></div>
+              <div class="m-team"><div class="m-seed s-grey">Q2W</div><div class="m-name tbd" id="ko1-sf1-t2">Q2 Winner</div></div>
+              <div class="m-score">
+                
+<div class="bo3-wrap" style="margin-top:6px;">
+  <div style="font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:4px;">★ Best of 3</div>
+  <div style="display:flex;flex-direction:column;gap:3px;">
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set1</span>
+      <input class="m-inp" data-match="ko1-sf1" data-set="1" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko1-sf1" data-set="1" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set2</span>
+      <input class="m-inp" data-match="ko1-sf1" data-set="2" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko1-sf1" data-set="2" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;" id="ko1-sf1-s3row">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;opacity:0.4;">Set3</span>
+      <input class="m-inp" data-match="ko1-sf1" data-set="3" data-pos="1" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+      <span style="color:var(--muted);font-size:10px;opacity:0.4;">:</span>
+      <input class="m-inp" data-match="ko1-sf1" data-set="3" data-pos="2" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+    </div>
+  </div>
+  <div id="ko1-sf1-sd" style="text-align:center;margin-top:4px;font-size:11px;font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--green);min-height:14px;"></div>
+</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="b-label">SF2 &middot; 2nd vs Q1 Winner</div>
+            <div class="m-card">
+              <div class="m-header">Semi-Final 2</div>
+              <div class="m-team"><div class="m-seed s-silver">2</div><div class="m-name" id="ko1-sf2-t1">2nd Place</div></div>
+              <div class="m-team"><div class="m-seed s-grey">Q1W</div><div class="m-name tbd" id="ko1-sf2-t2">Q1 Winner</div></div>
+              <div class="m-score">
+                
+<div class="bo3-wrap" style="margin-top:6px;">
+  <div style="font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:4px;">★ Best of 3</div>
+  <div style="display:flex;flex-direction:column;gap:3px;">
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set1</span>
+      <input class="m-inp" data-match="ko1-sf2" data-set="1" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko1-sf2" data-set="1" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set2</span>
+      <input class="m-inp" data-match="ko1-sf2" data-set="2" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko1-sf2" data-set="2" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;" id="ko1-sf2-s3row">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;opacity:0.4;">Set3</span>
+      <input class="m-inp" data-match="ko1-sf2" data-set="3" data-pos="1" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+      <span style="color:var(--muted);font-size:10px;opacity:0.4;">:</span>
+      <input class="m-inp" data-match="ko1-sf2" data-set="3" data-pos="2" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+    </div>
+  </div>
+  <div id="ko1-sf2-sd" style="text-align:center;margin-top:4px;font-size:11px;font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--green);min-height:14px;"></div>
+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="b-connector"><div class="b-line"></div><div class="b-arrow">&rsaquo;</div><div class="b-line"></div></div>
+      <div class="b-col">
+        <div class="b-col-title gold">Grand Final</div>
+        <div class="b-matches" style="justify-content:center;">
+          <div>
+            <div class="b-label">&#x1F3C6; Final &middot; SF1W vs SF2W</div>
+            <div class="m-card gold-final">
+              <div class="m-header gold">Grand Final</div>
+              <div class="m-team"><div class="m-seed s-gold">&#x1F3C6;</div><div class="m-name tbd" id="ko1-f-t1">SF1 Winner</div></div>
+              <div class="m-team"><div class="m-seed s-silver">&#x1F948;</div><div class="m-name tbd" id="ko1-f-t2">SF2 Winner</div></div>
+              <div class="m-score">
+                
+<div class="bo3-wrap" style="margin-top:6px;">
+  <div style="font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:4px;">★ Best of 3</div>
+  <div style="display:flex;flex-direction:column;gap:3px;">
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set1</span>
+      <input class="m-inp" data-match="ko1-f" data-set="1" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko1-f" data-set="1" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set2</span>
+      <input class="m-inp" data-match="ko1-f" data-set="2" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko1-f" data-set="2" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;" id="ko1-f-s3row">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;opacity:0.4;">Set3</span>
+      <input class="m-inp" data-match="ko1-f" data-set="3" data-pos="1" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+      <span style="color:var(--muted);font-size:10px;opacity:0.4;">:</span>
+      <input class="m-inp" data-match="ko1-f" data-set="3" data-pos="2" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+    </div>
+  </div>
+  <div id="ko1-f-sd" style="text-align:center;margin-top:4px;font-size:11px;font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--green);min-height:14px;"></div>
+</div>
+              </div>
+            </div>
+            <div class="champion-card">
+              <div class="trophy">&#x1F3C6;</div>
+              <h3>CHAMPION</h3>
+              <div class="champ-name" id="ko1-champion">TBD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KO2 Bracket -->
+  <div id="bracket-ko2" class="bracket-wrap" style="display:none;">
+    <div class="section-title" style="font-size:17px;margin-bottom:12px;">Bracket &mdash; Option 2 (Top 4)</div>
+    <div class="bracket-flow">
+      <div class="b-col">
+        <div class="b-col-title">Semi-Finals</div>
+        <div class="b-matches">
+          <div>
+            <div class="b-label">SF1 &middot; 1st vs 4th</div>
+            <div class="m-card">
+              <div class="m-header">Semi-Final 1</div>
+              <div class="m-team"><div class="m-seed s-gold">1</div><div class="m-name" id="ko2-sf1-t1">1st Place</div></div>
+              <div class="m-team"><div class="m-seed s-grey">4</div><div class="m-name" id="ko2-sf1-t2">4th Place</div></div>
+              <div class="m-score">
+                
+<div class="bo3-wrap" style="margin-top:6px;">
+  <div style="font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:4px;">★ Best of 3</div>
+  <div style="display:flex;flex-direction:column;gap:3px;">
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set1</span>
+      <input class="m-inp" data-match="ko2-sf1" data-set="1" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko2-sf1" data-set="1" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set2</span>
+      <input class="m-inp" data-match="ko2-sf1" data-set="2" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko2-sf1" data-set="2" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;" id="ko2-sf1-s3row">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;opacity:0.4;">Set3</span>
+      <input class="m-inp" data-match="ko2-sf1" data-set="3" data-pos="1" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+      <span style="color:var(--muted);font-size:10px;opacity:0.4;">:</span>
+      <input class="m-inp" data-match="ko2-sf1" data-set="3" data-pos="2" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+    </div>
+  </div>
+  <div id="ko2-sf1-sd" style="text-align:center;margin-top:4px;font-size:11px;font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--green);min-height:14px;"></div>
+</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="b-label">SF2 &middot; 2nd vs 3rd</div>
+            <div class="m-card">
+              <div class="m-header">Semi-Final 2</div>
+              <div class="m-team"><div class="m-seed s-silver">2</div><div class="m-name" id="ko2-sf2-t1">2nd Place</div></div>
+              <div class="m-team"><div class="m-seed s-bronze">3</div><div class="m-name" id="ko2-sf2-t2">3rd Place</div></div>
+              <div class="m-score">
+                
+<div class="bo3-wrap" style="margin-top:6px;">
+  <div style="font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:4px;">★ Best of 3</div>
+  <div style="display:flex;flex-direction:column;gap:3px;">
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set1</span>
+      <input class="m-inp" data-match="ko2-sf2" data-set="1" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko2-sf2" data-set="1" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set2</span>
+      <input class="m-inp" data-match="ko2-sf2" data-set="2" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko2-sf2" data-set="2" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;" id="ko2-sf2-s3row">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;opacity:0.4;">Set3</span>
+      <input class="m-inp" data-match="ko2-sf2" data-set="3" data-pos="1" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+      <span style="color:var(--muted);font-size:10px;opacity:0.4;">:</span>
+      <input class="m-inp" data-match="ko2-sf2" data-set="3" data-pos="2" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+    </div>
+  </div>
+  <div id="ko2-sf2-sd" style="text-align:center;margin-top:4px;font-size:11px;font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--green);min-height:14px;"></div>
+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="b-connector"><div class="b-line"></div><div class="b-arrow">&rsaquo;</div><div class="b-line"></div></div>
+      <div class="b-col">
+        <div class="b-col-title gold">Grand Final</div>
+        <div class="b-matches" style="justify-content:center;">
+          <div>
+            <div class="b-label">&#x1F3C6; Final &middot; SF1W vs SF2W</div>
+            <div class="m-card gold-final">
+              <div class="m-header gold">Grand Final</div>
+              <div class="m-team"><div class="m-seed s-gold">&#x1F3C6;</div><div class="m-name tbd" id="ko2-f-t1">SF1 Winner</div></div>
+              <div class="m-team"><div class="m-seed s-silver">&#x1F948;</div><div class="m-name tbd" id="ko2-f-t2">SF2 Winner</div></div>
+              <div class="m-score">
+                
+<div class="bo3-wrap" style="margin-top:6px;">
+  <div style="font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:4px;">★ Best of 3</div>
+  <div style="display:flex;flex-direction:column;gap:3px;">
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set1</span>
+      <input class="m-inp" data-match="ko2-f" data-set="1" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko2-f" data-set="1" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;">Set2</span>
+      <input class="m-inp" data-match="ko2-f" data-set="2" data-pos="1" type="text" inputmode="numeric" placeholder="–" />
+      <span style="color:var(--muted);font-size:10px;">:</span>
+      <input class="m-inp" data-match="ko2-f" data-set="2" data-pos="2" type="text" inputmode="numeric" placeholder="–" />
+    </div>
+    <div style="display:flex;align-items:center;gap:4px;justify-content:center;" id="ko2-f-s3row">
+      <span style="font-size:10px;color:var(--muted);width:30px;text-align:right;opacity:0.4;">Set3</span>
+      <input class="m-inp" data-match="ko2-f" data-set="3" data-pos="1" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+      <span style="color:var(--muted);font-size:10px;opacity:0.4;">:</span>
+      <input class="m-inp" data-match="ko2-f" data-set="3" data-pos="2" type="text" inputmode="numeric" placeholder="–" style="opacity:0.4;" />
+    </div>
+  </div>
+  <div id="ko2-f-sd" style="text-align:center;margin-top:4px;font-size:11px;font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--green);min-height:14px;"></div>
+</div>
+              </div>
+            </div>
+            <div class="champion-card">
+              <div class="trophy">&#x1F3C6;</div>
+              <h3>CHAMPION</h3>
+              <div class="champ-name" id="ko2-champion">TBD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /wrapper -->
+
+<script>
+var GROUPS = {
+  "Group 1": ["Karthik & Shailandra","Syed & Sofi","Narashima & Sneha","Kenny & Amanda","Andrew & Kacie"],
+  "Group 2": ["Vinod & Nandhini","Suresh & Nirmala","Elango & Ramya","Arun & Divya","Abhishek & Aaryesh"]
+};
+
+var SCHEDULE = [
+  {time:"1:45 PM",court:5,group:"Group 1",t1:"Karthik & Shailandra",t2:"Syed & Sofi"},
+  {time:"1:45 PM",court:6,group:"Group 1",t1:"Narashima & Sneha",t2:"Kenny & Amanda"},
+  {time:"1:45 PM",court:5,group:"Group 2",t1:"Vinod & Nandhini",t2:"Suresh & Nirmala"},
+  {time:"1:45 PM",court:6,group:"Group 2",t1:"Elango & Ramya",t2:"Arun & Divya"},
+  {time:"2:00 PM",court:5,group:"Group 1",t1:"Karthik & Shailandra",t2:"Narashima & Sneha"},
+  {time:"2:00 PM",court:6,group:"Group 1",t1:"Syed & Sofi",t2:"Kenny & Amanda"},
+  {time:"2:00 PM",court:5,group:"Group 2",t1:"Vinod & Nandhini",t2:"Elango & Ramya"},
+  {time:"2:00 PM",court:6,group:"Group 2",t1:"Suresh & Nirmala",t2:"Arun & Divya"},
+  {time:"2:15 PM",court:5,group:"Group 1",t1:"Karthik & Shailandra",t2:"Kenny & Amanda"},
+  {time:"2:15 PM",court:6,group:"Group 1",t1:"Syed & Sofi",t2:"Narashima & Sneha"},
+  {time:"2:15 PM",court:5,group:"Group 2",t1:"Vinod & Nandhini",t2:"Arun & Divya"},
+  {time:"2:15 PM",court:6,group:"Group 2",t1:"Suresh & Nirmala",t2:"Elango & Ramya"},
+  {time:"2:30 PM",court:5,group:"Group 1",t1:"Karthik & Shailandra",t2:"Andrew & Kacie"},
+  {time:"2:30 PM",court:6,group:"Group 2",t1:"Vinod & Nandhini",t2:"Abhishek & Aaryesh"},
+  {time:"2:45 PM",court:5,group:"Group 1",t1:"Syed & Sofi",t2:"Andrew & Kacie"},
+  {time:"2:45 PM",court:6,group:"Group 2",t1:"Suresh & Nirmala",t2:"Abhishek & Aaryesh"},
+  {time:"3:00 PM",court:5,group:"Group 1",t1:"Narashima & Sneha",t2:"Andrew & Kacie"},
+  {time:"3:00 PM",court:6,group:"Group 2",t1:"Elango & Ramya",t2:"Abhishek & Aaryesh"},
+  {time:"3:15 PM",court:5,group:"Group 1",t1:"Kenny & Amanda",t2:"Andrew & Kacie"},
+  {time:"3:15 PM",court:6,group:"Group 2",t1:"Arun & Divya",t2:"Abhishek & Aaryesh"}
+];
+
+var scores = {};
+var koScores = {};
+var koMode = 1;
+var currentSchedFilter = "all";
+var currentStandingsFilter = "all";
+
+function mKey(m){ return m.group + "|" + m.t1 + "|" + m.t2; }
+
+/* ---- Tab switching ---- */
+function switchTab(id) {
+  document.querySelectorAll(".tab-content").forEach(function(el){ el.classList.remove("active"); });
+  document.querySelectorAll(".tab-btn").forEach(function(el){ el.classList.remove("active"); });
+  document.getElementById("tab-" + id).classList.add("active");
+  var btn = document.querySelector(".tab-btn[data-tab=\"" + id + "\"]");
+  if (btn) btn.classList.add("active");
+  if (id === "schedule") buildSchedule(currentSchedFilter);
+  if (id === "results") buildStandings(currentStandingsFilter);
+  if (id === "final") { buildStandings("all"); updateKOSeedings(); }
+}
+
+document.querySelectorAll(".tab-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() { switchTab(btn.dataset.tab); });
+});
+
+/* ---- Groups ---- */
+function buildGroups() {
+  var grid = document.getElementById("groups-grid");
+  var html = "";
+  Object.keys(GROUPS).forEach(function(grp) {
+    html += "<div class=\"group-card\"><div class=\"group-header\">" + grp + "</div>";
+    GROUPS[grp].forEach(function(t) {
+      html += "<div class=\"team-entry\"><div class=\"team-dot\"></div>" + t + "</div>";
+    });
+    html += "</div>";
+  });
+  grid.innerHTML = html;
+}
+
+/* ---- Schedule ---- */
+function buildSchedule(filter) {
+  var tbody = document.getElementById("schedule-body");
+  var rows = filter === "all" ? SCHEDULE : SCHEDULE.filter(function(m){ return m.group === filter; });
+  var html = "";
+  rows.forEach(function(m) {
+    var key = mKey(m);
+    var s = scores[key] || {s1:"", s2:""};
+    var winner = getWinner(s.s1, s.s2, m.t1, m.t2);
+    var sd = (s.s1 !== "" && s.s2 !== "") ? s.s1 + ":" + s.s2 : "—";
+    var wd = winner !== "—" ? "&#x2713; " + winner : "—";
+    html += "<tr>";
+    html += "<td class=\"time-cell\">" + m.time + "</td>";
+    html += "<td class=\"court-cell\">C" + m.court + "</td>";
+    html += "<td><span class=\"grp-badge\">" + m.group + "</span></td>";
+    html += "<td>" + m.t1 + " <span class=\"vs\">vs</span> " + m.t2 + "</td>";
+    html += "<td style=\"white-space:nowrap\">";
+    html += "<span class=\"score-display\" style=\"font-family:Rajdhani,sans-serif;font-weight:700;color:var(--accent2)\">" + sd + "</span>";
+    html += "<span class=\"score-display\" style=\"color:var(--green);font-size:12px;margin-left:6px\">" + (winner !== "—" ? wd : "") + "</span>";
+    html += "<input class=\"editable-score\" type=\"number\" min=\"0\" max=\"99\" placeholder=\"–\" value=\"" + s.s1 + "\" data-key=\"" + key + "\" data-pos=\"1\" />";
+    html += "<span class=\"score-separator\" style=\"padding:0 4px;color:var(--muted)\">:</span>";
+    html += "<input class=\"editable-score\" type=\"number\" min=\"0\" max=\"99\" placeholder=\"–\" value=\"" + s.s2 + "\" data-key=\"" + key + "\" data-pos=\"2\" />";
+    html += "</td></tr>";
+  });
+  tbody.innerHTML = html;
+  tbody.querySelectorAll(".editable-score").forEach(function(inp) {
+    inp.addEventListener("change", function() {
+      updateScore(inp.dataset.key, parseInt(inp.dataset.pos), inp.value);
+    });
+  });
+}
+
+document.getElementById("sched-grp-tabs").addEventListener("click", function(e) {
+  var btn = e.target.closest(".grp-tab");
+  if (!btn) return;
+  currentSchedFilter = btn.dataset.filter;
+  document.querySelectorAll("#sched-grp-tabs .grp-tab").forEach(function(b){ b.classList.remove("active"); });
+  btn.classList.add("active");
+  buildSchedule(currentSchedFilter);
+});
+
+function getWinner(s1, s2, t1, t2) {
+  if (s1 === "" || s2 === "") return "—";
+  var n1 = parseInt(s1), n2 = parseInt(s2);
+  if (isNaN(n1) || isNaN(n2)) return "—";
+  if (n1 > n2) return t1;
+  if (n2 > n1) return t2;
+  return "Draw";
+}
+
+function updateScore(key, pos, val) {
+  if (!scores[key]) scores[key] = {s1:"", s2:""};
+  if (pos === 1) scores[key].s1 = val; else scores[key].s2 = val;
+  if (typeof saveScoreToFirebase === 'function') saveScoreToFirebase(key, scores[key]);
+  buildSchedule(currentSchedFilter);
+  buildStandings(currentStandingsFilter);
+  updateKOSeedings();
+}
+
+/* ---- Standings ---- */
+function computeStandings() {
+  var stats = {};
+  Object.keys(GROUPS).forEach(function(grp) {
+    stats[grp] = {};
+    GROUPS[grp].forEach(function(t){ stats[grp][t] = {w:0,l:0,pf:0,pa:0,pts:0}; });
+  });
+  SCHEDULE.forEach(function(m) {
+    var s = scores[mKey(m)];
+    if (!s || s.s1 === "" || s.s2 === "") return;
+    var n1 = parseInt(s.s1), n2 = parseInt(s.s2);
+    if (isNaN(n1) || isNaN(n2)) return;
+    var g = m.group;
+    if (!stats[g] || !stats[g][m.t1]) return;
+    stats[g][m.t1].pf += n1; stats[g][m.t1].pa += n2;
+    stats[g][m.t2].pf += n2; stats[g][m.t2].pa += n1;
+    if (n1 > n2) { stats[g][m.t1].w++; stats[g][m.t1].pts += 2; stats[g][m.t2].l++; }
+    else if (n2 > n1) { stats[g][m.t2].w++; stats[g][m.t2].pts += 2; stats[g][m.t1].l++; }
+    else { stats[g][m.t1].pts++; stats[g][m.t2].pts++; }
+  });
+  return stats;
+}
+
+function buildStandings(filter) {
+  var stats = computeStandings();
+  var container = document.getElementById("standings-container");
+  var groups = filter === "all" ? Object.keys(GROUPS) : [filter];
+  var html = "";
+  groups.forEach(function(grp) {
+    var teams = Object.entries(stats[grp]).sort(function(a,b){
+      return (b[1].pts - a[1].pts) || ((b[1].pf-b[1].pa) - (a[1].pf-a[1].pa));
+    });
+    html += "<div style=\"margin-bottom:24px;\">";
+    html += "<div style=\"font-family:Rajdhani,sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;\">" + grp + "</div>";
+    html += "<div style=\"overflow-x:auto;-webkit-overflow-scrolling:touch;\">";
+    html += "<table class=\"standings-table\"><thead><tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th><th>Pts</th></tr></thead><tbody>";
+    teams.forEach(function(item, i) {
+      var t = item[0], s = item[1];
+      var rc = i===0?"rank-1":i===1?"rank-2":i===2?"rank-3":"rank-n";
+      var diff = s.pf - s.pa;
+      var dc = diff > 0 ? "var(--green)" : diff < 0 ? "var(--accent3)" : "var(--muted)";
+      html += "<tr>";
+      html += "<td><span class=\"rank-badge " + rc + "\">" + (i+1) + "</span></td>";
+      html += "<td style=\"font-weight:600\">" + t + "</td>";
+      html += "<td class=\"win-count\">" + s.w + "</td><td class=\"loss-count\">" + s.l + "</td>";
+      html += "<td>" + s.pf + "</td><td style=\"color:var(--muted)\">" + s.pa + "</td>";
+      html += "<td style=\"font-weight:700;color:" + dc + "\">" + (s.w+s.l>0?(diff>0?"+"+diff:diff):"—") + "</td>";
+      html += "<td class=\"pts\">" + s.pts + "</td></tr>";
+    });
+    html += "</tbody></table></div></div>";
+  });
+  container.innerHTML = html;
+}
+
+document.getElementById("standings-grp-tabs").addEventListener("click", function(e) {
+  var btn = e.target.closest(".grp-tab");
+  if (!btn) return;
+  currentStandingsFilter = btn.dataset.filter;
+  document.querySelectorAll("#standings-grp-tabs .grp-tab").forEach(function(b){ b.classList.remove("active"); });
+  btn.classList.add("active");
+  buildStandings(currentStandingsFilter);
+});
+
+/* ---- KO Format ---- */
+document.querySelectorAll(".ko-card").forEach(function(card) {
+  card.addEventListener("click", function() {
+    koMode = parseInt(card.dataset.ko);
+    document.getElementById("ko1").classList.toggle("selected", koMode === 1);
+    document.getElementById("ko2").classList.toggle("selected", koMode === 2);
+    document.getElementById("bracket-ko1").style.display = koMode === 1 ? "block" : "none";
+    document.getElementById("bracket-ko2").style.display = koMode === 2 ? "block" : "none";
+    updateKOSeedings();
+  });
+});
+
+/* ---- KO Score inputs — BO3 for SF/Final ---- */
+var BO3_MATCHES_SOC = {"ko1-sf1":true,"ko1-sf2":true,"ko1-f":true,"ko2-sf1":true,"ko2-sf2":true,"ko2-f":true};
+
+document.addEventListener("input", function(e) {
+  if (!e.target.classList.contains("m-inp")) return;
+  var matchId = e.target.dataset.match;
+  var set = e.target.dataset.set || "1";
+  var pos = e.target.dataset.pos;
+  if (!koScores[matchId]) koScores[matchId] = {};
+  if (BO3_MATCHES_SOC[matchId]) {
+    // Store as s1a/s1b, s2a/s2b, s3a/s3b
+    var field = "s" + set + (pos === "1" ? "a" : "b");
+    koScores[matchId][field] = e.target.value;
+  } else {
+    if (pos === "1") koScores[matchId].s1 = e.target.value;
+    else koScores[matchId].s2 = e.target.value;
+    // Update lock-mode score display for single-set matches (Q1/Q2)
+    var sc = koScores[matchId];
+    var sd = document.getElementById(matchId + "-sd");
+    if (sd) {
+      if (sc.s1 !== undefined && sc.s1 !== "" && sc.s2 !== undefined && sc.s2 !== "") {
+        sd.textContent = sc.s1 + ":" + sc.s2; sd.classList.add("show");
+      } else { sd.textContent = ""; sd.classList.remove("show"); }
+    }
+  }
+  if (typeof saveKOScoreToFirebase === 'function') saveKOScoreToFirebase(matchId);
+  if (koMode === 1) refreshKO1(); else refreshKO2();
+});
+
+/* ---- KO Seedings ---- */
+function getRanked() {
+  var stats = computeStandings();
+  var all = [];
+  Object.keys(GROUPS).forEach(function(g) {
+    GROUPS[g].forEach(function(t){ all.push({team:t, pts:stats[g][t].pts, diff:stats[g][t].pf-stats[g][t].pa}); });
+  });
+  all.sort(function(a,b){ return (b.pts-a.pts)||(b.diff-a.diff); });
+  return all.map(function(x){ return x.team; });
+}
+
+function setText(id, v) {
+  var e = document.getElementById(id);
+  if (!e) return;
+  e.textContent = v || "TBD";
+  e.classList.toggle("tbd", !v || v === "TBD");
+}
+
+function updateKOSeedings() {
+  var r = getRanked();
+  if (koMode === 1) {
+    setText("ko1-q1-t1", r[2] || "3rd Place"); setText("ko1-q1-t2", r[5] || "6th Place");
+    setText("ko1-q2-t1", r[3] || "4th Place"); setText("ko1-q2-t2", r[4] || "5th Place");
+    setText("ko1-sf1-t1", r[0] || "1st Place");
+    setText("ko1-sf2-t1", r[1] || "2nd Place");
+    refreshKO1();
+  } else {
+    setText("ko2-sf1-t1", r[0] || "1st Place"); setText("ko2-sf1-t2", r[3] || "4th Place");
+    setText("ko2-sf2-t1", r[1] || "2nd Place"); setText("ko2-sf2-t2", r[2] || "3rd Place");
+    refreshKO2();
+  }
+}
+
+function koWinnerSingle(matchId, t1id, t2id) {
+  var sc = koScores[matchId] || {};
+  if (sc.s1 === undefined || sc.s1 === "" || sc.s2 === undefined || sc.s2 === "") return null;
+  var n1 = parseInt(sc.s1), n2 = parseInt(sc.s2);
+  if (isNaN(n1) || isNaN(n2)) return null;
+  var t1 = document.getElementById(t1id), t2 = document.getElementById(t2id);
+  if (!t1 || !t2) return null;
+  return n1 > n2 ? t1.textContent : n2 > n1 ? t2.textContent : null;
+}
+
+function koWinnerBO3(matchId, t1id, t2id) {
+  var sc = koScores[matchId] || {};
+  var w1 = 0, w2 = 0;
+  [["s1a","s1b"],["s2a","s2b"],["s3a","s3b"]].forEach(function(pair) {
+    var a = parseInt(sc[pair[0]] || ""), b = parseInt(sc[pair[1]] || "");
+    if (!isNaN(a) && !isNaN(b) && (a || b)) { if (a > b) w1++; else if (b > a) w2++; }
+  });
+  if (w1 >= 2) { var t = document.getElementById(t1id); return t ? t.textContent.trim() : null; }
+  if (w2 >= 2) { var t = document.getElementById(t2id); return t ? t.textContent.trim() : null; }
+  return null;
+}
+
+function koWinner(matchId, t1id, t2id) {
+  return BO3_MATCHES_SOC[matchId]
+    ? koWinnerBO3(matchId, t1id, t2id)
+    : koWinnerSingle(matchId, t1id, t2id);
+}
+
+function koSeriesText(matchId) {
+  if (!BO3_MATCHES_SOC[matchId]) return "";
+  var sc = koScores[matchId] || {};
+  var w1 = 0, w2 = 0;
+  [1,2,3].forEach(function(i) {
+    var s = sc["set"+i] || {};
+    var a = parseInt(s.a || ""), b = parseInt(s.b || "");
+    if (!isNaN(a) && !isNaN(b) && (a || b)) { if (a > b) w1++; else if (b > a) w2++; }
+  });
+  return (w1 + w2 > 0) ? w1 + "–" + w2 : "";
+}
+
+function koSet3Needed(matchId) {
+  if (!BO3_MATCHES_SOC[matchId]) return false;
+  var sc = koScores[matchId] || {};
+  var w1 = 0, w2 = 0;
+  [1,2].forEach(function(i) {
+    var s = sc["set"+i] || {};
+    var a = parseInt(s.a || ""), b = parseInt(s.b || "");
+    if (!isNaN(a) && !isNaN(b) && (a || b)) { if (a > b) w1++; else if (b > a) w2++; }
+  });
+  return w1 === 1 && w2 === 1;
+}
+
+function restoreBO3Inputs(matchId) {
+  if (!BO3_MATCHES_SOC[matchId]) return;
+  var sc = koScores[matchId] || {};
+  document.querySelectorAll(".m-inp[data-match='" + matchId + "']").forEach(function(inp) {
+    var setN = inp.dataset.set, pos = inp.dataset.pos;
+    var s = sc["set"+setN] || {};
+    var val = pos === "1" ? s.a : s.b;
+    if (val !== undefined && val !== "") inp.value = val;
+  });
+  // Set 3 opacity
+  var need3 = koSet3Needed(matchId);
+  document.querySelectorAll(".m-inp[data-match='" + matchId + "'][data-set='3']").forEach(function(inp) {
+    inp.style.opacity = need3 ? "1" : "0.3";
+  });
+  // Series display
+  var sd = document.getElementById(matchId + "-sd");
+  var ser = koSeriesText(matchId);
+  if (sd && ser) { sd.textContent = ser; sd.classList.add("show"); }
+}
+
+function refreshKO1() {
+  // Restore BO3 inputs
+  ["ko1-sf1","ko1-sf2","ko1-f"].forEach(restoreBO3Inputs);
+  // Restore Q1/Q2 single-set inputs from koScores (for Firebase load)
+  ["ko1-q1","ko1-q2"].forEach(function(matchId) {
+    var sc = koScores[matchId] || {};
+    if (sc.s1 !== undefined && sc.s1 !== "") {
+      var inp1 = document.querySelector(".m-inp[data-match='" + matchId + "'][data-pos='1']");
+      var inp2 = document.querySelector(".m-inp[data-match='" + matchId + "'][data-pos='2']");
+      if (inp1) inp1.value = sc.s1;
+      if (inp2 && sc.s2 !== undefined) inp2.value = sc.s2;
+    }
+    var sd = document.getElementById(matchId + "-sd");
+    if (sd) {
+      var sc2 = koScores[matchId] || {};
+      if (sc2.s1 !== undefined && sc2.s1 !== "" && sc2.s2 !== undefined && sc2.s2 !== "") {
+        sd.textContent = sc2.s1 + ":" + sc2.s2; sd.classList.add("show");
+      } else { sd.textContent = ""; sd.classList.remove("show"); }
+    }
+  });
+  // Q1/Q2 → SF slots (single set)
+  var q1w = koWinner("ko1-q1","ko1-q1-t1","ko1-q1-t2");
+  var q2w = koWinner("ko1-q2","ko1-q2-t1","ko1-q2-t2");
+  if (q1w) setText("ko1-sf2-t2", q1w);
+  if (q2w) setText("ko1-sf1-t2", q2w);
+  // SF → Final (BO3)
+  var sf1w = koWinner("ko1-sf1","ko1-sf1-t1","ko1-sf1-t2");
+  var sf2w = koWinner("ko1-sf2","ko1-sf2-t1","ko1-sf2-t2");
+  if (sf1w) setText("ko1-f-t1", sf1w);
+  if (sf2w) setText("ko1-f-t2", sf2w);
+  // Series scores display for SF
+  ["ko1-sf1","ko1-sf2"].forEach(function(mid) {
+    var sd = document.getElementById(mid + "-sd");
+    var ser = koSeriesText(mid);
+    if (sd && ser) { sd.textContent = ser; sd.classList.add("show"); }
+  });
+  // Final → Champion (BO3)
+  var fw = koWinner("ko1-f","ko1-f-t1","ko1-f-t2");
+  var fser = koSeriesText("ko1-f");
+  var fsd = document.getElementById("ko1-f-sd");
+  if (fsd && fser) { fsd.textContent = fser; fsd.classList.add("show"); }
+  var ch = document.getElementById("ko1-champion");
+  if (ch) ch.textContent = fw ? "🏆 " + fw : "TBD";
+  if (ch && fw) ch.style.color = "var(--gold)";
+}
+
+function refreshKO2() {
+  // Restore BO3 inputs
+  ["ko2-sf1","ko2-sf2","ko2-f"].forEach(restoreBO3Inputs);
+  // SF → Final (BO3)
+  var sf1w = koWinner("ko2-sf1","ko2-sf1-t1","ko2-sf1-t2");
+  var sf2w = koWinner("ko2-sf2","ko2-sf2-t1","ko2-sf2-t2");
+  if (sf1w) setText("ko2-f-t1", sf1w);
+  if (sf2w) setText("ko2-f-t2", sf2w);
+  // Series scores for SFs
+  ["ko2-sf1","ko2-sf2"].forEach(function(mid) {
+    var sd = document.getElementById(mid + "-sd");
+    var ser = koSeriesText(mid);
+    if (sd && ser) { sd.textContent = ser; sd.classList.add("show"); }
+  });
+  // Final → Champion (BO3)
+  var fw = koWinner("ko2-f","ko2-f-t1","ko2-f-t2");
+  var fser = koSeriesText("ko2-f");
+  var fsd = document.getElementById("ko2-f-sd");
+  if (fsd && fser) { fsd.textContent = fser; fsd.classList.add("show"); }
+  var ch = document.getElementById("ko2-champion");
+  if (ch) ch.textContent = fw ? "🏆 " + fw : "TBD";
+  if (ch && fw) ch.style.color = "var(--gold)";
+}
+
+/* ---- Organiser PIN ---- */
+var ORGANISER_PIN = "IAG2026";
+var isOrganiser = false;
+
+document.getElementById("org-btn").addEventListener("click", function() {
+  if (isOrganiser) lockOrg(); else openPin();
+});
+document.getElementById("pin-cancel-btn").addEventListener("click", closePin);
+document.getElementById("pin-submit-btn").addEventListener("click", checkPin);
+document.getElementById("pin-input").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") checkPin();
+});
+
+function openPin() {
+  document.getElementById("pin-overlay").classList.add("show");
+  document.getElementById("pin-input").value = "";
+  document.getElementById("pin-error").textContent = "";
+  setTimeout(function(){ document.getElementById("pin-input").focus(); }, 100);
+}
+function closePin() { document.getElementById("pin-overlay").classList.remove("show"); }
+function lockOrg() {
+  isOrganiser = false;
+  document.body.classList.remove("organiser-mode");
+  document.getElementById("org-btn").textContent = "🔒 Organiser Login";
+  document.getElementById("org-btn").classList.remove("unlocked");
+  document.getElementById("org-status").textContent = "👁 View Only";
+  document.getElementById("org-status").classList.remove("active");
+  buildSchedule(currentSchedFilter);
+}
+function checkPin() {
+  var val = document.getElementById("pin-input").value.trim();
+  if (val === ORGANISER_PIN) {
+    isOrganiser = true;
+    document.body.classList.add("organiser-mode");
+    document.getElementById("org-btn").textContent = "🔓 Lock & Exit";
+    document.getElementById("org-btn").classList.add("unlocked");
+    document.getElementById("org-status").textContent = "✅ Organiser Mode";
+    document.getElementById("org-status").classList.add("active");
+    closePin();
+    buildSchedule(currentSchedFilter);
+  } else {
+    var inp = document.getElementById("pin-input");
+    inp.classList.add("error");
+    document.getElementById("pin-error").textContent = "Incorrect PIN.";
+    inp.value = "";
+    setTimeout(function(){ inp.classList.remove("error"); }, 500);
+  }
+}
+
+/* ---- Init ---- */
+buildGroups();
+buildSchedule("all");
+buildStandings("all");
+</script>
+<script>
+
+// ── BO3 upgrade for SF/Final ─────────────────────────────────────────────────
+var SOCIAL_BO3 = {'ko1-sf1':true,'ko1-sf2':true,'ko1-f':true,'ko2-sf1':true,'ko2-sf2':true,'ko2-f':true};
+
+function socialBO3Winner(matchId, t1id, t2id) {
+  var sc = koScores[matchId] || {};
+  var w1=0, w2=0;
+  [1,2,3].forEach(function(i) {
+    var s = sc['set'+i] || {};
+    var a=parseInt(s.a||''), b=parseInt(s.b||'');
+    if (!isNaN(a)&&!isNaN(b)&&(a||b)) { if(a>b)w1++; else if(b>a)w2++; }
+  });
+  if (w1>=2) { var t=document.getElementById(t1id); return t?t.textContent.trim():null; }
+  if (w2>=2) { var t=document.getElementById(t2id); return t?t.textContent.trim():null; }
+  return null;
+}
+
+// Patch koWinner to handle BO3
+var _origKW = koWinner;
+koWinner = function(matchId, t1id, t2id) {
+  if (SOCIAL_BO3[matchId]) return socialBO3Winner(matchId, t1id, t2id);
+  return _origKW(matchId, t1id, t2id);
+};
+
+// Patch input handler to support data-set for BO3 matches
+document.addEventListener('input', function(e) {
+  if (!e.target.classList.contains('m-inp')) return;
+  var matchId = e.target.dataset.match;
+  if (!SOCIAL_BO3[matchId]) return; // let original handler deal with non-BO3
+  var setN = e.target.dataset.set;
+  var pos = e.target.dataset.pos;
+  if (!koScores[matchId]) koScores[matchId] = {};
+  if (!koScores[matchId]['set'+setN]) koScores[matchId]['set'+setN] = {a:'',b:''};
+  if (pos==='1') koScores[matchId]['set'+setN].a = e.target.value;
+  else koScores[matchId]['set'+setN].b = e.target.value;
+  // Set 3 row visibility
+  var w1=0,w2=0;
+  [1,2].forEach(function(i){
+    var inps=document.querySelectorAll('[data-match="'+matchId+'"][data-set="'+i+'"]');
+    if(inps.length>=2){var a=parseInt(inps[0].value||''),b=parseInt(inps[1].value||'');if(!isNaN(a)&&!isNaN(b)&&(a||b)){if(a>b)w1++;else if(b>a)w2++;}}
+  });
+  var s3row=document.getElementById(matchId+'-s3row');
+  if(s3row){var need3=w1===1&&w2===1;s3row.querySelectorAll('input,span').forEach(function(el){el.style.opacity=need3?'1':'0.4';});}
+  // Result display
+  var w1t=0,w2t=0;
+  [1,2,3].forEach(function(i){
+    var s=koScores[matchId]['set'+i]||{};
+    var a=parseInt(s.a||''),b=parseInt(s.b||'');
+    if(!isNaN(a)&&!isNaN(b)&&(a||b)){if(a>b)w1t++;else if(b>a)w2t++;}
+  });
+  var sd=document.getElementById(matchId+'-sd');
+  var t1el=document.getElementById(matchId+'-t1'),t2el=document.getElementById(matchId+'-t2');
+  if(sd){
+    if(w1t>=2){sd.textContent='🏆 '+(t1el?t1el.textContent.trim():'T1')+' wins '+w1t+'-'+w2t;sd.style.color='var(--green)';}
+    else if(w2t>=2){sd.textContent='🏆 '+(t2el?t2el.textContent.trim():'T2')+' wins '+w2t+'-'+w1t;sd.style.color='var(--green)';}
+    else if(w1t+w2t>0){sd.textContent=w1t+'-'+w2t+' sets';sd.style.color='var(--accent2)';}
+  }
+  if (typeof saveKOScoreToFirebase === 'function') saveKOScoreToFirebase(matchId);
+  if (koMode===1) refreshKO1(); else refreshKO2();
+});
+
+</script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+
+// ── Firebase Integration for Social Tournament ──────────────────────────────
+var FIREBASE_CONFIG_SOC = {
+  apiKey: "AIzaSyBvlflZt28TrZi-nZ6-L8YV1IBqrLiIvsc",
+  authDomain: "iag-pickleball.firebaseapp.com",
+  databaseURL: "https://iag-pickleball-default-rtdb.firebaseio.com",
+  projectId: "iag-pickleball",
+  storageBucket: "iag-pickleball.firebasestorage.app",
+  messagingSenderId: "1032967317528",
+  appId: "1:1032967317528:web:8742c451537507ca37fb6d",
+  measurementId: "G-1TWT6FF8FW"
+};
+var db_soc = null;
+var scoresRef_soc = null;
+
+function updateSyncStatus(msg, color) {
+  var el = document.getElementById('sync-status');
+  if (el) {
+    el.textContent = msg;
+    el.style.color = color === 'green' ? 'var(--green)' : color === 'orange' ? 'var(--accent2)' : color === 'muted' ? 'var(--muted)' : 'var(--accent3)';
+  }
+}
+
+function saveScoreToFirebase(key, scoreObj) {
+  if (db_soc && scoresRef_soc) {
+    scoresRef_soc.child(key).set(scoreObj).catch(function() {
+      try { localStorage.setItem('iag-social-scores', JSON.stringify(scores)); } catch(e) {}
+    });
+  } else {
+    try { localStorage.setItem('iag-social-scores', JSON.stringify(scores)); } catch(e) {}
+  }
+}
+
+function saveKOScoreToFirebase(matchId) {
+  if (db_soc && koScores[matchId] !== undefined) {
+    db_soc.ref('social-scores-ko/' + matchId).set(koScores[matchId]).catch(function(){});
+  } else {
+    try { localStorage.setItem('iag-social-scores-ko', JSON.stringify(koScores)); } catch(e) {}
+  }
+}
+
+function initKOScores() {
+  if (db_soc) {
+    db_soc.ref('social-scores-ko').on('value', function(snap) {
+      koScores = snap.val() || {};
+      if (koMode === 1) refreshKO1(); else refreshKO2();
+    });
+  } else {
+    try { var s = localStorage.getItem('iag-social-scores-ko'); if (s) koScores = JSON.parse(s); } catch(e) {}
+    if (koMode === 1) refreshKO1(); else refreshKO2();
+  }
+}
+
+(function initFirebase() {
+  try {
+    if (typeof firebase === 'undefined') {
+      try { var s = localStorage.getItem('iag-social-scores'); if (s) scores = JSON.parse(s); } catch(e) {}
+      updateSyncStatus('🟡 Local only', 'orange');
+      buildSchedule(currentSchedFilter); buildStandings(currentStandingsFilter);
+      initKOScores(); return;
+    }
+    if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG_SOC);
+    db_soc = firebase.database();
+    scoresRef_soc = db_soc.ref('social-scores');
+    updateSyncStatus('⏳ Connecting...', 'muted');
+    var tid = setTimeout(function() { updateSyncStatus('⚠️ Slow connection', 'orange'); }, 5000);
+    scoresRef_soc.on('value', function(snap) {
+      clearTimeout(tid);
+      scores = snap.val() || {};
+      buildSchedule(currentSchedFilter); buildStandings(currentStandingsFilter); updateKOSeedings();
+      updateSyncStatus('🟢 Live – synced', 'green');
+    }, function() {
+      clearTimeout(tid);
+      updateSyncStatus('🔴 Firebase error', 'red');
+      try { var s = localStorage.getItem('iag-social-scores'); if (s) scores = JSON.parse(s); } catch(e) {}
+      buildSchedule(currentSchedFilter); buildStandings(currentStandingsFilter);
+    });
+    initKOScores();
+  } catch(e) {
+    db_soc = null;
+    updateSyncStatus('🟡 Local only', 'orange');
+    try { var s = localStorage.getItem('iag-social-scores'); if (s) scores = JSON.parse(s); } catch(e2) {}
+    buildSchedule(currentSchedFilter); buildStandings(currentStandingsFilter);
+    initKOScores();
+  }
+})();
+
+</script>
+</body>
+</html>
