@@ -1574,10 +1574,9 @@
     <!-- Navigation -->
     <nav class="nav-tabs">
         <div class="nav-container">
-            <button class="tab-btn active" data-tab="overview">Overview</button>
+            <button class="tab-btn active" data-tab="register">Register</button>
             <button class="tab-btn tab-disabled" disabled title="Coming soon">🏆 Live Score and Schedule</button>
             <button class="tab-btn tab-disabled" disabled title="Coming soon">📺 Live Streaming</button>
-            <button class="tab-btn" data-tab="register">Register</button>
             <button class="tab-btn tab-disabled" disabled title="Pricing info unavailable">Pricing</button>
         </div>
     </nav>
@@ -1585,7 +1584,7 @@
     <!-- Main Content -->
     <main class="container">
         <!-- Overview Tab -->
-        <div id="overview" class="tab-content active">
+        <div id="overview" class="tab-content">
             <div class="card">
                 <h2 class="card-title">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1594,7 +1593,6 @@
                     What's Included
                 </h2>
                 <div class="pricing-features">
-                    <li>Professional court setup with 4 courts</li>
                     <li>Official tournament balls provided (Lifetime LT Pro 48)</li>
                     <li>Professional tournament management</li>
                     <li>Real-time brackets and scoring</li>
@@ -1611,19 +1609,15 @@
                     </svg>
                     Tournament Format
                 </h2>
-                <p style="margin-bottom: 1.5rem; line-height: 1.8;">Our premium format ensures maximum play time and competitive balance.</p>
+                <p style="margin-bottom: 1.5rem; line-height: 1.8;">Each division is played as a league stage followed by playoffs.</p>
                 <div style="display: grid; gap: 1rem;">
                     <div style="background: var(--light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary);">
-                        <strong style="color: var(--secondary); font-size: 1.1rem;">Phase 1: League Stage</strong>
-                        <p style="margin-top: 0.5rem;">Teams are split into groups and play their round robin matches. Top 4 teams from each group advance to knockouts.</p>
-                    </div>
-                    <div style="background: var(--light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent);">
-                        <strong style="color: var(--secondary); font-size: 1.1rem;">Phase 2: Quarter-Finals</strong>
-                        <p style="margin-top: 0.5rem;">Top 8 teams compete in single-elimination matches (15 minutes each). Winners advance to semi-finals.</p>
+                        <strong style="color: var(--secondary); font-size: 1.1rem;">League Stage</strong>
+                        <p style="margin-top: 0.5rem;">Teams are split into groups and play round robin matches within their group.</p>
                     </div>
                     <div style="background: var(--light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--success);">
-                        <strong style="color: var(--secondary); font-size: 1.1rem;">Phase 3: Semi-Finals & Finals</strong>
-                        <p style="margin-top: 0.5rem;">Winners and Runners receive trophies.</p>
+                        <strong style="color: var(--secondary); font-size: 1.1rem;">Playoffs</strong>
+                        <p style="margin-top: 0.5rem;">Top teams from the league stage advance to the playoffs. Winners and Runners receive trophies.</p>
                     </div>
                 </div>
             </div>
@@ -2143,7 +2137,7 @@
         </div>
 
         <!-- Registration Tab -->
-        <div id="register" class="tab-content">
+        <div id="register" class="tab-content active">
             <div class="success-message" id="successMessage">
                 <h3 style="color: #ffffff; margin-bottom: 1.5rem; font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">✓ Registration Submitted Successfully!</h3>
                 
@@ -2230,7 +2224,7 @@
                     <div class="form-group">
                         <label>Select Events <span class="required">*</span></label>
                         <p style="font-size: 0.9rem; color: #ccc; margin-bottom: 1rem;">
-                            One event: $40 | Two events: $60 | Three events: $80
+                            One event: $25 | Two events: $40 | Max 2 events per player
                         </p>
                         
                         <div style="background: var(--light); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
@@ -2298,6 +2292,8 @@
 
 
                     </div>
+
+                    <p id="maxEventsNote" style="display: none; color: #FF6B6B; font-weight: 600; margin: 0.5rem 0;">You can register for a maximum of 2 events.</p>
 
                     <!-- Registration Fee Display -->
                     <div id="feeDisplay" style="display: none; background: linear-gradient(135deg, #FFC72C 0%, #3DBE5A 100%); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; text-align: center;">
@@ -2498,7 +2494,7 @@
             
             console.log('Event count:', eventCount, 'Open:', hasOpen, 'Mixed:', hasMixed, 'Womens:', hasWomens);
             
-            // Pricing: 1 event $40, 2 events $60, 3 events $80
+            // Pricing: 1 event $25, 2 events $40 (max 2 events per player)
             const selectedOpen = Array.from(openRadios).find(r => r.checked);
             const events = [];
             if (hasWomens) events.push("Women's Doubles");
@@ -2508,7 +2504,7 @@
             if (eventCount === 0) {
                 return { total: 0, breakdown: [] };
             }
-            total = { 1: 40, 2: 60, 3: 80 }[eventCount];
+            total = { 1: 25, 2: 40 }[eventCount];
             breakdown = [events.join(' + ') + ': $' + total];
 
             return { total, breakdown };
@@ -2564,6 +2560,20 @@
             updatePartnerFields();
         }
 
+        // Max 2 events per player: undo a selection that would make it 3
+        const maxEventsNote = document.getElementById('maxEventsNote');
+        function countEvents() {
+            return (Array.from(openRadios).some(radio => radio.checked) ? 1 : 0)
+                + (mixedCheckbox.checked ? 1 : 0)
+                + (womensCheckbox.checked ? 1 : 0);
+        }
+        function withinMaxEvents(input) {
+            const ok = countEvents() <= 2;
+            if (!ok) input.checked = false;
+            maxEventsNote.style.display = ok ? 'none' : 'block';
+            return ok;
+        }
+
         // Add event listeners
         // Allow unchecking radio buttons for Open category
         let lastCheckedOpen = null;
@@ -2572,8 +2582,11 @@
                 if (lastCheckedOpen === this) {
                     this.checked = false;
                     lastCheckedOpen = null;
-                } else {
+                } else if (withinMaxEvents(this)) {
                     lastCheckedOpen = this;
+                } else {
+                    // restore the previously chosen Open level, if any
+                    if (lastCheckedOpen) lastCheckedOpen.checked = true;
                 }
                 updateFeeDisplay();
             });
@@ -2584,8 +2597,8 @@
             });
         });
         
-        mixedCheckbox.addEventListener('change', updateFeeDisplay);
-        womensCheckbox.addEventListener('change', updateFeeDisplay);
+        mixedCheckbox.addEventListener('change', function() { withinMaxEvents(this); updateFeeDisplay(); });
+        womensCheckbox.addEventListener('change', function() { withinMaxEvents(this); updateFeeDisplay(); });
 
         // Form Submission (combined validation and submission)
         const registrationForm = document.getElementById('registrationForm');
@@ -2602,6 +2615,10 @@
             
             if (!hasOpen && !hasMixed && !hasWomens) {
                 alert('Please select at least one event to register.');
+                return false;
+            }
+            if (countEvents() > 2) {
+                alert('You can register for a maximum of 2 events.');
                 return false;
             }
             

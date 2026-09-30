@@ -115,6 +115,11 @@ function doPost(e) {
       registrationFee = 80;
     }
     
+    // GTS pricing: 1 event $25, 2 events $40 (the GTS form allows at most 2)
+    if (isGTS) {
+      registrationFee = { 1: 25, 2: 40 }[totalEvents] || 0;
+    }
+    
     const termsAccepted = formData.terms ? 'Yes' : 'No';
     
     // Create row data
