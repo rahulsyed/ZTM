@@ -3,2714 +3,1273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTS Pickleball Tournament | Registration</title>
+    <title>GTS Pickleball Tournament 2026 | Registration</title>
+    <meta name="description" content="Register for the GTS Pickleball Tournament, October 24–25, 2026 at ERS / Sudduth Farms. Women's, Mixed and Open Doubles.">
+    <meta name="theme-color" content="#FFFFFF">
+    <meta property="og:title" content="GTS Pickleball Tournament 2026 — Registration Open">
+    <meta property="og:description" content="October 24–25, 2026 · ERS / Sudduth Farms · Women's, Mixed & Open Doubles (3.0 / 3.5 / 4.0). $25 one event, $40 two.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1665855031742-a87f5964adf1?auto=format&fit=crop&w=1200&h=630&q=80">
+    <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="gts-logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --ink: #0B1B33;
+            --blue: #106EEA;
+            --blue-soft: #EEF4FE;
+            --ball: #D7F34A;
+            --ball-soft: #F5FBD6;
+            --bg: #FFFFFF;
+            --bg-2: #F6F8FB;
+            --card: #FFFFFF;
+            --line: #E4E9F0;
+            --text: #0F172A;
+            --muted: #5B6B82;
+            --danger: #DC2626;
+            --radius: 18px;
+            --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 14px 34px rgba(15, 23, 42, 0.07);
+            --display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+            --body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
         }
 
-        :root {
-            --primary: #FFC72C;
-            --secondary: #3DBE5A;
-            --accent: #FFFFFF;
-            --dark: #06142E;
-            --navy: #0B2A5B;
-            --light: #10264A;
-            --white: #FFFFFF;
-            --success: #06D6A0;
-            --gts-blue: #106EEA;
-            --gts-green: #3DBE5A;
-            --gts-red: #D62828;
-            --gradient: linear-gradient(135deg, #FFC72C 0%, #FFFFFF 50%, #3DBE5A 100%);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Open Sans', sans-serif;
-            background: var(--dark);
-            color: var(--white);
-            line-height: 1.6;
+            font-family: var(--body);
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* Animated Background */
-        .bg-pattern {
-            position: fixed;
+        a { color: inherit; }
+
+        img { display: block; max-width: 100%; }
+
+        .container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+        /* ---------- Top bar ---------- */
+        .topbar-wrap {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.05;
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 35px, var(--primary) 35px, var(--primary) 70px),
-                repeating-linear-gradient(-45deg, transparent, transparent 35px, var(--secondary) 35px, var(--secondary) 70px);
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: saturate(180%) blur(12px);
+            -webkit-backdrop-filter: saturate(180%) blur(12px);
+            border-bottom: 1px solid var(--line);
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #0A4DB0 0%, var(--gts-blue) 100%);
-            color: var(--white);
-            padding: 2rem 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 12px; padding-bottom: 12px; }
+
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+
+        .brand img { height: 48px; width: auto; }
+
+        .brand span { font-weight: 700; font-size: 0.95rem; color: var(--ink); line-height: 1.2; white-space: nowrap; }
+
+        .brand small { display: block; font-weight: 500; font-size: 0.78rem; color: var(--muted); }
+
+        .nav { display: flex; gap: 6px; align-items: center; }
+
+        .nav a, .nav span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 16px;
+            border-radius: 999px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav .active { background: var(--ink); color: #fff; }
+
+        .nav .soon { color: #94A3B8; cursor: not-allowed; }
+
+        .nav .soon small {
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
             position: relative;
-            z-index: 90;
-            border-bottom: 4px solid var(--primary);
-            border-top: 3px solid var(--secondary);
             overflow: hidden;
+            padding: 64px 0 72px;
+            background:
+                radial-gradient(600px 380px at 92% 8%, rgba(215, 243, 74, 0.35), transparent 70%),
+                radial-gradient(520px 360px at -5% 90%, rgba(16, 110, 234, 0.10), transparent 70%),
+                var(--bg);
         }
 
-        /* Static Indian Flag */
-        .india-flag-container {
+        .hero::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            display: flex;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line) 1px, transparent 1px);
+            background-size: 56px 56px;
+            -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 65%);
+            mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 65%);
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.02fr 0.98fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
             align-items: center;
             gap: 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 18px;
         }
 
-        .india-flag {
-            width: 60px;
-            height: 40px;
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .india-flag-stripe {
-            height: 33.33%;
-            width: 100%;
-        }
-
-        .saffron-stripe {
-            background: #FFC72C;
-        }
-
-        .white-stripe {
-            background: #FFFFFF;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .ashoka-chakra {
-            width: 16px;
-            height: 16px;
-            border: 1.5px solid #000080;
-            border-radius: 50%;
-            position: relative;
-        }
-
-        .ashoka-chakra::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 12px;
-            height: 12px;
-            background: 
-                linear-gradient(0deg, #000080 0%, #000080 10%, transparent 10%, transparent 90%, #000080 90%),
-                linear-gradient(45deg, #000080 0%, #000080 10%, transparent 10%, transparent 90%, #000080 90%),
-                linear-gradient(90deg, #000080 0%, #000080 10%, transparent 10%, transparent 90%, #000080 90%),
-                linear-gradient(135deg, #000080 0%, #000080 10%, transparent 10%, transparent 90%, #000080 90%);
-        }
-
-        .green-stripe {
-            background: #3DBE5A;
-        }
-
-        .flag-label {
-            font-size: 0.75rem;
-            color: var(--white);
-            font-weight: 600;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-            white-space: nowrap;
-        }
-
-        @media (max-width: 768px) {
-            .india-flag-container {
-                top: 10px;
-                right: 10px;
-            }
-            
-            .india-flag {
-                width: 50px;
-                height: 33px;
-            }
-            
-            .ashoka-chakra {
-                width: 12px;
-                height: 12px;
-            }
-            
-            .flag-label {
-                display: none;
-            }
-        }
-
-        /* Pickleball Pattern Background */
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(255, 199, 44, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(61, 190, 90, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(255, 199, 44, 0.05) 0%, transparent 30%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Pickleball Pattern - Holes */
-        header::after {
-            content: '🎾 🏓 ⚪ 🎾 🏓 ⚪ 🎾 🏓 ⚪ 🎾 🏓 ⚪';
-            position: absolute;
-            top: 50%;
-            left: -10%;
-            transform: translateY(-50%);
-            font-size: 3rem;
-            opacity: 0.03;
-            white-space: nowrap;
-            z-index: 1;
-            pointer-events: none;
-            animation: slidePattern 20s linear infinite;
-        }
-
-        @keyframes slidePattern {
-            0% { left: -10%; }
-            100% { left: 100%; }
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* GTS logo is black line art, so it sits on a white badge */
-        .gts-logo-badge {
-            display: inline-block;
-            background: #FFFFFF;
-            padding: 10px 16px;
-            border-radius: 14px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-            border: 3px solid var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .gts-logo-badge img {
-            display: block;
-            width: 170px;
-            height: auto;
-        }
-
-        @media (max-width: 600px) {
-            .gts-logo-badge { padding: 6px 10px; }
-            .gts-logo-badge img { width: 120px; }
-        }
-
-        /* Pickleball Decorations */
-        .pickleball-decor {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #FFEB3B 0%, #FFC107 100%);
-            opacity: 0.15;
-            z-index: 1;
-        }
-
-        .pickleball-decor::before,
-        .pickleball-decor::after {
-            content: '';
-            position: absolute;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 50%;
-        }
-
-        /* Pickleball holes pattern */
-        .pickleball-decor::before {
+        .eyebrow .dot {
             width: 8px;
             height: 8px;
-            top: 20%;
-            left: 30%;
-            box-shadow: 
-                15px 5px 0 rgba(0, 0, 0, 0.3),
-                30px 10px 0 rgba(0, 0, 0, 0.3),
-                5px 20px 0 rgba(0, 0, 0, 0.3),
-                25px 25px 0 rgba(0, 0, 0, 0.3),
-                45px 20px 0 rgba(0, 0, 0, 0.3),
-                15px 40px 0 rgba(0, 0, 0, 0.3),
-                35px 45px 0 rgba(0, 0, 0, 0.3),
-                20px 55px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            background: #22C55E;
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+            animation: pulse 2s infinite;
         }
 
-        .pickleball-1 {
-            top: 10%;
-            left: 15%;
-            animation: float1 8s ease-in-out infinite;
-        }
-
-        .pickleball-2 {
-            top: 60%;
-            right: 10%;
-            animation: float2 10s ease-in-out infinite;
-            width: 60px;
-            height: 60px;
-        }
-
-        .pickleball-3 {
-            top: 30%;
-            right: 25%;
-            animation: float3 12s ease-in-out infinite;
-            width: 50px;
-            height: 50px;
-            opacity: 0.1;
-        }
-
-        @keyframes float1 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(10px, -20px) rotate(90deg); }
-            50% { transform: translate(-5px, -10px) rotate(180deg); }
-            75% { transform: translate(15px, -15px) rotate(270deg); }
-        }
-
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(-15px, 10px) rotate(120deg); }
-            66% { transform: translate(20px, -5px) rotate(240deg); }
-        }
-
-        @keyframes float3 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-10px, 15px) scale(1.2); }
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            text-align: center;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+            70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
 
         h1 {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 3rem;
+            font-family: var(--display);
+            font-weight: 800;
+            font-style: italic;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-            text-shadow: 0 0 20px rgba(255, 199, 44, 0.5), 2px 2px 4px rgba(0, 0, 0, 0.8);
-            animation: slideDown 0.8s ease-out;
+            font-size: clamp(3.3rem, 7.6vw, 6.4rem);
+            line-height: 0.9;
+            color: var(--ink);
+            letter-spacing: 0.005em;
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            animation: fadeIn 1s ease-out 0.3s both;
-            color: var(--white);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        h1 .hl {
+            background: linear-gradient(transparent 58%, var(--ball) 58%, var(--ball) 90%, transparent 90%);
+            padding: 0 0.06em;
         }
 
-        .event-details {
-            display: flex;
+        h1 .year {
+            display: inline-block;
+            font-size: 0.4em;
+            font-style: normal;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            vertical-align: top;
+            margin-left: 10px;
+            padding: 5px 11px;
+            background: var(--ink);
+            color: #fff;
+            border-radius: 8px;
+            transform: translateY(0.45em);
+        }
+
+        .lede { margin-top: 22px; max-width: 500px; font-size: 1.1rem; color: var(--muted); }
+
+        .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+
+        .meta div {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: #fff;
+            border: 1px solid var(--line);
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--ink);
+        }
+
+        .meta svg { width: 18px; height: 18px; color: var(--blue); flex-shrink: 0; }
+
+        .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 32px; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            gap: 3rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-            animation: fadeIn 1s ease-out 0.6s both;
+            gap: 10px;
+            border: 0;
+            border-radius: 12px;
+            padding: 16px 28px;
+            font-family: var(--display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
 
-        .event-detail {
+        .btn-ball { background: var(--ball); color: var(--ink); box-shadow: 0 10px 24px rgba(160, 190, 20, 0.35); }
+
+        .btn-ball:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(160, 190, 20, 0.45); }
+
+        .btn:disabled { opacity: 0.6; cursor: progress; transform: none; }
+
+        .cta-note { font-size: 0.95rem; color: var(--muted); }
+
+        .cta-note strong { color: var(--ink); }
+
+        .divisions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+
+        .divisions span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--ink);
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: var(--blue-soft);
+        }
+
+        /* Photo collage */
+        .collage { position: relative; height: 540px; }
+
+        .photo {
+            position: absolute;
+            overflow: hidden;
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(11, 27, 51, 0.18);
+            background: var(--bg-2);
+        }
+
+        .photo img { width: 100%; height: 100%; object-fit: cover; }
+
+        .photo-main { top: 0; right: 0; width: 84%; height: 460px; }
+
+        .photo-small {
+            left: 0;
+            bottom: 0;
+            width: 48%;
+            height: 230px;
+            border: 6px solid #fff;
+            border-radius: 24px;
+        }
+
+        .float-card {
+            position: absolute;
+            right: 18px;
+            bottom: 36px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            color: var(--white);
-            background: rgba(255, 199, 44, 0.15);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255, 199, 44, 0.3);
+            gap: 12px;
+            padding: 14px 18px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 18px 40px rgba(11, 27, 51, 0.16);
         }
 
-        .event-detail svg {
-            color: var(--primary);
+        .float-card .ico {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: var(--ball);
+            color: var(--ink);
         }
 
-        .event-detail svg {
+        .float-card b { display: block; font-family: var(--display); font-size: 1.35rem; line-height: 1; color: var(--ink); text-transform: uppercase; }
+
+        .float-card small { color: var(--muted); font-size: 0.8rem; font-weight: 600; }
+
+        .mini-ball {
+            position: absolute;
+            left: 30%;
+            top: -18px;
+            width: 76px;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 14px 18px rgba(11, 27, 51, 0.18));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(10deg); }
+        }
+
+        .fade-up { opacity: 0; transform: translateY(18px); animation: fadeUp 0.8s ease forwards; }
+        .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.15s; } .d3 { animation-delay: 0.25s; } .d4 { animation-delay: 0.35s; }
+
+        @keyframes fadeUp { to { opacity: 1; transform: none; } }
+
+        /* ---------- Registration ---------- */
+        .register {
+            padding: 72px 0 80px;
+            background-color: var(--bg-2);
+            background-image: radial-gradient(circle at 1px 1px, rgba(11, 27, 51, 0.07) 1px, transparent 0);
+            background-size: 22px 22px;
+            border-top: 1px solid var(--line);
+        }
+
+        .section-head { text-align: center; max-width: 640px; margin: 0 auto 36px; }
+
+        .section-head .kicker {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--blue);
+        }
+
+        .section-head h2 {
+            font-family: var(--display);
+            font-weight: 800;
+            font-style: italic;
+            text-transform: uppercase;
+            font-size: clamp(2.3rem, 5vw, 3.4rem);
+            line-height: 1;
+            color: var(--ink);
+            margin-top: 8px;
+        }
+
+        .section-head p { color: var(--muted); margin-top: 10px; }
+
+        .reg-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 360px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+
+        .card + .card { margin-top: 20px; }
+
+        .step { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--ball);
+            color: var(--ink);
+            font-family: var(--display);
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .step h3 {
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: 1.7rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: var(--ink);
+        }
+
+        .step p { color: var(--muted); font-size: 0.92rem; margin-top: 2px; }
+
+        .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        .field { display: flex; flex-direction: column; gap: 6px; }
+
+        .field.full { grid-column: 1 / -1; }
+
+        label.lbl { font-size: 0.85rem; font-weight: 600; color: #334155; }
+
+        .req { color: var(--danger); }
+
+        input[type="text"], input[type="email"], input[type="tel"] {
+            width: 100%;
+            height: 48px;
+            padding: 0 14px;
+            border: 1.5px solid var(--line);
+            border-radius: 10px;
+            font: inherit;
+            font-size: 1rem;
+            color: var(--text);
+            background: #fff;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        input::placeholder { color: #94A3B8; }
+
+        input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(16, 110, 234, 0.15); }
+
+        /* Event option cards */
+        .events { display: grid; gap: 14px; }
+
+        .event {
+            border: 1.5px solid var(--line);
+            border-radius: 14px;
+            padding: 18px 20px;
+            transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .event.is-selected { border-color: var(--blue); background: #F8FBFF; box-shadow: 0 0 0 4px rgba(16, 110, 234, 0.08); }
+
+        .event-head { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+
+        .event-head input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            flex-shrink: 0;
             width: 24px;
             height: 24px;
-        }
-
-        /* Navigation Tabs */
-        .nav-tabs {
-            background: var(--navy);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) var(--navy);
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .nav-container::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .nav-container::-webkit-scrollbar-track {
-            background: var(--navy);
-        }
-
-        .nav-container::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .nav-tabs button {
-            flex: 1;
-            min-width: 150px;
-            padding: 1.5rem 2rem;
-            border: none;
-            background: transparent;
-            color: var(--white);
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
+            border: 2px solid #CBD5E1;
+            border-radius: 7px;
+            display: grid;
+            place-items: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.15s ease;
         }
 
-        .nav-tabs button:hover {
-            background: rgba(255, 199, 44, 0.1);
-            color: var(--primary);
+        .event-head input[type="checkbox"]:checked { background: var(--blue); border-color: var(--blue); }
+
+        .event-head input[type="checkbox"]:checked::after {
+            content: '';
+            width: 6px;
+            height: 11px;
+            border: solid #fff;
+            border-width: 0 2.5px 2.5px 0;
+            transform: rotate(45deg) translate(-1px, -1px);
         }
 
-        .nav-tabs button.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-            background: rgba(255, 199, 44, 0.15);
-        }
+        .event-head input:focus-visible { outline: 3px solid rgba(16, 110, 234, 0.35); outline-offset: 2px; }
 
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
+        .event-title { flex: 1; }
 
-        .tab-content {
-            display: none;
-            animation: fadeInUp 0.5s ease-out;
-        }
-
-        .tab-content.active {
+        .event-title strong {
             display: block;
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: 1.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+            color: var(--ink);
         }
 
-        /* Cards */
-        .card {
-            background: var(--navy);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(255, 199, 44, 0.2);
-        }
+        .event-title span { font-size: 0.85rem; color: var(--muted); }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 32px rgba(255, 199, 44, 0.3);
-        }
+        .levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
 
-        .card-title {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
+        .level input { position: absolute; opacity: 0; pointer-events: none; }
+
+        .level label {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 1rem;
-        }
-
-        .card-title svg {
-            width: 32px;
-            height: 32px;
-            color: var(--primary);
-        }
-
-        /* Info Grid */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .info-box {
-            background: linear-gradient(135deg, var(--navy) 0%, #003a5c 100%);
-            color: var(--white);
-            padding: 2rem;
+            gap: 2px;
+            padding: 12px 8px;
+            border: 1.5px solid var(--line);
             border-radius: 12px;
+            cursor: pointer;
             text-align: center;
-            transition: transform 0.3s ease;
-            border: 2px solid var(--primary);
+            transition: all 0.15s ease;
+            background: #fff;
         }
 
-        .info-box:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 24px rgba(255, 199, 44, 0.3);
-        }
+        .level label b { font-family: var(--display); font-size: 1.6rem; font-weight: 800; line-height: 1; color: var(--ink); }
 
-        .info-box h3 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
+        .level label small { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
 
-        .info-box p {
-            font-size: 1rem;
-            font-weight: 300;
-        }
+        .level label:hover { border-color: #94A3B8; }
 
-        /* Schedule Table */
-        .schedule-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 0.5rem;
-            margin-top: 2rem;
-        }
+        .level input:checked + label { background: var(--ball); border-color: #B5D32A; }
 
-        .schedule-table thead th {
-            background: var(--navy);
-            color: var(--primary);
-            padding: 1.2rem;
-            text-align: left;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .level input:checked + label small { color: var(--ink); }
+
+        .level input:focus-visible + label { outline: 3px solid rgba(16, 110, 234, 0.35); outline-offset: 2px; }
+
+        .partner { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--line); }
+
+        .partner.show { display: flex; }
+
+        .limit-note {
+            display: none;
+            margin-top: 14px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #FEF2F2;
+            color: #B91C1C;
             font-size: 0.9rem;
-            border: 1px solid rgba(255, 199, 44, 0.3);
-        }
-
-        .schedule-table thead th:first-child {
-            border-radius: 8px 0 0 8px;
-        }
-
-        .schedule-table thead th:last-child {
-            border-radius: 0 8px 8px 0;
-        }
-
-        .schedule-table tbody tr {
-            background: var(--light);
-            transition: all 0.3s ease;
-        }
-
-        .schedule-table tbody tr:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(255, 199, 44, 0.2);
-            background: rgba(255, 199, 44, 0.1);
-        }
-
-        .schedule-table tbody td {
-            padding: 1.2rem;
-            border-top: 1px solid rgba(255, 199, 44, 0.1);
-            border-bottom: 1px solid rgba(255, 199, 44, 0.1);
-            color: var(--white);
-        }
-
-        .schedule-table tbody td:first-child {
-            border-left: 1px solid rgba(255, 199, 44, 0.1);
-            border-radius: 8px 0 0 8px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .schedule-table tbody td:last-child {
-            border-right: 1px solid rgba(255, 199, 44, 0.1);
-            border-radius: 0 8px 8px 0;
-        }
-
-        /* Registration Form */
-        .form-section {
-            background: var(--navy);
-            padding: 3rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 199, 44, 0.2);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 1rem;
-            border: 2px solid rgba(255, 199, 44, 0.3);
-            border-radius: 8px;
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: var(--dark);
-            color: var(--white);
-        }
+        .terms { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-size: 0.92rem; color: #334155; }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(255, 199, 44, 0.2);
-        }
+        .terms input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--blue); flex-shrink: 0; }
 
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .required {
-            color: var(--primary);
-            margin-left: 3px;
-        }
-
-        /* Checkboxes and Radio */
-        .checkbox-group,
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .checkbox-item,
-        .radio-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 1rem;
-            background: var(--dark);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 199, 44, 0.2);
-        }
-
-        .checkbox-item:hover,
-        .radio-item:hover {
-            background: rgba(255, 199, 44, 0.1);
-            transform: translateX(5px);
-            border-color: var(--primary);
-        }
-
-        .checkbox-item input,
-        .radio-item input {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: var(--primary);
-        }
-
-        .checkbox-item label,
-        .radio-item label {
-            cursor: pointer;
-            margin-bottom: 0;
-            text-transform: none;
-            font-weight: 400;
-        }
-
-        /* Pricing Cards */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .pricing-card {
-            background: var(--navy);
-            border-radius: 16px;
-            padding: 2.5rem;
-            text-align: center;
-            border: 3px solid rgba(255, 199, 44, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
+        /* Summary */
+        .summary {
+            position: sticky;
+            top: 92px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             overflow: hidden;
         }
 
-        .pricing-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: var(--gradient);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
+        .summary-photo { height: 130px; position: relative; }
 
-        .pricing-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-10px);
-            box-shadow: 0 16px 40px rgba(255, 199, 44, 0.3);
-        }
+        .summary-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-        .pricing-card:hover::before {
-            transform: scaleX(1);
-        }
+        .summary-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(255, 255, 255, 0.9) 100%); }
 
-        .pricing-card.featured {
-            border-color: var(--primary);
-            box-shadow: 0 12px 32px rgba(255, 199, 44, 0.4);
-            background: linear-gradient(135deg, var(--navy) 0%, #003050 100%);
-        }
+        .summary-body { padding: 4px 26px 26px; }
 
-        .pricing-card.featured::before {
-            transform: scaleX(1);
-        }
-
-        .pricing-badge {
-            background: var(--primary);
-            color: var(--dark);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
+        .summary h3 {
+            font-family: var(--display);
             font-weight: 700;
-            display: inline-block;
-            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            color: var(--muted);
         }
 
-        .pricing-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--white);
-        }
+        .sum-list { list-style: none; margin: 14px 0 16px; display: grid; gap: 8px; min-height: 24px; }
 
-        .pricing-amount {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
+        .sum-list li { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--ink); }
 
-        .pricing-period {
-            color: #999;
-            margin-bottom: 2rem;
-        }
+        .sum-list li::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--ball); box-shadow: 0 0 0 2px #C6E13A; flex-shrink: 0; }
 
-        .pricing-features {
-            list-style: none;
-            margin: 2rem 0;
-            text-align: left;
-        }
+        .sum-list li.empty { color: #94A3B8; font-weight: 500; }
 
-        .pricing-features li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--light);
+        .sum-list li.empty::before { background: var(--line); box-shadow: none; }
+
+        .total {
             display: flex;
-            align-items: center;
-            gap: 0.8rem;
+            align-items: baseline;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
         }
 
-        .pricing-features li:before {
-            content: '✓';
-            color: var(--success);
+        .total span { color: var(--muted); font-weight: 600; }
+
+        .total strong { font-family: var(--display); font-size: 3rem; font-weight: 800; line-height: 1; color: var(--ink); }
+
+        .price-note { font-size: 0.82rem; color: var(--muted); margin-top: 10px; }
+
+        .zelle {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--blue-soft);
+            border: 1px solid #D6E4FB;
+        }
+
+        .zelle-label { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
+
+        .zelle-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 10px; margin-top: 6px; }
+
+        .zelle-row code { font-family: var(--body); font-weight: 700; font-size: 0.95rem; color: var(--ink); overflow-wrap: anywhere; }
+
+        .copy {
+            flex-shrink: 0;
+            border: 1px solid #C7D8F5;
+            background: #fff;
+            color: var(--blue);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .copy:hover { background: #F5F9FF; }
+
+        .zelle p { font-size: 0.82rem; color: var(--muted); margin-top: 8px; }
+
+        .summary .btn { width: 100%; margin-top: 18px; }
+
+        .secure { font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 12px; }
+
+        /* Success */
+        .success { display: none; max-width: 640px; margin: 0 auto; text-align: center; }
+
+        .success.show { display: block; }
+
+        .success-badge {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            margin: 0 auto 18px;
+            display: grid;
+            place-items: center;
+            background: var(--ball);
+            color: var(--ink);
+        }
+
+        .success h2 { font-family: var(--display); font-weight: 800; font-style: italic; font-size: 2.6rem; text-transform: uppercase; line-height: 1; color: var(--ink); }
+
+        .success > .card > p { color: var(--muted); margin-top: 8px; }
+
+        .pay-box { margin: 26px 0; padding: 22px; border-radius: 14px; background: var(--bg-2); border: 1px solid var(--line); text-align: left; }
+
+        .pay-amount { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+
+        .pay-amount span { color: var(--muted); font-weight: 600; }
+
+        .pay-amount strong { font-family: var(--display); font-size: 3rem; font-weight: 800; color: var(--ink); line-height: 1; }
+
+        .checklist { list-style: none; display: grid; gap: 10px; text-align: left; margin: 0 auto; max-width: 480px; }
+
+        .checklist li { display: flex; gap: 10px; font-size: 0.95rem; color: #334155; }
+
+        .checklist li::before { content: '✓'; color: var(--blue); font-weight: 700; }
+
+        .contact-line { margin-top: 22px; font-size: 0.92rem; color: var(--muted); }
+
+        .contact-line a { color: var(--blue); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+
+        .btn-ghost { background: transparent; color: var(--ink); border: 2px solid var(--ink); margin-top: 24px; }
+
+        .btn-ghost:hover { background: var(--ink); color: #fff; }
+
+        /* ---------- Photo strip ---------- */
+        .gallery { padding: 72px 0; background: #fff; }
+
+        .gallery-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 16px; }
+
+        .tile { position: relative; height: 320px; border-radius: 20px; overflow: hidden; }
+
+        .tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+
+        .tile:hover img { transform: scale(1.04); }
+
+        .tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(11, 27, 51, 0.7) 100%); }
+
+        .tile span {
+            position: absolute;
+            left: 20px;
+            bottom: 16px;
+            z-index: 1;
+            font-family: var(--display);
+            font-weight: 800;
+            font-style: italic;
+            font-size: 1.9rem;
+            text-transform: uppercase;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .tile span em { font-style: italic; color: var(--ball); }
+
+        /* ---------- Footer ---------- */
+        footer { background: var(--bg-2); border-top: 1px solid var(--line); color: var(--muted); padding: 52px 0 32px; }
+
+        .foot-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 32px; }
+
+        .foot-brand img { height: 72px; width: auto; margin-bottom: 14px; }
+
+        .foot-brand h4, .foot-col h4 {
+            font-family: var(--display);
             font-weight: 700;
             font-size: 1.2rem;
-        }
-
-        /* Buttons */
-        .btn {
-            padding: 1.2rem 3rem;
-            border: none;
-            border-radius: 50px;
-            font-family: 'Open Sans', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            text-decoration: none;
-            text-align: center;
+            color: var(--ink);
+            margin-bottom: 10px;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, #cc7a29 100%);
-            color: var(--dark);
-            box-shadow: 0 4px 15px rgba(255, 199, 44, 0.4);
-            font-weight: 800;
-        }
+        .foot-brand p, .foot-col p { font-size: 0.92rem; }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 199, 44, 0.6);
-        }
+        .foot-col a { color: var(--ink); text-decoration: none; overflow-wrap: anywhere; font-weight: 500; }
 
-        .btn-secondary {
-            background: var(--navy);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
+        .foot-col a:hover { color: var(--blue); }
 
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--dark);
-        }
+        .foot-col p + p { margin-top: 6px; }
 
-        .btn-full {
-            width: 100%;
-        }
+        .socials { display: flex; gap: 10px; margin-top: 14px; }
 
-        /* FAQ */
-        .faq-item {
-            background: var(--navy);
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 199, 44, 0.2);
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            background: var(--navy);
-            border: none;
-            width: 100%;
-            text-align: left;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            color: var(--white);
-        }
-
-        .faq-question:hover {
-            background: rgba(255, 199, 44, 0.1);
-            color: var(--primary);
-        }
-
-        .faq-question::after {
-            content: '+';
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            transition: transform 0.3s ease;
-        }
-
-        .faq-question.active::after {
-            transform: rotate(45deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0 1.5rem;
-        }
-
-        .faq-answer.active {
-            max-height: 500px;
-            padding: 1.5rem;
-        }
-
-        /* Success Message */
-        .success-message {
-            background: linear-gradient(135deg, #06D6A0 0%, #00b894 100%);
-            color: var(--white);
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            text-align: center;
-            display: none;
-            animation: slideDown 0.5s ease-out;
-            box-shadow: 0 10px 40px rgba(6, 214, 160, 0.4);
-            border: 3px solid #00e6b8;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .success-message h3 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            font-weight: bold;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive - Mobile Optimization */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8rem;
-                letter-spacing: 1px;
-            }
-
-            .subtitle {
-                font-size: 0.9rem;
-                letter-spacing: 1px;
-            }
-
-            .event-details {
-                flex-direction: column;
-                gap: 0.8rem;
-                font-size: 0.85rem;
-            }
-
-            .event-detail {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.85rem;
-            }
-
-            .event-detail svg {
-                width: 18px;
-                height: 18px;
-            }
-
-            /* Header padding adjustment */
-            header {
-                padding: 1.5rem 0;
-            }
-
-            /* Navigation */
-            .nav-tabs {
-                top: 0;
-            }
-
-            .nav-tabs button {
-                min-width: 100px;
-                padding: 0.8rem 1rem;
-                font-size: 0.8rem;
-                letter-spacing: 0.5px;
-            }
-
-            /* GET READY Banner */
-            section h2 {
-                font-size: 2.5rem !important;
-                letter-spacing: 3px !important;
-            }
-
-            section p {
-                font-size: 1.1rem !important;
-            }
-
-            section div div {
-                padding: 1rem 2rem !important;
-            }
-
-            section div div p {
-                font-size: 1rem !important;
-            }
-
-            /* Container */
-            .container {
-                padding: 2rem 1rem;
-            }
-
-            /* Cards */
-            .card {
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .card-title {
-                font-size: 1.4rem;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-
-            .card-title svg {
-                width: 28px;
-                height: 28px;
-            }
-
-            /* Info Grid */
-            .info-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .info-box {
-                padding: 1.5rem;
-            }
-
-            .info-box h3 {
-                font-size: 2rem;
-            }
-
-            .info-box p {
-                font-size: 0.9rem;
-            }
-
-            /* Schedule Table */
-            .schedule-table {
-                font-size: 0.85rem;
-            }
-
-            .schedule-table thead th {
-                padding: 0.8rem 0.5rem;
-                font-size: 0.75rem;
-            }
-
-            .schedule-table tbody td {
-                padding: 0.8rem 0.5rem;
-            }
-
-            /* Hide some table columns on very small screens */
-            @media (max-width: 480px) {
-                .schedule-table th:nth-child(3),
-                .schedule-table td:nth-child(3) {
-                    display: none;
-                }
-            }
-
-            /* Form Section */
-            .form-section {
-                padding: 1.5rem;
-            }
-
-            .form-section h2 {
-                font-size: 1.5rem;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                padding: 0.8rem;
-                font-size: 0.95rem;
-            }
-
-            .form-group label {
-                font-size: 0.85rem;
-            }
-
-            /* Pricing Grid */
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .pricing-card {
-                padding: 2rem;
-            }
-
-            .pricing-amount {
-                font-size: 2.5rem;
-            }
-
-            .pricing-title {
-                font-size: 1.3rem;
-            }
-
-            /* Buttons */
-            .btn {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-            }
-
-            /* FAQ */
-            .faq-question {
-                padding: 1rem;
-                font-size: 1rem;
-            }
-
-            .faq-answer {
-                font-size: 0.9rem;
-            }
-
-            /* Category badges */
-            .category-badge {
-                font-size: 0.75rem;
-                padding: 0.3rem 0.8rem;
-            }
-        }
-
-        /* Extra Small Devices */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .subtitle {
-                font-size: 0.8rem;
-            }
-
-            .nav-tabs button {
-                min-width: 80px;
-                padding: 0.6rem 0.5rem;
-                font-size: 0.7rem;
-            }
-
-            section h2 {
-                font-size: 2rem !important;
-            }
-
-            .card {
-                padding: 1rem;
-            }
-
-            .card-title {
-                font-size: 1.2rem;
-            }
-
-            .info-box h3 {
-                font-size: 1.8rem;
-            }
-
-            .pricing-amount {
-                font-size: 2rem;
-            }
-
-            .btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Tablet Landscape */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .container {
-                padding: 2.5rem 2rem;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .nav-tabs button {
-                min-width: 130px;
-                padding: 1.2rem 1.5rem;
-            }
-        }
-
-        /* Touch-friendly improvements */
-        @media (hover: none) and (pointer: coarse) {
-            .nav-tabs button,
-            .btn,
-            .faq-question,
-            .checkbox-item,
-            .radio-item {
-                min-height: 48px;
-                touch-action: manipulation;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                min-height: 48px;
-            }
-        }
-
-        /* Mobile scroll indicator */
-        .scroll-indicator {
-            display: none;
-            text-align: center;
-            color: var(--primary);
-            font-size: 0.8rem;
-            padding: 0.5rem;
-            background: rgba(255, 199, 44, 0.1);
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .scroll-indicator {
-                display: block;
-            }
-        }
-
-        /* Mobile table wrapper */
-        .table-wrapper {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border-radius: 8px;
-        }
-
-        @media (max-width: 768px) {
-            .table-wrapper {
-                margin: 0 -1rem;
-                padding: 0 1rem;
-            }
-        }
-
-        /* Category Badges */
-        .category-badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .category-beginner {
-            background: #E3F2FD;
-            color: #1976D2;
-        }
-
-        .category-intermediate {
-            background: #FFF3E0;
-            color: #F57C00;
-        }
-
-        .category-expert {
-            background: #FCE4EC;
-            color: #C2185B;
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            border: 4px solid var(--light);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
+        .socials a {
             width: 40px;
             height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 2rem auto;
-            display: none;
-        }
-
-        .spinner.show {
-            display: block;
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: var(--white);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(255, 199, 44, 0.4);
-            z-index: 998;
-            transition: all 0.3s ease;
-        }
-
-        .back-to-top.show {
-            display: flex;
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(255, 199, 44, 0.6);
-        }
-
-        @media (max-width: 768px) {
-            .back-to-top {
-                bottom: 1rem;
-                right: 1rem;
-                width: 45px;
-                height: 45px;
-            }
-            
-            /* Mobile Header */
-            h1 {
-                font-size: 2rem !important;
-                padding: 0 70px 0 10px !important;
-            }
-            
-            .subtitle {
-                font-size: 1rem !important;
-                padding: 0 10px !important;
-            }
-            
-            /* Mobile Event Details */
-            .event-details {
-                gap: 1.5rem !important;
-                padding: 0 10px !important;
-            }
-            
-            .event-detail {
-                font-size: 0.85rem;
-            }
-            
-            /* Mobile Footer */
-            footer {
-                padding: 2rem 1rem !important;
-            }
-            
-            footer img {
-                width: 80px !important;
-                height: auto !important;
-                display: block !important;
-                margin: 0 auto 1rem !important;
-            }
-            
-            footer h3 {
-                font-size: 1.2rem !important;
-            }
-            
-            /* Social Media Icons */
-            footer svg {
-                width: 35px !important;
-                height: 35px !important;
-            }
-            
-            /* Mobile Forms */
-            .form-row {
-                flex-direction: column !important;
-            }
-            
-            .form-group {
-                margin-bottom: 1rem;
-            }
-            
-            /* Mobile Pricing Cards */
-            .pricing-grid {
-                grid-template-columns: 1fr !important;
-            }
-            
-            /* Mobile Success Message */
-            .success-message {
-                padding: 2rem 1rem !important;
-            }
-            
-            #paymentAmount {
-                font-size: 2rem !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5rem !important;
-                letter-spacing: 1px !important;
-                padding: 0 60px 0 10px !important;
-            }
-            
-            .subtitle {
-                font-size: 0.85rem !important;
-            }
-            
-            .card {
-                padding: 1.5rem 1rem !important;
-            }
-            
-            .btn {
-                padding: 1rem 1.5rem !important;
-                font-size: 0.9rem !important;
-            }
-            
-            footer img {
-                width: 70px !important;
-            }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: translateX(0) scaleX(1); }
-            50% { transform: translateX(-5px) scaleX(1.02); }
-        }
-
-        @keyframes flagFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* ---- Disabled nav tabs ---- */
-        .tab-disabled {
-            opacity: 0.35 !important;
-            cursor: not-allowed !important;
-            pointer-events: none !important;
-        }
-
-        /* ---- Comprehensive Mobile Fixes ---- */
-        @media (max-width: 600px) {
-            /* Nav — single scrollable row, no wrapping */
-            .nav-tabs { position: sticky; top: 0; z-index: 100; overflow-x: auto; overflow-y: hidden; }
-            .nav-container { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 0; padding: 0; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-            .nav-container::-webkit-scrollbar { display: none; }
-            .nav-tabs button { min-width: auto !important; white-space: nowrap; flex-shrink: 0; padding: 0.9rem 1rem; font-size: 0.78rem; letter-spacing: 0.3px; }
-
-            /* Card padding */
-            .card { padding: 1rem; margin-bottom: 1rem; }
-
-            /* Header */
-            header { padding: 1.2rem 0; }
-            h1 { font-size: 1.6rem !important; letter-spacing: 1px !important; }
-            .subtitle { font-size: 0.85rem !important; }
-            .event-details { flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
-            .event-detail { font-size: 0.8rem; padding: 0.35rem 0.7rem; }
-
-            /* Schedule table */
-            .schedule-table { font-size: 0.8rem; }
-            .schedule-table thead th { padding: 0.6rem 0.5rem; font-size: 0.75rem; }
-            .schedule-table tbody td { padding: 0.6rem 0.5rem; font-size: 0.8rem; }
-
-            /* Schedule category buttons */
-            .sched-cat-btn { font-size: 0.78rem; padding: 7px 12px; }
-
-            /* Scores nav cards */
-            .scores-nav-card { padding: 14px 12px; gap: 12px; }
-            .scores-nav-icon { font-size: 1.5rem; }
-            .scores-nav-info h3 { font-size: 0.9rem; }
-            .scores-nav-info p { font-size: 0.75rem; }
-            .scores-nav-badge { font-size: 9px; }
-
-            /* Section titles */
-            .card-title { font-size: 1.1rem; gap: 0.5rem; }
-            .card-title svg { width: 20px; height: 20px; }
-
-            /* India flag */
-            .india-flag-container { top: 8px; right: 8px; }
-            .india-flag { width: 44px; height: 30px; }
-
-            /* Form elements */
-            .form-group input, .form-group select, .form-group textarea { font-size: 0.9rem; }
-
-            /* Category badges */
-            .category-badge { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
-
-            /* Pricing cards */
-            .pricing-card { padding: 1rem; }
-
-            /* Back to top */
-            .back-to-top { width: 40px; height: 40px; bottom: 0.8rem; right: 0.8rem; }
-        }
-
-        @media (max-width: 380px) {
-            .nav-tabs button { padding: 0.8rem 0.8rem; font-size: 0.72rem; }
-            h1 { font-size: 1.4rem !important; }
-            .card { padding: 0.85rem; }
-        }
-
-        /* ---- Schedule Category Buttons ---- */
-        .sched-cat-btn {
-            padding: 9px 18px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,199,44,0.3);
-            background: var(--light);
-            color: #ccc;
-            font-family: 'Open Sans', sans-serif;
-            font-size: 0.88rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .sched-cat-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .sched-cat-btn.active-sched { background: var(--primary); color: #000; border-color: var(--primary); }
-
-        /* ---- Coming Soon Box ---- */
-        .coming-soon-box {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: var(--light);
-            border-radius: 12px;
-            border: 2px dashed rgba(255,199,44,0.3);
-        }
-
-        /* ---- Scores Nav Cards ---- */
-        .scores-nav-card {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 18px 20px;
             border-radius: 10px;
-            margin-bottom: 12px;
-            text-decoration: none;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
+            display: grid;
+            place-items: center;
+            background: #fff;
+            border: 1px solid var(--line);
+            transition: border-color 0.2s ease;
         }
-        .scores-live { background: rgba(255,199,44,0.1); border: 1px solid rgba(255,199,44,0.4); color: var(--white); }
-        .scores-live:hover { background: rgba(255,199,44,0.18); border-color: var(--primary); transform: translateX(4px); }
-        .scores-soon { background: var(--light); border: 1px solid rgba(255,255,255,0.08); opacity: 0.55; cursor: default; }
-        .scores-nav-badge { position: absolute; top: 10px; right: 12px; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--secondary); }
-        .scores-badge-soon { color: #888; }
-        .scores-nav-icon { font-size: 2rem; flex-shrink: 0; }
-        .scores-nav-info h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 3px; color: var(--white); }
-        .scores-nav-info p { font-size: 0.85rem; color: #aaa; margin: 0; }
-        .scores-nav-arrow { margin-left: auto; font-size: 1.4rem; color: var(--primary); flex-shrink: 0; }
 
+        .socials a:hover { border-color: var(--blue); }
+
+        .socials svg { width: 19px; height: 19px; fill: var(--ink); }
+
+        .foot-bottom {
+            margin-top: 36px;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.8rem;
+        }
+
+        .foot-bottom a { color: var(--muted); }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 960px) {
+            .hero { padding: 40px 0 56px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+            .collage { height: 420px; }
+            .photo-main { height: 350px; }
+            .photo-small { height: 180px; }
+            .reg-grid { grid-template-columns: 1fr; }
+            .summary { position: static; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .tile:first-child { grid-column: 1 / -1; }
+            .foot-grid { grid-template-columns: 1fr 1fr; }
+            .foot-brand { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 800px) {
+            .brand span { display: none; }
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 0 16px; }
+            .brand img { height: 40px; }
+            .brand span { display: none; }
+            .nav { gap: 2px; }
+            .nav a, .nav span { padding: 7px 10px; font-size: 0.76rem; }
+            .nav .soon small { display: none; }
+            .lede { font-size: 1rem; }
+            .meta div { font-size: 0.88rem; padding: 8px 12px; }
+            .collage { height: 330px; }
+            .photo-main { width: 90%; height: 270px; border-radius: 22px; }
+            .photo-small { width: 52%; height: 140px; border-radius: 18px; border-width: 4px; }
+            .float-card { right: 8px; bottom: 18px; padding: 10px 12px; }
+            .float-card .ico { width: 34px; height: 34px; }
+            .float-card b { font-size: 1.1rem; }
+            .mini-ball { width: 56px; left: 34%; }
+            .register { padding: 52px 0 60px; }
+            .card { padding: 22px 18px; }
+            .fields { grid-template-columns: 1fr; }
+            .step h3 { font-size: 1.45rem; }
+            .levels { gap: 8px; }
+            .level label b { font-size: 1.35rem; }
+            .summary-body { padding: 4px 18px 20px; }
+            .gallery { padding: 52px 0; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .tile { height: 220px; }
+            .foot-grid { grid-template-columns: 1fr; }
+            .success h2 { font-size: 2.1rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .mini-ball, .fade-up, .eyebrow .dot { animation: none; opacity: 1; transform: none; }
+            html { scroll-behavior: auto; }
+        }
     </style>
 </head>
 <body>
-    <div class="bg-pattern"></div>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
-        ↑
-    </button>
-
-    <!-- Header -->
-    <header>
-        <!-- Floating Pickleball Decorations -->
-        <div class="pickleball-decor pickleball-1"></div>
-        <div class="pickleball-decor pickleball-2"></div>
-        <div class="pickleball-decor pickleball-3"></div>
-        
-        <div class="header-content">
-            <div class="gts-logo-badge">
+    <!-- ================= TOP BAR ================= -->
+    <div class="topbar-wrap">
+        <div class="container topbar">
+            <a class="brand" href="https://gtssc.org/" target="_blank" rel="noopener">
                 <img src="gts-logo.png" alt="Greenville Tamil Sangam">
+                <span>Greenville Tamil Sangam<small>GTS Pickleball 2026</small></span>
+            </a>
+            <nav class="nav" aria-label="Tournament">
+                <a class="active" href="#register">Register</a>
+                <span class="soon" aria-disabled="true">Live Scores <small>Soon</small></span>
+                <span class="soon" aria-disabled="true">Live Stream <small>Soon</small></span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+        <div class="container hero-grid">
+            <div>
+                <p class="eyebrow fade-up d1"><span class="dot"></span>Registration open · Greenville Tamil Sangam</p>
+                <h1 class="fade-up d2">GTS<br><span class="hl">Pickleball</span><br>Tournament<span class="year">2026</span></h1>
+                <p class="lede fade-up d3">Two days of competitive doubles across five divisions. Grab your partner and claim your spot on court.</p>
+
+                <div class="meta fade-up d3">
+                    <div>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        October 24–25, 2026
+                    </div>
+                    <div>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        9:00 AM – 6:00 PM
+                    </div>
+                    <div>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        ERS / Sudduth Farms
+                    </div>
+                </div>
+
+                <div class="cta-row fade-up d4">
+                    <a class="btn btn-ball" href="#register">Register now
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14m-6-6l6 6-6 6"/></svg>
+                    </a>
+                    <p class="cta-note"><strong>$25</strong> one event · <strong>$40</strong> two events</p>
+                </div>
+
+                <div class="divisions fade-up d4">
+                    <span>Women's Doubles</span>
+                    <span>Mixed Doubles</span>
+                    <span>Open 3.0</span>
+                    <span>Open 3.5</span>
+                    <span>Open 4.0</span>
+                </div>
             </div>
-            <h1>GTS Pickleball Tournament</h1>
-            <p class="subtitle">Get Ready! | October 24–25 at ERS / Sudduth Farms</p>
-            <div class="event-details">
-                <div class="event-detail">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                    <span>October 24–25, 2026</span>
+
+            <div class="collage fade-up d3">
+                <div class="photo photo-main">
+                    <img src="https://images.unsplash.com/photo-1737476997205-b3336182f215?auto=format&fit=crop&w=1100&q=80" alt="Pickleball player hitting a forehand on an outdoor court">
                 </div>
-                <div class="event-detail">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    <span>9:00 AM - 6:00 PM</span>
+                <div class="photo photo-small">
+                    <img src="https://images.unsplash.com/photo-1659318006095-4d44845f3a1b?auto=format&fit=crop&w=700&q=80" alt="Pickleball paddle and neon yellow balls on a blue court">
                 </div>
-                <div class="event-detail">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                    <span>ERS / Sudduth Farms</span>
+                <div class="float-card">
+                    <div class="ico">
+                        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M8 21h8m-4-4v4m-5-17h10v5a5 5 0 01-10 0V4zM7 6H4a3 3 0 003 3m10-3h3a3 3 0 01-3 3"/></svg>
+                    </div>
+                    <div>
+                        <b>5 Divisions</b>
+                        <small>Trophies for winners &amp; runners-up</small>
+                    </div>
                 </div>
+                <svg class="mini-ball" viewBox="0 0 220 220" aria-hidden="true">
+                    <defs>
+                        <radialGradient id="ballFill" cx="0.35" cy="0.3" r="0.8">
+                            <stop offset="0" stop-color="#F6FFB0"/>
+                            <stop offset="0.45" stop-color="#D7F34A"/>
+                            <stop offset="1" stop-color="#9DBB14"/>
+                        </radialGradient>
+                    </defs>
+                    <circle cx="110" cy="110" r="100" fill="url(#ballFill)"/>
+                    <g fill="#5E7A06" fill-opacity="0.45">
+                        <circle cx="110" cy="38" r="10"/><circle cx="62" cy="58" r="10"/><circle cx="158" cy="58" r="10"/>
+                        <circle cx="40" cy="106" r="10"/><circle cx="110" cy="92" r="10"/><circle cx="180" cy="106" r="10"/>
+                        <circle cx="70" cy="140" r="10"/><circle cx="150" cy="140" r="10"/><circle cx="110" cy="182" r="10"/>
+                    </g>
+                </svg>
             </div>
         </div>
     </header>
 
-    <!-- Navigation -->
-    <nav class="nav-tabs">
-        <div class="nav-container">
-            <button class="tab-btn active" data-tab="register">Register</button>
-            <button class="tab-btn tab-disabled" disabled title="Coming soon">🏆 Live Score and Schedule</button>
-            <button class="tab-btn tab-disabled" disabled title="Coming soon">📺 Live Streaming</button>
-            <button class="tab-btn tab-disabled" disabled title="Pricing info unavailable">Pricing</button>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Overview Tab -->
-        <div id="overview" class="tab-content">
-            <div class="card">
-                <h2 class="card-title">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    What's Included
-                </h2>
-                <div class="pricing-features">
-                    <li>Official tournament balls provided (Lifetime LT Pro 48)</li>
-                    <li>Professional tournament management</li>
-                    <li>Real-time brackets and scoring</li>
-                    <li>Awards ceremony with photos</li>
-                    <li>Free parking and spectator seating</li>
-                    <li>Trophies for Winners and Runners in each Division</li>
-                </div>
+    <!-- ================= REGISTRATION ================= -->
+    <main id="register" class="register">
+        <div class="container">
+            <div class="section-head" id="regHead">
+                <div class="kicker">Registration</div>
+                <h2>Claim your spot</h2>
+                <p>Takes about two minutes. Up to 2 events per player.</p>
             </div>
 
-            <div class="card">
-                <h2 class="card-title">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
-                    </svg>
-                    Tournament Format
-                </h2>
-                <p style="margin-bottom: 1.5rem; line-height: 1.8;">Each division is played as a league stage followed by playoffs.</p>
-                <div style="display: grid; gap: 1rem;">
-                    <div style="background: var(--light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary);">
-                        <strong style="color: var(--secondary); font-size: 1.1rem;">League Stage</strong>
-                        <p style="margin-top: 0.5rem;">Teams are split into groups and play round robin matches within their group.</p>
-                    </div>
-                    <div style="background: var(--light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--success);">
-                        <strong style="color: var(--secondary); font-size: 1.1rem;">Playoffs</strong>
-                        <p style="margin-top: 0.5rem;">Top teams from the league stage advance to the playoffs. Winners and Runners receive trophies.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <div class="reg-grid" id="regGrid">
+                <form id="registrationForm" novalidate>
+                    <input type="hidden" name="tournament" value="GTS">
 
-        <!-- Schedule Tab -->
-        <div id="schedule" class="tab-content">
-            <div class="card">
-                <h2 class="card-title">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Tournament Day Schedule
-                </h2>
-
-                <!-- Category Selector -->
-                <div style="display:flex;flex-wrap:wrap;gap:10px;margin:1.5rem 0 2rem;">
-                    <button onclick="showSchedule('open3')" id="sched-btn-open3" class="sched-cat-btn active-sched">🏓 Open 3 — Level 3.0</button>
-                    <button onclick="showSchedule('open35')" id="sched-btn-open35" class="sched-cat-btn">Open 3.5 — Level 3.5</button>
-                    <button onclick="showSchedule('open4')" id="sched-btn-open4" class="sched-cat-btn">Open 4 — Level 4.0+</button>
-                    <button onclick="showSchedule('mixed')" id="sched-btn-mixed" class="sched-cat-btn">Mixed Doubles</button>
-                    <button onclick="showSchedule('family')" id="sched-btn-family" class="sched-cat-btn">Social Division</button>
-                </div>
-
-                <!-- Open 3 Schedule -->
-                <div id="sched-open3" class="sched-content">
-                    <div style="background:rgba(61,190,90,0.1);border-left:4px solid var(--secondary);border-radius:8px;padding:1rem 1.5rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
-                        <span>🕗 <strong>Start:</strong> 8:00 PM</span>
-                        <span>🔚 <strong>End:</strong> 9:30 PM</span>
-                        <span>⏱ <strong>15 min/match</strong></span>
-                        <span>🏟 <strong>2 Courts</strong></span>
-                        <span>👥 <strong>6 Teams</strong></span>
-                    </div>
-
-                    <h4 style="color:var(--primary);margin-bottom:1rem;font-size:1.1rem;">📋 Court Schedule — Feb 27</h4>
-                    <div style="overflow-x:auto;">
-                    <table class="schedule-table" style="margin-bottom:2rem;">
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Court 1</th>
-                                <th>Court 2</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:var(--primary)">8:00 PM</td><td>Nirmala &amp; Kavya vs Gayathri &amp; Maheshwari</td><td>Suganandini &amp; Ridhyanyaa vs Melfi &amp; Deeksha</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:var(--primary)">8:15 PM</td><td>Suganandini &amp; Ridhyanyaa vs Nirmala &amp; Kavya</td><td>Divya &amp; Ramya vs Gayathri &amp; Maheshwari</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:var(--primary)">8:30 PM</td><td>Nirmala &amp; Kavya vs Melfi &amp; Deeksha</td><td>Sofi &amp; Priya vs Gayathri &amp; Maheshwari</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:var(--primary)">8:45 PM</td><td>Sofi &amp; Priya vs Nirmala &amp; Kavya</td><td>Divya &amp; Ramya vs Suganandini &amp; Ridhyanyaa</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:var(--primary)">9:00 PM</td><td>Melfi &amp; Deeksha vs Gayathri &amp; Maheshwari</td><td>Sofi &amp; Priya vs Divya &amp; Ramya</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:var(--primary)">9:15 PM</td><td>Sofi &amp; Priya vs Suganandini &amp; Ridhyanyaa</td><td>Divya &amp; Ramya vs Melfi &amp; Deeksha</td></tr>
-                        </tbody>
-                    </table>
-                    </div>
-
-                    <h4 style="color:var(--primary);margin-bottom:1rem;font-size:1.1rem;">👥 Teams</h4>
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:2rem;">
-                        <div style="background:var(--light);padding:0.8rem 1rem;border-radius:8px;border-left:3px solid var(--secondary);">Sofi &amp; Priya</div>
-                        <div style="background:var(--light);padding:0.8rem 1rem;border-radius:8px;border-left:3px solid var(--secondary);">Divya &amp; Ramya</div>
-                        <div style="background:var(--light);padding:0.8rem 1rem;border-radius:8px;border-left:3px solid var(--secondary);">Suganandini &amp; Ridhyanyaa</div>
-                        <div style="background:var(--light);padding:0.8rem 1rem;border-radius:8px;border-left:3px solid var(--secondary);">Nirmala &amp; Kavya</div>
-                        <div style="background:var(--light);padding:0.8rem 1rem;border-radius:8px;border-left:3px solid var(--secondary);">Melfi &amp; Deeksha</div>
-                        <div style="background:var(--light);padding:0.8rem 1rem;border-radius:8px;border-left:3px solid var(--secondary);">Gayathri &amp; Maheshwari</div>
-                    </div>
-
-                    <div style="text-align:center;">
-                        <a href="iag-open3-tournament.html" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--primary),#E0A800);color:#000;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:1.05rem;letter-spacing:0.5px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-                            🏆 Open Live Scores &amp; Standings →
-                        </a>
-                        <p style="font-size:0.85rem;color:#aaa;margin-top:0.75rem;">View real-time scores, standings, and knockout bracket for Open 3</p>
-                    </div>
-                </div>
-
-                <!-- Coming Soon panels for other categories -->
-                <div id="sched-open35" class="sched-content" style="display:none;">
-                    <div style="background:rgba(255,124,42,0.08);border-left:4px solid #ff7c2a;border-radius:8px;padding:1rem 1.5rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
-                        <span>📅 <strong>Feb 28, 2026</strong></span>
-                        <span>🕗 <strong>Start:</strong> 9:00 AM</span>
-                        <span>🔚 <strong>End:</strong> ~10:30 AM</span>
-                        <span>⏱ <strong>15 min/match</strong></span>
-                        <span>🏟 <strong>6 Courts</strong></span>
-                        <span>👥 <strong>16 Teams · 4 Groups</strong></span>
-                    </div>
-                    <h4 style="color:#ff7c2a;margin-bottom:1rem;font-size:1.1rem;">📋 Schedule — 4 Groups Round Robin</h4>
-                    <div style="overflow-x:auto;">
-                    <table class="schedule-table" style="margin-bottom:1.5rem;">
-                        <thead><tr><th>Time</th><th>Court</th><th>Group</th><th>Match</th></tr></thead>
-                        <tbody>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:00 AM</td><td>1</td><td>Grp 1</td><td>Durbha Murthy &amp; Rajanikanth vs Vivek &amp; Rajiv</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:00 AM</td><td>2</td><td>Grp 1</td><td>Vanith &amp; Prabakar vs Lisa &amp; April</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:00 AM</td><td>3</td><td>Grp 2</td><td>Welborn &amp; Francis vs Varun &amp; Jeremy</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:00 AM</td><td>4</td><td>Grp 2</td><td>Shari &amp; Roz vs Thiru &amp; Vamshi</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:00 AM</td><td>5</td><td>Grp 3</td><td>Uma &amp; Shankar vs Moksh &amp; Suraj</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:00 AM</td><td>6</td><td>Grp 3</td><td>Adarsh &amp; Sunil vs Venkat &amp; Immanuel</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:15 AM</td><td>1</td><td>Grp 1</td><td>Durbha Murthy &amp; Rajanikanth vs Vanith &amp; Prabakar</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:15 AM</td><td>2</td><td>Grp 1</td><td>Vivek &amp; Rajiv vs Lisa &amp; April</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:15 AM</td><td>3</td><td>Grp 2</td><td>Welborn &amp; Francis vs Shari &amp; Roz</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:15 AM</td><td>4</td><td>Grp 2</td><td>Varun &amp; Jeremy vs Thiru &amp; Vamshi</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:15 AM</td><td>5</td><td>Grp 3</td><td>Uma &amp; Shankar vs Adarsh &amp; Sunil</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:15 AM</td><td>6</td><td>Grp 3</td><td>Moksh &amp; Suraj vs Venkat &amp; Immanuel</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:30 AM</td><td>1</td><td>Grp 1</td><td>Durbha Murthy &amp; Rajanikanth vs Lisa &amp; April</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:30 AM</td><td>2</td><td>Grp 1</td><td>Vivek &amp; Rajiv vs Vanith &amp; Prabakar</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:30 AM</td><td>3</td><td>Grp 2</td><td>Welborn &amp; Francis vs Thiru &amp; Vamshi</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:30 AM</td><td>4</td><td>Grp 2</td><td>Varun &amp; Jeremy vs Shari &amp; Roz</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:30 AM</td><td>5</td><td>Grp 3</td><td>Uma &amp; Shankar vs Venkat &amp; Immanuel</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:30 AM</td><td>6</td><td>Grp 3</td><td>Moksh &amp; Suraj vs Adarsh &amp; Sunil</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:45 AM</td><td>1</td><td>Grp 4</td><td>Xavier &amp; David vs Anish &amp; Mandy</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">9:45 AM</td><td>2</td><td>Grp 4</td><td>Kenny &amp; Daniel vs Sreeni NK &amp; Chokalingam</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">10:00 AM</td><td>1</td><td>Grp 4</td><td>Xavier &amp; David vs Kenny &amp; Daniel</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">10:00 AM</td><td>2</td><td>Grp 4</td><td>Anish &amp; Mandy vs Sreeni NK &amp; Chokalingam</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">10:15 AM</td><td>1</td><td>Grp 4</td><td>Xavier &amp; David vs Sreeni NK &amp; Chokalingam</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#ff7c2a">10:15 AM</td><td>2</td><td>Grp 4</td><td>Anish &amp; Mandy vs Kenny &amp; Daniel</td></tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    <div style="text-align:center;">
-                        <a href="iag-open35-tournament.html" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#ff7c2a,#d05a00);color:#000;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:1.05rem;letter-spacing:0.5px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-                            🏆 Open 3.5 Live Scores &amp; Standings →
-                        </a>
-                    </div>
-                </div>
-                <div id="sched-open4" class="sched-content" style="display:none;">
-                    <div style="background:rgba(168,85,247,0.08);border-left:4px solid #a855f7;border-radius:8px;padding:1rem 1.5rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
-                        <span>📅 <strong>Feb 28, 2026</strong></span>
-                        <span>🕗 <strong>Start:</strong> 10:00 AM</span>
-                        <span>🔚 <strong>End:</strong> ~11:30 AM</span>
-                        <span>⏱ <strong>15 min/match</strong></span>
-                        <span>🏟 <strong>6 Courts</strong></span>
-                        <span>👥 <strong>16 Teams · 4 Groups</strong></span>
-                    </div>
-                    <h4 style="color:#a855f7;margin-bottom:1rem;font-size:1.1rem;">📋 Schedule — 4 Groups Round Robin</h4>
-                    <div style="overflow-x:auto;">
-                    <table class="schedule-table" style="margin-bottom:1.5rem;">
-                        <thead><tr><th>Time</th><th>Court</th><th>Group</th><th>Match</th></tr></thead>
-                        <tbody>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:00 AM</td><td>1</td><td>Grp 1</td><td>Tony &amp; Cole vs PJ &amp; Syed</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:00 AM</td><td>2</td><td>Grp 1</td><td>Suresh &amp; Rajesh vs LD &amp; Nathan</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:00 AM</td><td>3</td><td>Grp 2</td><td>Andrew Jacob &amp; Mark vs Carlos &amp; Carlos</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:00 AM</td><td>4</td><td>Grp 2</td><td>Andrew Stafford &amp; Stephen vs Mason &amp; Shane</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:00 AM</td><td>5</td><td>Grp 3</td><td>Maulik &amp; Addy vs Dwayne &amp; Luk</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:00 AM</td><td>6</td><td>Grp 3</td><td>Vinod &amp; Senthil vs Arun &amp; Elango</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:15 AM</td><td>1</td><td>Grp 1</td><td>Tony &amp; Cole vs Suresh &amp; Rajesh</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:15 AM</td><td>2</td><td>Grp 1</td><td>PJ &amp; Syed vs LD &amp; Nathan</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:15 AM</td><td>3</td><td>Grp 2</td><td>Andrew Jacob &amp; Mark vs Andrew Stafford &amp; Stephen</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:15 AM</td><td>4</td><td>Grp 2</td><td>Carlos &amp; Carlos vs Mason &amp; Shane</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:15 AM</td><td>5</td><td>Grp 3</td><td>Maulik &amp; Addy vs Vinod &amp; Senthil</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:15 AM</td><td>6</td><td>Grp 3</td><td>Dwayne &amp; Luk vs Arun &amp; Elango</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:30 AM</td><td>1</td><td>Grp 1</td><td>Tony &amp; Cole vs LD &amp; Nathan</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:30 AM</td><td>2</td><td>Grp 1</td><td>PJ &amp; Syed vs Suresh &amp; Rajesh</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:30 AM</td><td>3</td><td>Grp 2</td><td>Andrew Jacob &amp; Mark vs Mason &amp; Shane</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:30 AM</td><td>4</td><td>Grp 2</td><td>Carlos &amp; Carlos vs Andrew Stafford &amp; Stephen</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:30 AM</td><td>5</td><td>Grp 3</td><td>Maulik &amp; Addy vs Arun &amp; Elango</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:30 AM</td><td>6</td><td>Grp 3</td><td>Dwayne &amp; Luk vs Vinod &amp; Senthil</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:45 AM</td><td>3 ★</td><td>Grp 4</td><td>Abhishek &amp; Philip vs Raj &amp; David</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">10:45 AM</td><td>4 ★</td><td>Grp 4</td><td>Dylan &amp; Kason vs Jared &amp; Doug</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">11:00 AM</td><td>3 ★</td><td>Grp 4</td><td>Abhishek &amp; Philip vs Dylan &amp; Kason</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">11:00 AM</td><td>4 ★</td><td>Grp 4</td><td>Raj &amp; David vs Jared &amp; Doug</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">11:15 AM</td><td>3 ★</td><td>Grp 4</td><td>Abhishek &amp; Philip vs Jared &amp; Doug</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#a855f7">11:15 AM</td><td>4 ★</td><td>Grp 4</td><td>Raj &amp; David vs Dylan &amp; Kason</td></tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    <p style="color:#888;font-size:12px;margin-bottom:1rem;">★ Courts 3 &amp; 4 used from 10:45 AM onwards (courts 1 &amp; 2 free for Mixed)</p>
-                    <div style="text-align:center;">
-                        <a href="iag-open4-tournament.html" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:1.05rem;letter-spacing:0.5px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-                            🏆 Open 4.0 Live Scores &amp; Standings →
-                        </a>
-                    </div>
-                </div>
-                <div id="sched-mixed" class="sched-content" style="display:none;">
-                    <div style="background:rgba(0,212,200,0.08);border-left:4px solid #00d4c8;border-radius:8px;padding:1rem 1.5rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
-                        <span>📅 <strong>Feb 28, 2026</strong></span>
-                        <span>🕗 <strong>Start:</strong> 1:45 PM</span>
-                        <span>🔚 <strong>End:</strong> ~3:15 PM</span>
-                        <span>⏱ <strong>15 min/match</strong></span>
-                        <span>🏟 <strong>6 Courts</strong></span>
-                        <span>👥 <strong>14 Teams · 3 Rounds</strong></span>
-                    </div>
-                    <h4 style="color:#00d4c8;margin-bottom:1rem;font-size:1.1rem;">📋 Schedule — 3 Rounds League Play</h4>
-                    <p style="color:#888;font-size:12px;margin-bottom:1rem;">🏆 Knockout: R16 (1 set) → QF (1 set) → SF (Best of 3) → Final (Best of 3) &nbsp;|&nbsp; ⭐ Seeds 1 &amp; 2 get R16 BYE</p>
-                    <div style="overflow-x:auto;">
-                    <table class="schedule-table" style="margin-bottom:1.5rem;">
-                        <thead><tr><th>Time</th><th>Court</th><th>Round</th><th>Match</th></tr></thead>
-                        <tbody>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">1:45 PM</td><td>1</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R1</span></td><td>Cam &amp; Rae vs Rohit &amp; Shivani</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">1:45 PM</td><td>2</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R1</span></td><td>Shari &amp; Dwayne vs Vinod &amp; Nandhini</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">1:45 PM</td><td>3</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R1</span></td><td>Keath &amp; Caitlyn vs Nathan &amp; Esther</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">1:45 PM</td><td>4</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R1</span></td><td>Aiden &amp; Grace vs Raj &amp; Nalini</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">1:45 PM</td><td>5</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R1</span></td><td>Guru &amp; Lynn vs Shawn &amp; Tom</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">1:45 PM</td><td>6</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R1</span></td><td>Welborn &amp; Ericka vs PJ &amp; Marabeth</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:00 PM</td><td>1</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R1</span></td><td>Welborn &amp; Ericka vs Andrew Jacob &amp; Lydia</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:15 PM</td><td>1</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R2</span></td><td>Shawn &amp; Tom vs Keath &amp; Caitlyn</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:15 PM</td><td>2</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R2</span></td><td>Andrew Jacob &amp; Lydia vs Cam &amp; Rae</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:15 PM</td><td>3</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R2</span></td><td>Shari &amp; Dwayne vs Welborn &amp; Ericka</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:15 PM</td><td>4</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R2</span></td><td>PJ &amp; Marabeth vs Nathan &amp; Esther</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:15 PM</td><td>5</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R2</span></td><td>Raj &amp; Nalini vs Guru &amp; Lynn</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:15 PM</td><td>6</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R2</span></td><td>Vinod &amp; Nandhini vs Aiden &amp; Grace</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:30 PM</td><td>1</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R2</span></td><td>Rohit &amp; Shivani vs Welborn &amp; Ericka</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:45 PM</td><td>1</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R3</span></td><td>Cam &amp; Rae vs Shari &amp; Dwayne</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:45 PM</td><td>2</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R3</span></td><td>Nathan &amp; Esther vs Rohit &amp; Shivani</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:45 PM</td><td>3</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R3</span></td><td>Guru &amp; Lynn vs Vinod &amp; Nandhini</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:45 PM</td><td>4</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R3</span></td><td>Welborn &amp; Ericka vs Andrew Jacob &amp; Lydia</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:45 PM</td><td>5</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R3</span></td><td>Keath &amp; Caitlyn vs PJ &amp; Marabeth</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">2:45 PM</td><td>6</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R3</span></td><td>Welborn &amp; Ericka vs Aiden &amp; Grace</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#00d4c8">3:00 PM</td><td>1</td><td><span style="background:rgba(0,212,200,0.12);border:1px solid rgba(0,212,200,0.25);color:#00d4c8;font-family:'Rajdhani',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;">R3</span></td><td>Shawn &amp; Tom vs Raj &amp; Nalini</td></tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    <div style="text-align:center;">
-                        <a href="iag-mixed-tournament.html" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#00d4c8,#008c88);color:#000;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:1.05rem;letter-spacing:0.5px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-                            🏆 Mixed Doubles Live Scores &amp; Standings →
-                        </a>
-                    </div>
-                </div>
-                <div id="sched-family" class="sched-content" style="display:none;">
-                    <div style="background:rgba(57,255,132,0.08);border-left:4px solid #39ff84;border-radius:8px;padding:1rem 1.5rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
-                        <span>📅 <strong>Feb 28, 2026</strong></span>
-                        <span>🕗 <strong>Start:</strong> 1:45 PM</span>
-                        <span>🔚 <strong>End:</strong> ~3:30 PM</span>
-                        <span>⏱ <strong>15 min/match</strong></span>
-                        <span>🏟 <strong>Courts 3, 4, 5, 6</strong></span>
-                        <span>👥 <strong>10 Teams · 2 Groups</strong></span>
-                    </div>
-                    <h4 style="color:#39ff84;margin-bottom:1rem;font-size:1.1rem;">📋 Schedule — 2 Groups Round Robin</h4>
-                    <div style="overflow-x:auto;">
-                    <table class="schedule-table" style="margin-bottom:1.5rem;">
-                        <thead><tr><th>Time</th><th>Court</th><th>Group</th><th>Match</th></tr></thead>
-                        <tbody>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">1:45 PM</td><td>3</td><td>Grp 1</td><td>Karthik &amp; Shailee vs Syed &amp; Sofi</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">1:45 PM</td><td>4</td><td>Grp 1</td><td>Thiru &amp; Gayathri vs Kenny &amp; Amanda</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">1:45 PM</td><td>5</td><td>Grp 2</td><td>Mandy &amp; Honey vs Suresh &amp; Nirmala</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">1:45 PM</td><td>6</td><td>Grp 2</td><td>Elango &amp; Ramya vs Arun &amp; Divya</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:00 PM</td><td>3</td><td>Grp 1</td><td>Karthik &amp; Shailee vs Thiru &amp; Gayathri</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:00 PM</td><td>4</td><td>Grp 1</td><td>Syed &amp; Sofi vs Kenny &amp; Amanda</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:00 PM</td><td>5</td><td>Grp 2</td><td>Mandy &amp; Honey vs Elango &amp; Ramya</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:00 PM</td><td>6</td><td>Grp 2</td><td>Suresh &amp; Nirmala vs Arun &amp; Divya</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:15 PM</td><td>3</td><td>Grp 1</td><td>Karthik &amp; Shailee vs Kenny &amp; Amanda</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:15 PM</td><td>4</td><td>Grp 1</td><td>Syed &amp; Sofi vs Thiru &amp; Gayathri</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:15 PM</td><td>5</td><td>Grp 2</td><td>Mandy &amp; Honey vs Arun &amp; Divya</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:15 PM</td><td>6</td><td>Grp 2</td><td>Suresh &amp; Nirmala vs Elango &amp; Ramya</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:30 PM</td><td>3</td><td>Grp 1</td><td>Karthik &amp; Shailee vs Andrew Stafford</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:30 PM</td><td>4</td><td>Grp 2</td><td>Mandy &amp; Honey vs Abhishek &amp; Aaryesh</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:45 PM</td><td>3</td><td>Grp 1</td><td>Syed &amp; Sofi vs Andrew Stafford</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">2:45 PM</td><td>4</td><td>Grp 2</td><td>Suresh &amp; Nirmala vs Abhishek &amp; Aaryesh</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">3:00 PM</td><td>3</td><td>Grp 1</td><td>Thiru &amp; Gayathri vs Andrew Stafford</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">3:00 PM</td><td>4</td><td>Grp 2</td><td>Elango &amp; Ramya vs Abhishek &amp; Aaryesh</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">3:15 PM</td><td>3</td><td>Grp 1</td><td>Kenny &amp; Amanda vs Andrew Stafford</td></tr>
-                            <tr><td style="white-space:nowrap;font-weight:700;color:#39ff84">3:15 PM</td><td>4</td><td>Grp 2</td><td>Arun &amp; Divya vs Abhishek &amp; Aaryesh</td></tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    <div style="text-align:center;">
-                        <a href="iag-social-tournament.html" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#39ff84,#00cc5a);color:#000;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:1.05rem;letter-spacing:0.5px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-                            🏆 Social Live Scores &amp; Standings →
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Live Scores Tab -->
-        <div id="scores" class="tab-content">
-            <div class="card">
-                <h2 class="card-title">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                    </svg>
-                    Live Scores &amp; Standings
-                </h2>
-                <p style="color:#ccc;margin-bottom:2rem;">Select a category to view live match scores, standings, and the knockout bracket.</p>
-
-                <!-- Open 3 card — LIVE -->
-                <a href="iag-open3-tournament.html" target="_blank" class="scores-nav-card scores-live">
-                    <div class="scores-nav-badge">🟢 LIVE</div>
-                    <div class="scores-nav-icon">🏓</div>
-                    <div class="scores-nav-info">
-                        <h3>Open 3 — Level 3.0</h3>
-                        <p>6 teams · League + Knockout · 📅 Feb 27, 8:00–9:30 PM (Evening)</p>
-                    </div>
-                    <div class="scores-nav-arrow">→</div>
-                </a>
-
-                <!-- Others — coming soon -->
-                <a href="iag-open35-tournament.html" target="_blank" class="scores-nav-card scores-live" style="border-color:rgba(255,124,42,0.4);background:rgba(255,124,42,0.08);">
-                    <div class="scores-nav-badge" style="color:#ff7c2a;">🟢 LIVE</div>
-                    <div class="scores-nav-icon">🏓</div>
-                    <div class="scores-nav-info">
-                        <h3>Open 3.5 — Level 3.5</h3>
-                        <p>16 teams · 4 Groups · R16→QF→SF→Final · 9:00 AM · Feb 28</p>
-                    </div>
-                    <div class="scores-nav-arrow" style="color:#ff7c2a;">→</div>
-                </a>
-                <a href="iag-open4-tournament.html" target="_blank" class="scores-nav-card scores-live" style="border-color:rgba(168,85,247,0.4);background:rgba(168,85,247,0.08);">
-                    <div class="scores-nav-badge" style="color:#a855f7;">🟢 LIVE</div>
-                    <div class="scores-nav-icon">🏓</div>
-                    <div class="scores-nav-info">
-                        <h3>Open 4.0 — Level 4.0+</h3>
-                        <p>16 teams · 4 Groups · R16→QF→SF→Final · 10:00 AM · Feb 28</p>
-                    </div>
-                    <div class="scores-nav-arrow" style="color:#a855f7;">→</div>
-                </a>
-                <a href="iag-mixed-tournament.html" target="_blank" class="scores-nav-card scores-live" style="border-color:rgba(0,212,200,0.4);background:rgba(0,212,200,0.08);">
-                    <div class="scores-nav-badge" style="color:#00d4c8;">🟢 LIVE</div>
-                    <div class="scores-nav-icon">🤝</div>
-                    <div class="scores-nav-info">
-                        <h3>Mixed Doubles</h3>
-                        <p>14 teams · 3 Rounds League · R16→QF→SF→Final · 1:45 PM Feb 28</p>
-                    </div>
-                    <div class="scores-nav-arrow" style="color:#00d4c8;">→</div>
-                </a>
-                <a href="iag-social-tournament.html" target="_blank" class="scores-nav-card scores-live" style="border-color:rgba(57,255,132,0.4);background:rgba(57,255,132,0.08);">
-                    <div class="scores-nav-badge" style="color:#39ff84;">🟢 LIVE</div>
-                    <div class="scores-nav-icon">🎉</div>
-                    <div class="scores-nav-info">
-                        <h3>Social Division</h3>
-                        <p>10 teams · 2 Groups · QF/SF→Final · 1:45 PM · Feb 28</p>
-                    </div>
-                    <div class="scores-nav-arrow" style="color:#39ff84;">→</div>
-                </a>
-                <!-- Player Match Finder -->
-                <a href="player-match-finder.html" class="scores-nav-card scores-live" style="border-color:rgba(168,85,247,0.4);background:rgba(168,85,247,0.08);margin-top:20px;">
-                    <div class="scores-nav-badge" style="color:#a855f7;">🔍 NEW</div>
-                    <div class="scores-nav-icon">👤</div>
-                    <div class="scores-nav-info">
-                        <h3>Find My Matches</h3>
-                        <p>Search your name to see all your match times, courts &amp; opponents in one view</p>
-                    </div>
-                    <div class="scores-nav-arrow" style="color:#a855f7;">→</div>
-                </a>
-
-            </div>
-        </div>
-
-        <!-- Categories Tab -->
-        <div id="categories" class="tab-content">
-            <!-- Live Streaming Section -->
-            <div class="card" style="background: linear-gradient(135deg, rgba(255,199,44,0.1) 0%, rgba(61,190,90,0.05) 100%); border: 2px solid rgba(255,199,44,0.3); position: relative; overflow: hidden;">
-                <!-- Live Badge -->
-                <div style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #FF1744, #F50057); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(255, 23, 68, 0.4); animation: pulse 2s ease-in-out infinite;">
-                    ● LIVE STREAMING AVAILABLE
-                </div>
-
-                <h2 style="font-family: 'Archivo Black', sans-serif; font-size: 2rem; color: var(--white); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
-                    Watch Live on <span style="color: var(--primary);">PlaysightApp</span>
-                </h2>
-                
-                <p style="color: rgba(255,255,255,0.85); font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.5rem;">
-                    Experience every match with professional HD court cameras. Watch from anywhere in the world — completely free streaming for all spectators, family, and friends.
-                </p>
-
-                <!-- Features Box -->
-                <div style="background: rgba(26, 26, 46, 0.6); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(255,199,44,0.2);">
-                    <h3 style="color: var(--primary); font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span>📺</span> PlaysightApp
-                    </h3>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 1rem;">
-                        Professional Sports Streaming
-                    </p>
-                    
-                    <!-- Feature List -->
-                    <div style="display: grid; gap: 0.75rem;">
-                        <div style="display: flex; align-items: start; gap: 0.75rem;">
-                            <span style="color: var(--success); font-size: 1.1rem; margin-top: 2px;">✓</span>
-                            <span style="color: rgba(255,255,255,0.85);">HD multi-court coverage</span>
-                        </div>
-                        <div style="display: flex; align-items: start; gap: 0.75rem;">
-                            <span style="color: var(--success); font-size: 1.1rem; margin-top: 2px;">✓</span>
-                            <span style="color: rgba(255,255,255,0.85);">Free for all viewers</span>
-                        </div>
-                        <div style="display: flex; align-items: start; gap: 0.75rem;">
-                            <span style="color: var(--success); font-size: 1.1rem; margin-top: 2px;">✓</span>
-                            <span style="color: rgba(255,255,255,0.85);">No registration required</span>
-                        </div>
-                        <div style="display: flex; align-items: start; gap: 0.75rem;">
-                            <span style="color: var(--success); font-size: 1.1rem; margin-top: 2px;">✓</span>
-                            <span style="color: rgba(255,255,255,0.85);">Mobile & desktop compatible</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- How to Watch Box -->
-                <div style="background: rgba(61, 190, 90, 0.1); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--secondary);">
-                    <h3 style="color: var(--secondary); font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem;">
-                        HOW TO WATCH
-                    </h3>
-                    
-                    <div style="display: grid; gap: 1rem;">
-                        <div style="display: flex; align-items: start; gap: 1rem;">
-                            <div style="background: var(--secondary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</div>
+                    <!-- Step 1 -->
+                    <section class="card">
+                        <div class="step">
+                            <div class="step-num">1</div>
                             <div>
-                                <div style="color: var(--white); font-weight: 600; margin-bottom: 0.25rem;">Click the <strong>Watch Live Stream</strong> button</div>
+                                <h3>Player details</h3>
+                                <p>We'll use these to confirm your registration.</p>
                             </div>
                         </div>
-                        
-                        <div style="display: flex; align-items: start; gap: 1rem;">
-                            <div style="background: var(--secondary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</div>
-                            <div>
-                                <div style="color: var(--white); font-weight: 600; margin-bottom: 0.25rem;">Select the court you want to watch</div>
+                        <div class="fields">
+                            <div class="field full">
+                                <label class="lbl" for="fullName">Full name <span class="req">*</span></label>
+                                <input type="text" id="fullName" name="fullName" required autocomplete="name" placeholder="Your full name">
+                            </div>
+                            <div class="field">
+                                <label class="lbl" for="email">Email <span class="req">*</span></label>
+                                <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
+                            </div>
+                            <div class="field">
+                                <label class="lbl" for="phone">Phone <span class="req">*</span></label>
+                                <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="864-555-0123">
                             </div>
                         </div>
-                        
-                        <div style="display: flex; align-items: start; gap: 1rem;">
-                            <div style="background: var(--secondary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">3</div>
+                    </section>
+
+                    <!-- Step 2 -->
+                    <section class="card">
+                        <div class="step">
+                            <div class="step-num">2</div>
                             <div>
-                                <div style="color: var(--white); font-weight: 600; margin-bottom: 0.25rem;">Share the link with friends & family to watch from anywhere in the world</div>
+                                <h3>Choose your events</h3>
+                                <p>Up to 2 events per player · $25 for one, $40 for two</p>
                             </div>
                         </div>
-                        
-                        <div style="display: flex; align-items: start; gap: 1rem;">
-                            <div style="background: var(--secondary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">4</div>
-                            <div>
-                                <div style="color: var(--white); font-weight: 600; margin-bottom: 0.25rem;">Check back here for live scores updated in real time as matches are scored</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- CTA Button -->
-                <div style="text-align: center; margin-top: 2rem;">
-                    <a href="https://web.playsight.com/facility/the-pickle-yard/home" target="_blank" style="display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg, var(--primary), #E0A800); color: #000; font-weight: 700; padding: 16px 36px; border-radius: 8px; text-decoration: none; font-size: 1.1rem; letter-spacing: 0.5px; box-shadow: 0 4px 16px rgba(255, 199, 44, 0.4); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(255, 199, 44, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(255, 199, 44, 0.4)';">
-                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        WATCH LIVE STREAM →
-                    </a>
-                </div>
-
-                <!-- Pulse Animation -->
-                <style>
-                    @keyframes pulse {
-                        0%, 100% { opacity: 1; }
-                        50% { opacity: 0.8; }
-                    }
-                </style>
-            </div>
-        </div>
-
-        <!-- Pricing Tab -->
-        <div id="pricing" class="tab-content">
-            <div class="card">
-                <h2 class="card-title">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Registration Pricing
-                </h2>
-                <p style="margin-bottom: 2rem; line-height: 1.8;"></p>
-            </div>
-
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-badge">Family Only</div>
-                    <h3 class="pricing-title">Family Social</h3>
-                    <div class="pricing-amount">$25</div>
-                    <p class="pricing-period">per player</p>
-                    <ul class="pricing-features">
-                        <li>Fun, recreational play</li>
-                        <li>Official tournament balls</li>
-                        <li>Professional tournament management</li>
-                        <li>Awards ceremony with photos</li>
-                        <li>Trophies for Winners and Runners</li>
-                    </ul>
-                    <button class="btn btn-secondary btn-full" onclick="showTab('register')">Register Now</button>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-badge">Single Event</div>
-                    <h3 class="pricing-title">Open or Mixed</h3>
-                    <div class="pricing-amount">$40</div>
-                    <p class="pricing-period">per player</p>
-                    <ul class="pricing-features">
-                        <li>Choose Open 3.0, 3.5, or 4.0</li>
-                        <li>OR Competitive Mixed Doubles</li>
-                        <li>Official tournament balls</li>
-                        <li>Real-time brackets and scoring</li>
-                        <li>Awards and trophies</li>
-                    </ul>
-                    <button class="btn btn-secondary btn-full" onclick="showTab('register')">Register Now</button>
-                </div>
-
-                <div class="pricing-card featured">
-                    <div class="pricing-badge" style="background: var(--primary); color: var(--white);">Best Value</div>
-                    <h3 class="pricing-title">2 Events</h3>
-                    <div class="pricing-amount">$60</div>
-                    <p class="pricing-period">per player</p>
-                    <ul class="pricing-features">
-                        <li>Any 2 events combination</li>
-                        <li>Save $20 vs single event pricing</li>
-                        <li>All tournament benefits included</li>
-                        <li>Official balls and management</li>
-                        <li>Trophies for Winners and Runners</li>
-                    </ul>
-                    <button class="btn btn-primary btn-full" onclick="showTab('register')">Register Now</button>
-                </div>
-
-                <div class="pricing-card">
-                    <div class="pricing-badge">Maximum Value</div>
-                    <h3 class="pricing-title">All 3 Events</h3>
-                    <div class="pricing-amount">$80</div>
-                    <p class="pricing-period">per player</p>
-                    <ul class="pricing-features">
-                        <li>Open + Mixed + Family</li>
-                        <li>Save $45 vs single event pricing</li>
-                        <li>Maximum tournament experience</li>
-                        <li>All benefits included</li>
-                        <li>Awards and trophies</li>
-                    </ul>
-                    <button class="btn btn-secondary btn-full" onclick="showTab('register')">Register Now</button>
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 2rem;">
-                <h3 style="color: var(--secondary); margin-bottom: 1rem;">Special Family Discount</h3>
-                <p style="line-height: 1.8;">Special discount available if the family is playing 4 events or more. Contact Organizers for more info.</p>
-            </div>
-        </div>
-
-        <!-- Registration Tab -->
-        <div id="register" class="tab-content active">
-            <div class="success-message" id="successMessage">
-                <h3 style="color: #ffffff; margin-bottom: 1.5rem; font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">✓ Registration Submitted Successfully!</h3>
-                
-                <div style="background: var(--light); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
-                    <h4 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.5rem;">Complete Your Payment</h4>
-                    
-                    <div style="background: var(--dark); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border: 2px solid var(--primary);">
-                        <div style="text-align: center; margin-bottom: 1rem;">
-                            <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold;" id="paymentAmount">$0</div>
-                            <p style="color: #ccc; margin-top: 0.5rem;">Total Registration Fee</p>
-                        </div>
-                    </div>
-                    
-                    <h5 style="color: var(--secondary); margin-bottom: 1rem; font-size: 1.2rem;">Payment Methods:</h5>
-                    
-                    <div style="background: var(--dark); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; border: 2px solid var(--primary);">
-                        <h6 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1.1rem;">📱 Zelle</h6>
-                        <p style="margin-bottom: 0.5rem; font-size: 1.2rem; word-break: break-all;"><strong>gtscommitteefin@gmail.com</strong></p>
-                        <p style="font-size: 0.9rem; color: #ccc; margin-top: 0.8rem;">Please include your name and events in the Zelle memo</p>
-                    </div>
-                    
-                    <h5 style="color: var(--secondary); margin: 1.5rem 0 1rem 0; font-size: 1.2rem;">Contact Organizers:</h5>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                        <div style="background: var(--dark); padding: 1rem; border-radius: 8px;">
-                            <p style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Phone</p>
-                            <p style="font-size: 1.1rem;">📱 <a href="tel:+18645670277" style="color: var(--white);">864-567-0277</a></p>
-                        </div>
-                        <div style="background: var(--dark); padding: 1rem; border-radius: 8px;">
-                            <p style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">Email</p>
-                            <p style="font-size: 1rem; word-break: break-all;">✉️ <a href="mailto:greenvilletamilsangam@gmail.com" style="color: var(--white);">greenvilletamilsangam@gmail.com</a></p>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 199, 44, 0.1); border-left: 4px solid var(--primary); border-radius: 4px;">
-                        <p style="margin-bottom: 0.5rem;"><strong>⚠️ Important:</strong></p>
-                        <ul style="margin-left: 1.5rem; line-height: 1.8;">
-                            <li>Your spot is NOT confirmed until payment is received</li>
-                            <li>Please complete payment within 24 hours to secure your registration</li>
-                            <li>Contact organizers immediately after payment to confirm</li>
-                            <li>Save your payment confirmation for your records</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <button class="btn btn-primary" onclick="location.reload()">Register Another Player</button>
-            </div>
-            <div class="form-section">
-                <h2 style="font-family: 'Archivo Black', sans-serif; font-size: 2rem; color: var(--secondary); margin-bottom: 2rem; text-align: center;">Tournament Registration Form</h2>
-                
-                <form id="registrationForm" name="tournament-registration" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                    <!-- Netlify form detection -->
-                    <input type="hidden" name="form-name" value="tournament-registration" />
-                    <input type="hidden" name="tournament" value="GTS" />
-                    <p style="display: none;">
-                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                    </p>
-                    <!-- Personal Information -->
-                    <h3 style="color: var(--primary); margin: 2rem 0 1rem 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--light);">Personal Information</h3>
-                    
-                    <div class="form-group">
-                        <label>Full Name <span class="required">*</span></label>
-                        <input type="text" name="fullName" required placeholder="Enter your full name">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Email Address <span class="required">*</span></label>
-                            <input type="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number <span class="required">*</span></label>
-                            <input type="tel" name="phone" required>
-                        </div>
-                    </div>
-
-                    <!-- Tournament Details -->
-                    <h3 style="color: var(--primary); margin: 2rem 0 1rem 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--light);">Event Registration</h3>
-
-                    <div class="form-group">
-                        <label>Select Events <span class="required">*</span></label>
-                        <p style="font-size: 0.9rem; color: #ccc; margin-bottom: 1rem;">
-                            One event: $25 | Two events: $40 | Max 2 events per player
-                        </p>
-                        
-                        <div style="background: var(--light); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
-                            <h4 style="color: var(--success); margin-bottom: 1rem;">Women's Doubles</h4>
-                            <div class="checkbox-group">
-                                <div class="checkbox-item">
+                        <div class="events">
+                            <div class="event" data-event="womens">
+                                <label class="event-head">
                                     <input type="checkbox" id="event-womens" name="womensCategory" value="Women's Doubles">
-                                    <label for="event-womens">
-                                        <strong>Women's Doubles</strong>
-                                    </label>
-                                </div>
-                            </div>
-                            <div id="womensPartner" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                                <label style="color: var(--white); font-weight: 600; margin-bottom: 0.5rem; display: block;">Partner Name <span class="required">*</span></label>
-                                <input type="text" name="womensPartnerName" id="womensPartnerNameInput" placeholder="Enter partner's full name" style="width: 100%; padding: 0.8rem; background: var(--dark); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; color: var(--white);">
-                            </div>
-                        </div>
-
-                        <div style="background: var(--light); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem">
-                            <h4 style="color: var(--primary); margin-bottom: 1rem;">Mixed Doubles</h4>
-                            <div class="checkbox-group">
-                                <div class="checkbox-item">
-                                    <input type="checkbox" id="event-mixed" name="mixedCategory" value="Mixed Doubles">
-                                    <label for="event-mixed">
-                                        <strong>Mixed Doubles</strong>
-                                    </label>
-                                </div>
-                            </div>
-                            <div id="mixedPartner" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                                <label style="color: var(--white); font-weight: 600; margin-bottom: 0.5rem; display: block;">Partner Name <span class="required">*</span></label>
-                                <input type="text" name="mixedPartnerName" id="mixedPartnerNameInput" placeholder="Enter partner's full name" style="width: 100%; padding: 0.8rem; background: var(--dark); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; color: var(--white);">
-                            </div>
-                        </div>
-
-                        <div style="background: var(--light); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
-                            <h4 style="color: var(--secondary); margin-bottom: 1rem;">Open Doubles (Optional - Choose ONE level - All Genders Welcome)</h4>
-                            <div class="checkbox-group">
-                                <div class="checkbox-item">
-                                    <input type="radio" id="event-open3" name="openCategory" value="Open Doubles - Beginner (3.0)">
-                                    <label for="event-open3">
-                                        <strong>Open Doubles - Beginner (3.0)</strong>
-                                    </label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="radio" id="event-open35" name="openCategory" value="Open Doubles - Intermediate (3.5)">
-                                    <label for="event-open35">
-                                        <strong>Open Doubles - Intermediate (3.5)</strong>
-                                    </label>
-                                </div>
-                                <div class="checkbox-item">
-                                    <input type="radio" id="event-open4" name="openCategory" value="Open Doubles - Advance (4.0)">
-                                    <label for="event-open4">
-                                        <strong>Open Doubles - Advance (4.0)</strong>
-                                    </label>
-                                </div>
-                            </div>
-                            <p style="font-size: 0.85rem; color: #ccc; margin-top: 0.5rem; font-style: italic;">
-                                💡 Open Doubles is optional - you can register for Women's and/or Mixed Doubles only
-                            </p>
-                            <div id="openPartner" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                                <label style="color: var(--white); font-weight: 600; margin-bottom: 0.5rem; display: block;">Partner Name <span class="required">*</span></label>
-                                <input type="text" name="openPartnerName" id="openPartnerNameInput" placeholder="Enter partner's full name" style="width: 100%; padding: 0.8rem; background: var(--dark); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; color: var(--white);">
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <p id="maxEventsNote" style="display: none; color: #FF6B6B; font-weight: 600; margin: 0.5rem 0;">You can register for a maximum of 2 events.</p>
-
-                    <!-- Registration Fee Display -->
-                    <div id="feeDisplay" style="display: none; background: linear-gradient(135deg, #FFC72C 0%, #3DBE5A 100%); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; text-align: center;">
-                        <h3 style="color: white; margin-bottom: 0.5rem;">Total Registration Fee</h3>
-                        <div id="feeAmount" style="font-size: 2.5rem; font-weight: bold; color: white;">$0</div>
-                        <p id="feeBreakdown" style="color: white; margin-top: 0.5rem; font-size: 0.9rem;"></p>
-                        <p style="color: white; margin-top: 0.75rem; font-size: 0.95rem; font-weight: 600; word-break: break-all;">💳 Pay via Zelle to gtscommitteefin@gmail.com</p>
-                    </div>
-
-                    <!-- Terms & Conditions -->
-                    <h3 style="color: var(--primary); margin: 2rem 0 1rem 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--light);">Terms & Conditions</h3>
-
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="terms" name="terms" required>
-                                <label for="terms">
-                                    I agree to the terms and conditions including: liability waiver, tournament rules, non-refundable registration (transferable with 48 hours notice), and consent to photos/videos for promotional purposes <span class="required">*</span>
+                                    <span class="event-title"><strong>Women's Doubles</strong><span>Women's pairs, all levels</span></span>
                                 </label>
+                                <div class="partner field" id="womensPartner">
+                                    <label class="lbl" for="womensPartnerNameInput">Partner name <span class="req">*</span></label>
+                                    <input type="text" name="womensPartnerName" id="womensPartnerNameInput" placeholder="Partner's full name">
+                                </div>
+                            </div>
+
+                            <div class="event" data-event="mixed">
+                                <label class="event-head">
+                                    <input type="checkbox" id="event-mixed" name="mixedCategory" value="Mixed Doubles">
+                                    <span class="event-title"><strong>Mixed Doubles</strong><span>One man and one woman per team</span></span>
+                                </label>
+                                <div class="partner field" id="mixedPartner">
+                                    <label class="lbl" for="mixedPartnerNameInput">Partner name <span class="req">*</span></label>
+                                    <input type="text" name="mixedPartnerName" id="mixedPartnerNameInput" placeholder="Partner's full name">
+                                </div>
+                            </div>
+
+                            <div class="event" data-event="open">
+                                <div class="event-head" style="cursor: default;">
+                                    <span class="event-title"><strong>Open Doubles</strong><span>All genders welcome · pick one level (tap again to clear)</span></span>
+                                </div>
+                                <div class="levels" role="radiogroup" aria-label="Open Doubles level">
+                                    <div class="level">
+                                        <input type="radio" id="event-open3" name="openCategory" value="Open Doubles - Beginner (3.0)">
+                                        <label for="event-open3"><b>3.0</b><small>Beginner</small></label>
+                                    </div>
+                                    <div class="level">
+                                        <input type="radio" id="event-open35" name="openCategory" value="Open Doubles - Intermediate (3.5)">
+                                        <label for="event-open35"><b>3.5</b><small>Intermediate</small></label>
+                                    </div>
+                                    <div class="level">
+                                        <input type="radio" id="event-open4" name="openCategory" value="Open Doubles - Advance (4.0)">
+                                        <label for="event-open4"><b>4.0</b><small>Advance</small></label>
+                                    </div>
+                                </div>
+                                <div class="partner field" id="openPartner">
+                                    <label class="lbl" for="openPartnerNameInput">Partner name <span class="req">*</span></label>
+                                    <input type="text" name="openPartnerName" id="openPartnerNameInput" placeholder="Partner's full name">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Submit -->
-                    <div style="margin-top: 3rem; text-align: center;">
-                        <button type="submit" class="btn btn-primary" id="submitBtn" style="padding: 1.5rem 4rem; font-size: 1.2rem;">
-                            Complete Registration
-                        </button>
-                        <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
-                            You'll be redirected to payment after clicking submit
-                        </p>
-                    </div>
+                        <p class="limit-note" id="maxEventsNote">You can register for a maximum of 2 events.</p>
+                    </section>
+
+                    <!-- Step 3 -->
+                    <section class="card">
+                        <div class="step">
+                            <div class="step-num">3</div>
+                            <div>
+                                <h3>Confirm</h3>
+                                <p>Please review before submitting.</p>
+                            </div>
+                        </div>
+                        <label class="terms">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <span>I agree to the terms and conditions, including the liability waiver, tournament rules, non-refundable registration (transferable with 48 hours' notice), and consent to photos/videos for promotional purposes. <span class="req">*</span></span>
+                        </label>
+                    </section>
                 </form>
 
-                <div class="spinner" id="loadingSpinner"></div>
-            </div>
-        </div>
+                <!-- Summary -->
+                <aside class="summary" aria-live="polite">
+                    <div class="summary-photo">
+                        <img src="https://images.unsplash.com/photo-1711996151738-657bd95b7cdb?auto=format&fit=crop&w=720&q=75" alt="" aria-hidden="true">
+                    </div>
+                    <div class="summary-body">
+                        <h3>Your registration</h3>
+                        <ul class="sum-list" id="feeBreakdown">
+                            <li class="empty">No events selected yet</li>
+                        </ul>
+                        <div class="total">
+                            <span>Total</span>
+                            <strong id="feeAmount">$0</strong>
+                        </div>
+                        <p class="price-note">$25 for one event · $40 for two · max 2 per player</p>
 
+                        <div class="zelle">
+                            <div class="zelle-label">Pay with Zelle</div>
+                            <div class="zelle-row">
+                                <code>gtscommitteefin@gmail.com</code>
+                                <button type="button" class="copy" data-copy="gtscommitteefin@gmail.com">Copy</button>
+                            </div>
+                            <p>Include your name and events in the Zelle memo. Your spot is confirmed once payment is received.</p>
+                        </div>
+
+                        <button type="submit" form="registrationForm" class="btn btn-ball" id="submitBtn">Complete registration</button>
+                        <p class="secure">You'll get payment instructions right after you submit.</p>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Success -->
+            <section class="success" id="successMessage" aria-live="polite">
+                <div class="card">
+                    <div class="success-badge">
+                        <svg width="36" height="36" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <h2>You're registered!</h2>
+                    <p>Thanks for signing up for the GTS Pickleball Tournament. One last step: complete your payment.</p>
+
+                    <div class="pay-box">
+                        <div class="pay-amount">
+                            <span>Amount due</span>
+                            <strong id="paymentAmount">$0</strong>
+                        </div>
+                        <div class="zelle">
+                            <div class="zelle-label">Pay with Zelle</div>
+                            <div class="zelle-row">
+                                <code>gtscommitteefin@gmail.com</code>
+                                <button type="button" class="copy" data-copy="gtscommitteefin@gmail.com">Copy</button>
+                            </div>
+                            <p>Include your name and events in the Zelle memo.</p>
+                        </div>
+                    </div>
+
+                    <ul class="checklist">
+                        <li>Your spot is confirmed once payment is received</li>
+                        <li>Please complete payment within 24 hours</li>
+                        <li>Keep your Zelle confirmation for your records</li>
+                    </ul>
+
+                    <p class="contact-line">Questions? Call <a href="tel:+18645670277">864-567-0277</a> or email <a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
+
+                    <button type="button" class="btn btn-ghost" onclick="location.reload()">Register another player</button>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer style="background: var(--dark); color: var(--white); padding: 3rem 2rem; text-align: center; margin-top: 4rem;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <!-- GTS Logo and Info -->
-            <div style="margin-bottom: 2rem;">
-                <div class="gts-logo-badge" style="margin: 0 auto 1rem;"><img src="gts-logo.png" alt="Greenville Tamil Sangam" style="width: 140px;"></div>
-                <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--primary);">Greenville Tamil Sangam</h3>
-                <p style="font-size: 0.95rem; color: rgba(255,255,255,0.7); margin-bottom: 1rem;">A unified forum for Tamils in the Greenville area</p>
-                <a href="https://gtssc.org/" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: 600; font-size: 1rem;">🌐 Visit GTSSC.org</a>
+    <!-- ================= PHOTO STRIP ================= -->
+    <section class="gallery" aria-label="Pickleball photos">
+        <div class="container gallery-grid">
+            <div class="tile">
+                <img src="https://images.unsplash.com/photo-1665855031742-a87f5964adf1?auto=format&fit=crop&w=1100&q=75" alt="Doubles pickleball match on an outdoor court" loading="lazy">
+                <span>Compete <em>together</em></span>
             </div>
-            
-            <!-- Social Media Links -->
-            <div style="margin: 2rem 0;">
-                <p style="font-size: 1rem; margin-bottom: 1rem; color: rgba(255,255,255,0.8);">Connect with us:</p>
-                <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-                    <a href="https://www.facebook.com/groups/119343568164363" target="_blank" style="color: var(--white); text-decoration: none; font-size: 2rem; transition: color 0.3s;" title="Facebook">
-                        <svg style="width: 40px; height: 40px; fill: currentColor;" viewBox="0 0 24 24">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </a>
-                    <a href="https://www.youtube.com/@GTSSC" target="_blank" style="color: var(--white); text-decoration: none; font-size: 2rem; transition: color 0.3s;" title="YouTube">
-                        <svg style="width: 40px; height: 40px; fill: currentColor;" viewBox="0 0 24 24">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                    </a>
+            <div class="tile">
+                <img src="https://images.unsplash.com/photo-1734161081396-0f0572a16bf6?auto=format&fit=crop&w=700&q=75" alt="Two players raising their pickleball paddles" loading="lazy">
+                <span>Find your <em>partner</em></span>
+            </div>
+            <div class="tile">
+                <img src="https://images.unsplash.com/photo-1756477558468-b3e485757470?auto=format&fit=crop&w=700&q=75" alt="Player reaching for a low pickleball shot" loading="lazy">
+                <span>Play to <em>win</em></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="container">
+            <div class="foot-grid">
+                <div class="foot-brand">
+                    <img src="gts-logo.png" alt="Greenville Tamil Sangam">
+                    <h4>Greenville Tamil Sangam</h4>
+                    <p>A unified forum for Tamils in the Greenville area.</p>
+                    <div class="socials">
+                        <a href="https://www.facebook.com/groups/119343568164363" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/@GTSSC" target="_blank" rel="noopener" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="foot-col">
+                    <h4>Tournament</h4>
+                    <p>October 24–25, 2026</p>
+                    <p>ERS / Sudduth Farms</p>
+                    <p><a href="#register">Register now →</a></p>
+                </div>
+                <div class="foot-col">
+                    <h4>Contact</h4>
+                    <p><a href="tel:+18645670277">864-567-0277</a></p>
+                    <p><a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
+                    <p><a href="https://gtssc.org/" target="_blank" rel="noopener">gtssc.org</a></p>
                 </div>
             </div>
-            
-            <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--primary);">Questions? Contact Us!</h3>
-            <div style="margin-bottom: 2rem;">
-                <p style="margin-bottom: 0.5rem;">📞 <a href="tel:+18645670277" style="color: var(--primary); text-decoration: none;">864-567-0277</a></p>
-                <p style="margin-bottom: 0.5rem;">✉️ <a href="mailto:greenvilletamilsangam@gmail.com" style="color: var(--primary); text-decoration: none;">greenvilletamilsangam@gmail.com</a></p>
-            </div>
-            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">© 2026 Greenville Tamil Sangam. All rights reserved.</p>
-                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 0.5rem;">Venue: ERS / Sudduth Farms</p>
+            <div class="foot-bottom">
+                <span>© 2026 Greenville Tamil Sangam · க்ரீன்வில் தமிழ் சங்கம்</span>
+                <span>Photos: <a href="https://unsplash.com/s/photos/pickleball" target="_blank" rel="noopener">Unsplash</a></span>
             </div>
         </div>
     </footer>
 
     <script>
-        // Wait for DOM to be fully loaded
-        // Global showTab function for onclick handlers
-        function showTab(tabName) {
-            const tabContents = document.querySelectorAll('.tab-content');
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            
-            console.log('>>> showTab called with:', tabName);
-            console.log('    Buttons available:', tabButtons.length);
-            console.log('    Contents available:', tabContents.length);
-            
-            // Remove active from all
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                console.log('    Removed active from:', content.id);
-            });
-            tabButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
+        // Google Apps Script web app: GTS rows go to the "GTS Registrations" tab
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyWuUgzxJIhqS8FUDm8OyAif8fWI9XKygOFJ82KEaDLkV8FxiAZtsFJDDE30Yk8yRWV/exec';
+        const FEES = { 1: 25, 2: 40 };
+        const MAX_EVENTS = 2;
 
-            // Find and activate target
-            const targetContent = document.getElementById(tabName);
-            const targetButton = document.querySelector(`[data-tab="${tabName}"]`);
-            
-            console.log('    Target content found:', !!targetContent);
-            console.log('    Target button found:', !!targetButton);
-            
-            if (targetContent) {
-                targetContent.classList.add('active');
-                console.log('    ✓ Activated content:', tabName);
-            } else {
-                console.error('    ✗ Content not found for tab:', tabName);
-            }
-            
-            if (targetButton) {
-                targetButton.classList.add('active');
-                console.log('    ✓ Activated button');
-            } else {
-                console.error('    ✗ Button not found for tab:', tabName);
-            }
-
-            // Smooth scroll to the tab content
-            if (targetContent) {
-                setTimeout(() => {
-                    const navHeight = document.querySelector('.nav-tabs')?.offsetHeight || 0;
-                    const targetPosition = targetContent.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
-                    window.scrollTo({ 
-                        top: targetPosition, 
-                        behavior: 'smooth' 
-                    });
-                }, 100);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab Navigation - Enhanced with better debugging
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            console.log('=== TAB NAVIGATION INITIALIZED ===');
-            console.log('Tab buttons found:', tabButtons.length);
-            console.log('Tab contents found:', tabContents.length);
-            
-            // List all buttons and contents
-            tabButtons.forEach((btn, i) => {
-                console.log(`Button ${i}: data-tab="${btn.getAttribute('data-tab')}"`);
-            });
-            tabContents.forEach((content, i) => {
-                console.log(`Content ${i}: id="${content.id}"`);
-            });
-
-            // Enhanced click handler
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    const tabName = this.getAttribute('data-tab');
-                    console.log('>>> Tab button clicked:', tabName);
-                    
-                    // Call the global showTab function
-                    if (typeof showTab === 'function') {
-                        showTab(tabName);
-                    } else {
-                        console.error('showTab function not found!');
-                    }
-                });
-            });
-
-        // Event Selection and Fee Calculation - NEW LOGIC
-        const openRadios = document.querySelectorAll('input[name="openCategory"]');
-        const mixedCheckbox = document.getElementById('event-mixed');
+        const form = document.getElementById('registrationForm');
         const womensCheckbox = document.getElementById('event-womens');
-        const feeDisplay = document.getElementById('feeDisplay');
+        const mixedCheckbox = document.getElementById('event-mixed');
+        const openRadios = Array.from(document.querySelectorAll('input[name="openCategory"]'));
+        const partners = {
+            womens: { box: document.getElementById('womensPartner'), input: document.getElementById('womensPartnerNameInput') },
+            mixed: { box: document.getElementById('mixedPartner'), input: document.getElementById('mixedPartnerNameInput') },
+            open: { box: document.getElementById('openPartner'), input: document.getElementById('openPartnerNameInput') }
+        };
         const feeAmount = document.getElementById('feeAmount');
         const feeBreakdown = document.getElementById('feeBreakdown');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        // Partner name fields
-        const openPartnerDiv = document.getElementById('openPartner');
-        const mixedPartnerDiv = document.getElementById('mixedPartner');
-        const womensPartnerDiv = document.getElementById('womensPartner');
-        const openPartnerInput = document.getElementById('openPartnerNameInput');
-        const mixedPartnerInput = document.getElementById('mixedPartnerNameInput');
-        const womensPartnerInput = document.getElementById('womensPartnerNameInput');
-
-        function calculateFee() {
-            const hasOpen = Array.from(openRadios).some(radio => radio.checked);
-            const hasMixed = mixedCheckbox.checked;
-            const hasWomens = womensCheckbox.checked;
-            
-            let total = 0;
-            let breakdown = [];
-            let eventCount = 0;
-            
-            if (hasOpen) eventCount++;
-            if (hasMixed) eventCount++;
-            if (hasWomens) eventCount++;
-            
-            console.log('Event count:', eventCount, 'Open:', hasOpen, 'Mixed:', hasMixed, 'Womens:', hasWomens);
-            
-            // Pricing: 1 event $25, 2 events $40 (max 2 events per player)
-            const selectedOpen = Array.from(openRadios).find(r => r.checked);
-            const events = [];
-            if (hasWomens) events.push("Women's Doubles");
-            if (hasMixed) events.push('Mixed Doubles');
-            if (hasOpen) events.push(selectedOpen.value);
-
-            if (eventCount === 0) {
-                return { total: 0, breakdown: [] };
-            }
-            total = { 1: 25, 2: 40 }[eventCount];
-            breakdown = [events.join(' + ') + ': $' + total];
-
-            return { total, breakdown };
-        }
-
-        function updatePartnerFields() {
-            const hasOpen = Array.from(openRadios).some(radio => radio.checked);
-            const hasMixed = mixedCheckbox.checked;
-            const hasWomens = womensCheckbox.checked;
-            
-            // Show/hide and make required based on selection
-            if (hasOpen) {
-                openPartnerDiv.style.display = 'block';
-                openPartnerInput.required = true;
-            } else {
-                openPartnerDiv.style.display = 'none';
-                openPartnerInput.required = false;
-                openPartnerInput.value = '';
-            }
-            
-            if (hasMixed) {
-                mixedPartnerDiv.style.display = 'block';
-                mixedPartnerInput.required = true;
-            } else {
-                mixedPartnerDiv.style.display = 'none';
-                mixedPartnerInput.required = false;
-                mixedPartnerInput.value = '';
-            }
-            
-            if (hasWomens) {
-                womensPartnerDiv.style.display = 'block';
-                womensPartnerInput.required = true;
-            } else {
-                womensPartnerDiv.style.display = 'none';
-                womensPartnerInput.required = false;
-                womensPartnerInput.value = '';
-            }
-        }
-
-        function updateFeeDisplay() {
-            const { total, breakdown } = calculateFee();
-            
-            if (total === 0) {
-                feeDisplay.style.display = 'none';
-                submitBtn.textContent = 'Complete Registration';
-            } else {
-                feeDisplay.style.display = 'block';
-                feeAmount.textContent = `$${total}`;
-                feeBreakdown.innerHTML = breakdown.join(' | ');
-                submitBtn.textContent = `Complete Registration - $${total}`;
-            }
-            
-            updatePartnerFields();
-        }
-
-        // Max 2 events per player: undo a selection that would make it 3
         const maxEventsNote = document.getElementById('maxEventsNote');
-        function countEvents() {
-            return (Array.from(openRadios).some(radio => radio.checked) ? 1 : 0)
-                + (mixedCheckbox.checked ? 1 : 0)
-                + (womensCheckbox.checked ? 1 : 0);
+        const submitBtn = document.getElementById('submitBtn');
+
+        function selectedOpen() {
+            return openRadios.find(r => r.checked) || null;
         }
-        function withinMaxEvents(input) {
-            const ok = countEvents() <= 2;
+
+        function selectedEvents() {
+            const events = [];
+            if (womensCheckbox.checked) events.push("Women's Doubles");
+            if (mixedCheckbox.checked) events.push('Mixed Doubles');
+            const open = selectedOpen();
+            if (open) events.push(open.value);
+            return events;
+        }
+
+        function refresh() {
+            const state = { womens: womensCheckbox.checked, mixed: mixedCheckbox.checked, open: !!selectedOpen() };
+            for (const key of Object.keys(partners)) {
+                const on = state[key];
+                partners[key].box.classList.toggle('show', on);
+                partners[key].input.required = on;
+                if (!on) partners[key].input.value = '';
+                document.querySelector(`.event[data-event="${key}"]`).classList.toggle('is-selected', on);
+            }
+
+            const events = selectedEvents();
+            const total = FEES[events.length] || 0;
+            feeAmount.textContent = `$${total}`;
+            feeBreakdown.innerHTML = events.length
+                ? events.map(e => `<li>${e}</li>`).join('')
+                : '<li class="empty">No events selected yet</li>';
+            submitBtn.textContent = total ? `Register · $${total}` : 'Complete registration';
+        }
+
+        // Undo a selection that would take the player past the 2-event limit
+        function withinLimit(input) {
+            const ok = selectedEvents().length <= MAX_EVENTS;
             if (!ok) input.checked = false;
             maxEventsNote.style.display = ok ? 'none' : 'block';
             return ok;
         }
 
-        // Add event listeners
-        // Allow unchecking radio buttons for Open category
-        let lastCheckedOpen = null;
+        [womensCheckbox, mixedCheckbox].forEach(cb => cb.addEventListener('change', () => {
+            withinLimit(cb);
+            refresh();
+        }));
+
+        // Open level radios: tap the chosen level again to clear it
+        let lastOpen = null;
         openRadios.forEach(radio => {
-            radio.addEventListener('click', function() {
-                if (lastCheckedOpen === this) {
-                    this.checked = false;
-                    lastCheckedOpen = null;
-                } else if (withinMaxEvents(this)) {
-                    lastCheckedOpen = this;
-                } else {
-                    // restore the previously chosen Open level, if any
-                    if (lastCheckedOpen) lastCheckedOpen.checked = true;
+            radio.addEventListener('click', () => {
+                if (lastOpen === radio) {
+                    radio.checked = false;
+                    lastOpen = null;
+                } else if (withinLimit(radio)) {
+                    lastOpen = radio;
+                } else if (lastOpen) {
+                    lastOpen.checked = true;
                 }
-                updateFeeDisplay();
-            });
-            radio.addEventListener('change', function() {
-                if (this.checked) {
-                    lastCheckedOpen = this;
-                }
+                refresh();
             });
         });
-        
-        mixedCheckbox.addEventListener('change', function() { withinMaxEvents(this); updateFeeDisplay(); });
-        womensCheckbox.addEventListener('change', function() { withinMaxEvents(this); updateFeeDisplay(); });
 
-        // Form Submission (combined validation and submission)
-        const registrationForm = document.getElementById('registrationForm');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-        const successMessage = document.getElementById('successMessage');
+        // Copy Zelle email
+        document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
+            const text = btn.dataset.copy;
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch (err) {
+                const tmp = document.createElement('textarea');
+                tmp.value = text;
+                document.body.appendChild(tmp);
+                tmp.select();
+                document.execCommand('copy');
+                tmp.remove();
+            }
+            const label = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = label; }, 1500);
+        }));
 
-        registrationForm.addEventListener('submit', async (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Validate at least one event is selected
-            const hasOpen = Array.from(openRadios).some(radio => radio.checked);
-            const hasMixed = mixedCheckbox.checked;
-            const hasWomens = womensCheckbox.checked;
-            
-            if (!hasOpen && !hasMixed && !hasWomens) {
+            const events = selectedEvents();
+
+            if (!events.length) {
                 alert('Please select at least one event to register.');
-                return false;
+                document.querySelector('.events').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
             }
-            if (countEvents() > 2) {
+            if (events.length > MAX_EVENTS) {
                 alert('You can register for a maximum of 2 events.');
-                return false;
+                return;
             }
-            
-            // Show loading
-            loadingSpinner.classList.add('show');
-            registrationForm.style.display = 'none';
+            if (!form.reportValidity()) return;
+
+            const total = FEES[events.length];
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting…';
 
             try {
-                // Get form data
-                const formData = new FormData(registrationForm);
-                
-                // Log form data for debugging
-                console.log('Submitting registration form...');
-                for (let [key, value] of formData.entries()) {
-                    console.log(key + ': ' + value);
-                }
-                
-                // Google Apps Script Web App URL
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbyWuUgzxJIhqS8FUDm8OyAif8fWI9XKygOFJ82KEaDLkV8FxiAZtsFJDDE30Yk8yRWV/exec';
-                
-                console.log('Sending to:', scriptURL);
-                
-                // Submit to Google Sheets
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors' // Important for Google Apps Script
-                });
+                // no-cors: Apps Script doesn't send CORS headers, so the response can't be read
+                await fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form), mode: 'no-cors' });
 
-                console.log('Response received');
-                
-                // Note: With no-cors mode, we can't read the response
-                // but if we get here without error, it likely worked
-                
-                // Calculate final fee for payment page
-                const { total } = calculateFee();
-                
-                // Hide loading and show success
-                loadingSpinner.classList.remove('show');
-                successMessage.classList.add('show');
-                
-                // Update payment amount on success page
                 document.getElementById('paymentAmount').textContent = `$${total}`;
-                
-                // Scroll to success message
-                successMessage.scrollIntoView({ behavior: 'smooth' });
-                
-                // Reset form
-                registrationForm.reset();
-                
-                console.log('Registration submitted successfully!');
-                
+                document.getElementById('regGrid').style.display = 'none';
+                document.getElementById('regHead').style.display = 'none';
+                const success = document.getElementById('successMessage');
+                success.classList.add('show');
+                success.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } catch (error) {
-                console.error('Error:', error);
-                loadingSpinner.classList.remove('show');
-                registrationForm.style.display = 'block';
+                console.error('Registration failed:', error);
+                submitBtn.disabled = false;
+                refresh();
                 alert('There was an error submitting your registration. Please try again or contact GTS directly at:\n\nPhone: 864-567-0277\nEmail: greenvilletamilsangam@gmail.com');
             }
         });
 
-        // Smooth scroll for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Back to Top Button
-        const backToTopButton = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('show');
-            } else {
-                backToTopButton.classList.remove('show');
-            }
-        });
-
-        backToTopButton.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        
-        // Schedule category switcher
-        function showSchedule(cat) {
-            document.querySelectorAll('.sched-content').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.sched-cat-btn').forEach(el => el.classList.remove('active-sched'));
-            document.getElementById('sched-' + cat).style.display = 'block';
-            document.getElementById('sched-btn-' + cat).classList.add('active-sched');
-        }
-
-        }); // End DOMContentLoaded
+        refresh();
     </script>
 </body>
 </html>
