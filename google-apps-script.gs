@@ -5,11 +5,14 @@ function doPost(e) {
   try {
     // Get the active spreadsheet and sheet
     const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let sheet = ss.getSheetByName('Tournament Registrations');
+    // Each site sends a hidden "tournament" field; GTS gets its own tab, IAG keeps the original one
+    const isGTS = e.parameter.tournament === 'GTS';
+    const sheetName = isGTS ? 'GTS Registrations' : 'Tournament Registrations';
+    let sheet = ss.getSheetByName(sheetName);
     
     // Create sheet if it doesn't exist
     if (!sheet) {
-      sheet = ss.insertSheet('Tournament Registrations');
+      sheet = ss.insertSheet(sheetName);
       
       // Add headers
       const headers = [
@@ -21,8 +24,8 @@ function doPost(e) {
         'Open Partner Name',
         'Mixed Doubles',
         'Mixed Partner Name',
-        'Family Social',
-        'Family Partner Name',
+        isGTS ? "Women's Doubles" : 'Family Social',
+        isGTS ? "Women's Partner Name" : 'Family Partner Name',
         'Total Events',
         'Registration Fee',
         'Terms Accepted',
@@ -60,6 +63,11 @@ function doPost(e) {
       sheet.setColumnWidth(15, 200); // Notes
     }
     
+    // The GTS tab was first created with IAG's Family columns; keep its Women's headers in place
+    if (isGTS) {
+      sheet.getRange(1, 9, 1, 2).setValues([["Women's Doubles", "Women's Partner Name"]]);
+    }
+    
     // Parse form data
     const formData = e.parameter;
     
@@ -78,8 +86,9 @@ function doPost(e) {
     const mixedPartner = formData.mixedPartnerName || '';
     
     // Family category (checkbox)
-    const familyCategory = formData.familyCategory || 'Not Selected';
-    const familyPartner = formData.familyPartnerName || '';
+    // GTS sends Women's Doubles in place of IAG's Family Social; both use the same columns
+    const familyCategory = formData.familyCategory || formData.womensCategory || 'Not Selected';
+    const familyPartner = formData.familyPartnerName || formData.womensPartnerName || '';
     
     // Calculate total events and fee
     let totalEvents = 0;
@@ -95,7 +104,7 @@ function doPost(e) {
     // 2 events: $60
     // All 3 events: $80
     if (totalEvents === 1) {
-      if (familyCategory !== 'Not Selected') {
+      if (formData.familyCategory) {
         registrationFee = 25;
       } else {
         registrationFee = 40;
@@ -167,7 +176,7 @@ function doPost(e) {
     try {
       const emailSubject = `New Tournament Registration: ${fullName}`;
       const emailBody = `
-New registration received for IAG Pickleball Tournament:
+New registration received for ${e.parameter.tournament === 'GTS' ? 'GTS' : 'IAG'} Pickleball Tournament:
 
 Player Name: ${fullName}
 Email: ${email}
