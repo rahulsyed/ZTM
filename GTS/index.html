@@ -698,6 +698,25 @@
 
         .contact-line a { color: var(--blue); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
 
+        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 420px; margin: 12px auto 0; }
+
+        .contact-grid a {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 10px 12px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--blue);
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        .contact-grid a:hover { border-color: var(--blue); }
+
+        .contact-grid b { color: var(--ink); font-size: 0.95rem; }
+
         .btn-ghost { background: transparent; color: var(--ink); border: 2px solid var(--ink); margin-top: 24px; }
 
         .btn-ghost:hover { background: var(--ink); color: #fff; }
@@ -1108,7 +1127,14 @@
                         <li>Keep your Zelle confirmation for your records</li>
                     </ul>
 
-                    <p class="contact-line">Questions? Call PJ at <a href="tel:+18324363286">(832) 436-3286</a>, Hari at <a href="tel:+17742661319">(774) 266-1319</a>, or email <a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
+                    <p class="contact-line">Questions? Call any of our organizers:</p>
+                    <div class="contact-grid">
+                        <a href="tel:+18324363286"><b>PJ</b>(832) 436-3286</a>
+                        <a href="tel:+17742661319"><b>Hari</b>(774) 266-1319</a>
+                        <a href="tel:+18644988210"><b>Rajesh</b>(864) 498-8210</a>
+                        <a href="tel:+16167520992"><b>Senthil</b>(616) 752-0992</a>
+                    </div>
+                    <p class="contact-line" style="margin-top: 12px;">or email <a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
 
                     <button type="button" class="btn btn-ghost" onclick="location.reload()">Register another player</button>
                 </div>
@@ -1162,6 +1188,8 @@
                     <h4>Contact</h4>
                     <p>PJ: <a href="tel:+18324363286">(832) 436-3286</a></p>
                     <p>Hari: <a href="tel:+17742661319">(774) 266-1319</a></p>
+                    <p>Rajesh: <a href="tel:+18644988210">(864) 498-8210</a></p>
+                    <p>Senthil: <a href="tel:+16167520992">(616) 752-0992</a></p>
                     <p><a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
                     <p><a href="https://gtssc.org/" target="_blank" rel="noopener">gtssc.org</a></p>
                 </div>
@@ -1305,7 +1333,7 @@
                 console.error('Registration failed:', error);
                 submitBtn.disabled = false;
                 refresh();
-                alert('There was an error submitting your registration. Please try again or contact GTS directly at:\n\nPJ: (832) 436-3286\nHari: (774) 266-1319\nEmail: greenvilletamilsangam@gmail.com');
+                alert('There was an error submitting your registration. Please try again or contact GTS directly at:\n\nPJ: (832) 436-3286\nHari: (774) 266-1319\nRajesh: (864) 498-8210\nSenthil: (616) 752-0992\nEmail: greenvilletamilsangam@gmail.com');
             }
         });
 
