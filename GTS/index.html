@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GTS Pickleball Tournament 2026 | Registration</title>
-    <meta name="description" content="Register for the GTS Pickleball Tournament, October 24–25, 2026 at ERS / Sudduth Farms. Women's, Mixed and Open Doubles.">
+    <meta name="description" content="Register for the GTS Pickleball Tournament at ERS / Sudduth Farms. Sat Oct 24: Women's & Mixed Doubles. Sun Oct 25: Open Doubles 3.0 / 3.5 / 4.0.">
     <meta name="theme-color" content="#FFFFFF">
     <meta property="og:title" content="GTS Pickleball Tournament 2026 — Registration Open">
     <meta property="og:description" content="October 24–25, 2026 · ERS / Sudduth Farms · Women's, Mixed & Open Doubles (3.0 / 3.5 / 4.0). $25 one event, $40 two.">
@@ -244,16 +244,54 @@
 
         .cta-note strong { color: var(--ink); }
 
-        .divisions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+        .schedule { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; max-width: 560px; }
 
-        .divisions span {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--ink);
-            padding: 6px 12px;
+        .day {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid var(--line);
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+
+        .day-date {
+            flex-shrink: 0;
+            width: 54px;
+            padding: 6px 0;
+            border-radius: 10px;
+            background: var(--ink);
+            color: #fff;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .day-date small { display: block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; }
+
+        .day-date b { display: block; font-family: var(--display); font-size: 1.7rem; font-weight: 800; color: var(--ball); margin: 2px 0; }
+
+        .day-events strong { display: block; font-size: 0.95rem; color: var(--ink); line-height: 1.25; }
+
+        .day-events span { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+
+        .event-day {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 8px;
             border-radius: 999px;
             background: var(--blue-soft);
+            color: var(--blue);
+            font-family: var(--body);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: none;
+            vertical-align: middle;
         }
+
+        .contacts p + p { margin-top: 6px; }
 
         /* Photo collage */
         .collage { position: relative; height: 540px; }
@@ -763,7 +801,7 @@
             .foot-brand { grid-column: 1 / -1; }
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 920px) {
             .brand span { display: none; }
         }
 
@@ -775,6 +813,7 @@
             .nav a, .nav span { padding: 7px 10px; font-size: 0.76rem; }
             .nav .soon small { display: none; }
             .lede { font-size: 1rem; }
+            .schedule { grid-template-columns: 1fr; }
             .meta div { font-size: 0.88rem; padding: 8px 12px; }
             .collage { height: 330px; }
             .photo-main { width: 90%; height: 270px; border-radius: 22px; }
@@ -834,10 +873,6 @@
                         October 24–25, 2026
                     </div>
                     <div>
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        9:00 AM – 6:00 PM
-                    </div>
-                    <div>
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         ERS / Sudduth Farms
                     </div>
@@ -850,12 +885,15 @@
                     <p class="cta-note"><strong>$25</strong> one event · <strong>$40</strong> two events</p>
                 </div>
 
-                <div class="divisions fade-up d4">
-                    <span>Women's Doubles</span>
-                    <span>Mixed Doubles</span>
-                    <span>Open 3.0</span>
-                    <span>Open 3.5</span>
-                    <span>Open 4.0</span>
+                <div class="schedule fade-up d4">
+                    <div class="day">
+                        <div class="day-date"><small>Sat</small><b>24</b><small>Oct</small></div>
+                        <div class="day-events"><strong>Women's &amp; Mixed Doubles</strong><span>Day 1</span></div>
+                    </div>
+                    <div class="day">
+                        <div class="day-date"><small>Sun</small><b>25</b><small>Oct</small></div>
+                        <div class="day-events"><strong>Open Doubles 3.0 · 3.5 · 4.0</strong><span>Day 2</span></div>
+                    </div>
                 </div>
             </div>
 
@@ -946,7 +984,7 @@
                             <div class="event" data-event="womens">
                                 <label class="event-head">
                                     <input type="checkbox" id="event-womens" name="womensCategory" value="Women's Doubles">
-                                    <span class="event-title"><strong>Women's Doubles</strong><span>Women's pairs, all levels</span></span>
+                                    <span class="event-title"><strong>Women's Doubles <em class="event-day">Sat, Oct 24</em></strong><span>Women's pairs, all levels</span></span>
                                 </label>
                                 <div class="partner field" id="womensPartner">
                                     <label class="lbl" for="womensPartnerNameInput">Partner name <span class="req">*</span></label>
@@ -957,7 +995,7 @@
                             <div class="event" data-event="mixed">
                                 <label class="event-head">
                                     <input type="checkbox" id="event-mixed" name="mixedCategory" value="Mixed Doubles">
-                                    <span class="event-title"><strong>Mixed Doubles</strong><span>One man and one woman per team</span></span>
+                                    <span class="event-title"><strong>Mixed Doubles <em class="event-day">Sat, Oct 24</em></strong><span>One man and one woman per team</span></span>
                                 </label>
                                 <div class="partner field" id="mixedPartner">
                                     <label class="lbl" for="mixedPartnerNameInput">Partner name <span class="req">*</span></label>
@@ -967,7 +1005,7 @@
 
                             <div class="event" data-event="open">
                                 <div class="event-head" style="cursor: default;">
-                                    <span class="event-title"><strong>Open Doubles</strong><span>All genders welcome · pick one level (tap again to clear)</span></span>
+                                    <span class="event-title"><strong>Open Doubles <em class="event-day">Sun, Oct 25</em></strong><span>All genders welcome · pick one level (tap again to clear)</span></span>
                                 </div>
                                 <div class="levels" role="radiogroup" aria-label="Open Doubles level">
                                     <div class="level">
@@ -1070,7 +1108,7 @@
                         <li>Keep your Zelle confirmation for your records</li>
                     </ul>
 
-                    <p class="contact-line">Questions? Call PJ at <a href="tel:+18324363286">(832) 436-3286</a> or email <a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
+                    <p class="contact-line">Questions? Call PJ at <a href="tel:+18324363286">(832) 436-3286</a>, Hari at <a href="tel:+17742661319">(774) 266-1319</a>, or email <a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
 
                     <button type="button" class="btn btn-ghost" onclick="location.reload()">Register another player</button>
                 </div>
@@ -1115,13 +1153,15 @@
                 </div>
                 <div class="foot-col">
                     <h4>Tournament</h4>
-                    <p>October 24–25, 2026</p>
+                    <p>Sat, Oct 24: Women's &amp; Mixed Doubles</p>
+                    <p>Sun, Oct 25: Open Doubles 3.0 / 3.5 / 4.0</p>
                     <p>ERS / Sudduth Farms</p>
                     <p><a href="#register">Register now →</a></p>
                 </div>
                 <div class="foot-col">
                     <h4>Contact</h4>
                     <p>PJ: <a href="tel:+18324363286">(832) 436-3286</a></p>
+                    <p>Hari: <a href="tel:+17742661319">(774) 266-1319</a></p>
                     <p><a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
                     <p><a href="https://gtssc.org/" target="_blank" rel="noopener">gtssc.org</a></p>
                 </div>
@@ -1265,7 +1305,7 @@
                 console.error('Registration failed:', error);
                 submitBtn.disabled = false;
                 refresh();
-                alert('There was an error submitting your registration. Please try again or contact GTS directly at:\n\nPJ: (832) 436-3286\nEmail: greenvilletamilsangam@gmail.com');
+                alert('There was an error submitting your registration. Please try again or contact GTS directly at:\n\nPJ: (832) 436-3286\nHari: (774) 266-1319\nEmail: greenvilletamilsangam@gmail.com');
             }
         });
 
