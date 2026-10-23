@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTS Pickleball Tournament 2026 | Registration</title>
-    <meta name="description" content="Register for the GTS Pickleball Tournament, Sunday October 25, 2026 at East Riverside Park / Sudduth Farms. Women's, Mixed and Open Doubles (3.0 / 3.5 / 4.0).">
+    <title>GTS Pickleball Tournament 2026 | Registration Closed</title>
+    <meta name="description" content="Registration is closed for the GTS Pickleball Tournament, Sunday October 25, 2026 at East Riverside Park / Sudduth Farms. Women's, Mixed and Open Doubles (3.0 / 3.5 / 4.0).">
     <meta name="theme-color" content="#FFFFFF">
-    <meta property="og:title" content="GTS Pickleball Tournament 2026 — Registration Open">
+    <meta property="og:title" content="GTS Pickleball Tournament 2026 — Registration Closed">
     <meta property="og:description" content="Sunday, October 25, 2026 · East Riverside Park / Sudduth Farms · Women's, Mixed & Open Doubles (3.0 / 3.5 / 4.0). $25 one event, $40 two.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1665855031742-a87f5964adf1?auto=format&fit=crop&w=1200&h=630&q=80">
     <meta property="og:type" content="website">
@@ -698,6 +698,38 @@
 
         .contact-line a { color: var(--blue); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
 
+        .closed { max-width: 640px; margin: 0 auto; text-align: center; }
+
+        .closed .kicker { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); }
+
+        .closed h2 {
+            font-family: var(--display);
+            font-weight: 800;
+            font-style: italic;
+            text-transform: uppercase;
+            font-size: clamp(2.2rem, 5vw, 3rem);
+            line-height: 1;
+            color: var(--ink);
+            margin: 8px 0 12px;
+        }
+
+        .closed > p { color: var(--muted); max-width: 520px; margin: 0 auto; }
+
+        .closed-badge {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: grid;
+            place-items: center;
+            background: var(--ink);
+            color: var(--ball);
+        }
+
+        .closed .pay-box { margin-bottom: 0; }
+
+        .eyebrow .dot.off { background: #EF4444; box-shadow: none; animation: none; }
+
         .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 420px; margin: 12px auto 0; }
 
         .contact-grid a {
@@ -871,7 +903,7 @@
                 <span>Greenville Tamil Sangam<small>GTS Pickleball 2026</small></span>
             </a>
             <nav class="nav" aria-label="Tournament">
-                <a class="active" href="#register">Register</a>
+                <a class="active" href="#register">Contact</a>
                 <span class="soon" aria-disabled="true">Live Scores <small>Soon</small></span>
                 <span class="soon" aria-disabled="true">Live Stream <small>Soon</small></span>
             </nav>
@@ -882,9 +914,9 @@
     <header class="hero">
         <div class="container hero-grid">
             <div>
-                <p class="eyebrow fade-up d1"><span class="dot"></span>Registration open · Greenville Tamil Sangam</p>
+                <p class="eyebrow fade-up d1"><span class="dot off"></span>Registration closed · Greenville Tamil Sangam</p>
                 <h1 class="fade-up d2">GTS<br><span class="hl">Pickleball</span><br>Tournament<span class="year">2026</span></h1>
-                <p class="lede fade-up d3">A full day of competitive doubles across five divisions. Grab your partner and claim your spot on court.</p>
+                <p class="lede fade-up d3">A full day of competitive doubles across five divisions. See you on court!</p>
 
                 <div class="meta fade-up d3">
                     <div>
@@ -898,10 +930,10 @@
                 </div>
 
                 <div class="cta-row fade-up d4">
-                    <a class="btn btn-ball" href="#register">Register now
+                    <a class="btn btn-ball" href="#register">Contact organizers
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14m-6-6l6 6-6 6"/></svg>
                     </a>
-                    <p class="cta-note"><strong>$25</strong> one event · <strong>$40</strong> two events</p>
+                    <p class="cta-note"><strong>Registration is closed</strong></p>
                 </div>
 
                 <div class="schedule fade-up d4">
@@ -950,189 +982,31 @@
     <!-- ================= REGISTRATION ================= -->
     <main id="register" class="register">
         <div class="container">
-            <div class="section-head" id="regHead">
+            <section class="card closed">
+                <div class="closed-badge" aria-hidden="true">
+                    <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" stroke-width="2.2"/><path stroke-linecap="round" stroke-width="2.2" d="M8 11V7a4 4 0 018 0v4"/></svg>
+                </div>
                 <div class="kicker">Registration</div>
-                <h2>Claim your spot</h2>
-                <p>Takes about two minutes. Up to 2 events per player.</p>
-            </div>
+                <h2>Registration is closed</h2>
+                <p>Thank you for the amazing response! Online registration for the GTS Pickleball Tournament is now closed. For any questions, please contact one of the organizers below.</p>
 
-            <div class="reg-grid" id="regGrid">
-                <form id="registrationForm" novalidate>
-                    <input type="hidden" name="tournament" value="GTS">
+                <div class="contact-grid">
+                    <a href="tel:+18324363286"><b>PJ</b>(832) 436-3286</a>
+                    <a href="tel:+17742661319"><b>Hari</b>(774) 266-1319</a>
+                    <a href="tel:+18644988210"><b>Rajesh</b>(864) 498-8210</a>
+                    <a href="tel:+16167520992"><b>Senthil</b>(616) 752-0992</a>
+                </div>
+                <p class="contact-line" style="margin-top: 12px;">or email <a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
 
-                    <!-- Step 1 -->
-                    <section class="card">
-                        <div class="step">
-                            <div class="step-num">1</div>
-                            <div>
-                                <h3>Player details</h3>
-                                <p>We'll use these to confirm your registration.</p>
-                            </div>
+                <div class="pay-box">
+                    <div class="zelle" style="margin-top: 0;">
+                        <div class="zelle-label">Already registered? Pay with Zelle</div>
+                        <div class="zelle-row">
+                            <code>gtscommitteefin@gmail.com</code>
+                            <button type="button" class="copy" data-copy="gtscommitteefin@gmail.com">Copy</button>
                         </div>
-                        <div class="fields">
-                            <div class="field full">
-                                <label class="lbl" for="fullName">Full name <span class="req">*</span></label>
-                                <input type="text" id="fullName" name="fullName" required autocomplete="name" placeholder="Your full name">
-                            </div>
-                            <div class="field">
-                                <label class="lbl" for="email">Email <span class="req">*</span></label>
-                                <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
-                            </div>
-                            <div class="field">
-                                <label class="lbl" for="phone">Phone <span class="req">*</span></label>
-                                <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="864-555-0123">
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Step 2 -->
-                    <section class="card">
-                        <div class="step">
-                            <div class="step-num">2</div>
-                            <div>
-                                <h3>Choose your events</h3>
-                                <p>Up to 2 events per player · $25 for one, $40 for two</p>
-                            </div>
-                        </div>
-
-                        <div class="events">
-                            <div class="event" data-event="womens">
-                                <label class="event-head">
-                                    <input type="checkbox" id="event-womens" name="womensCategory" value="Women's Doubles">
-                                    <span class="event-title"><strong>Women's Doubles <em class="event-day">Sun, Oct 25</em></strong><span>Women's pairs, all levels</span></span>
-                                </label>
-                                <div class="partner field" id="womensPartner">
-                                    <label class="lbl" for="womensPartnerNameInput">Partner name <span class="req">*</span></label>
-                                    <input type="text" name="womensPartnerName" id="womensPartnerNameInput" placeholder="Partner's full name">
-                                </div>
-                            </div>
-
-                            <div class="event" data-event="mixed">
-                                <label class="event-head">
-                                    <input type="checkbox" id="event-mixed" name="mixedCategory" value="Mixed Doubles">
-                                    <span class="event-title"><strong>Mixed Doubles <em class="event-day">Sun, Oct 25</em></strong><span>One man and one woman per team</span></span>
-                                </label>
-                                <div class="partner field" id="mixedPartner">
-                                    <label class="lbl" for="mixedPartnerNameInput">Partner name <span class="req">*</span></label>
-                                    <input type="text" name="mixedPartnerName" id="mixedPartnerNameInput" placeholder="Partner's full name">
-                                </div>
-                            </div>
-
-                            <div class="event" data-event="open">
-                                <div class="event-head" style="cursor: default;">
-                                    <span class="event-title"><strong>Open Doubles <em class="event-day">Sun, Oct 25</em></strong><span>All genders welcome · pick one level (tap again to clear)</span></span>
-                                </div>
-                                <div class="levels" role="radiogroup" aria-label="Open Doubles level">
-                                    <div class="level">
-                                        <input type="radio" id="event-open3" name="openCategory" value="Open Doubles - Beginner (3.0)">
-                                        <label for="event-open3"><b>3.0</b><small>Beginner</small></label>
-                                    </div>
-                                    <div class="level">
-                                        <input type="radio" id="event-open35" name="openCategory" value="Open Doubles - Intermediate (3.5)">
-                                        <label for="event-open35"><b>3.5</b><small>Intermediate</small></label>
-                                    </div>
-                                    <div class="level">
-                                        <input type="radio" id="event-open4" name="openCategory" value="Open Doubles - Advance (4.0)">
-                                        <label for="event-open4"><b>4.0</b><small>Advance</small></label>
-                                    </div>
-                                </div>
-                                <div class="partner field" id="openPartner">
-                                    <label class="lbl" for="openPartnerNameInput">Partner name <span class="req">*</span></label>
-                                    <input type="text" name="openPartnerName" id="openPartnerNameInput" placeholder="Partner's full name">
-                                </div>
-                            </div>
-                        </div>
-
-                        <p class="limit-note" id="maxEventsNote">You can register for a maximum of 2 events.</p>
-                    </section>
-
-                    <!-- Step 3 -->
-                    <section class="card">
-                        <div class="step">
-                            <div class="step-num">3</div>
-                            <div>
-                                <h3>Confirm</h3>
-                                <p>Please review before submitting.</p>
-                            </div>
-                        </div>
-                        <label class="terms">
-                            <input type="checkbox" id="terms" name="terms" required>
-                            <span>I agree to the terms and conditions, including the liability waiver, tournament rules, non-refundable registration (transferable with 48 hours' notice), and consent to photos/videos for promotional purposes. <span class="req">*</span></span>
-                        </label>
-                    </section>
-                </form>
-
-                <!-- Summary -->
-                <aside class="summary" aria-live="polite">
-                    <div class="summary-photo">
-                        <img src="https://images.unsplash.com/photo-1711996151738-657bd95b7cdb?auto=format&fit=crop&w=720&q=75" alt="" aria-hidden="true">
+                        <p>$25 for one event · $40 for two. Include your name and events in the Zelle memo.</p>
                     </div>
-                    <div class="summary-body">
-                        <h3>Your registration</h3>
-                        <ul class="sum-list" id="feeBreakdown">
-                            <li class="empty">No events selected yet</li>
-                        </ul>
-                        <div class="total">
-                            <span>Total</span>
-                            <strong id="feeAmount">$0</strong>
-                        </div>
-                        <p class="price-note">$25 for one event · $40 for two · max 2 per player</p>
-
-                        <div class="zelle">
-                            <div class="zelle-label">Pay with Zelle</div>
-                            <div class="zelle-row">
-                                <code>gtscommitteefin@gmail.com</code>
-                                <button type="button" class="copy" data-copy="gtscommitteefin@gmail.com">Copy</button>
-                            </div>
-                            <p>Include your name and events in the Zelle memo. Your spot is confirmed once payment is received.</p>
-                        </div>
-
-                        <button type="submit" form="registrationForm" class="btn btn-ball" id="submitBtn">Complete registration</button>
-                        <p class="secure">You'll get payment instructions right after you submit.</p>
-                    </div>
-                </aside>
-            </div>
-
-            <!-- Success -->
-            <section class="success" id="successMessage" aria-live="polite">
-                <div class="card">
-                    <div class="success-badge">
-                        <svg width="36" height="36" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                    </div>
-                    <h2>You're registered!</h2>
-                    <p>Thanks for signing up for the GTS Pickleball Tournament. One last step: complete your payment.</p>
-
-                    <div class="pay-box">
-                        <div class="pay-amount">
-                            <span>Amount due</span>
-                            <strong id="paymentAmount">$0</strong>
-                        </div>
-                        <div class="zelle">
-                            <div class="zelle-label">Pay with Zelle</div>
-                            <div class="zelle-row">
-                                <code>gtscommitteefin@gmail.com</code>
-                                <button type="button" class="copy" data-copy="gtscommitteefin@gmail.com">Copy</button>
-                            </div>
-                            <p>Include your name and events in the Zelle memo.</p>
-                        </div>
-                    </div>
-
-                    <ul class="checklist">
-                        <li>Your spot is confirmed once payment is received</li>
-                        <li>Please complete payment within 24 hours</li>
-                        <li>Keep your Zelle confirmation for your records</li>
-                    </ul>
-
-                    <p class="contact-line">Questions? Call any of our organizers:</p>
-                    <div class="contact-grid">
-                        <a href="tel:+18324363286"><b>PJ</b>(832) 436-3286</a>
-                        <a href="tel:+17742661319"><b>Hari</b>(774) 266-1319</a>
-                        <a href="tel:+18644988210"><b>Rajesh</b>(864) 498-8210</a>
-                        <a href="tel:+16167520992"><b>Senthil</b>(616) 752-0992</a>
-                    </div>
-                    <p class="contact-line" style="margin-top: 12px;">or email <a href="mailto:greenvilletamilsangam@gmail.com">greenvilletamilsangam@gmail.com</a></p>
-
-                    <button type="button" class="btn btn-ghost" onclick="location.reload()">Register another player</button>
                 </div>
             </section>
         </div>
@@ -1178,7 +1052,7 @@
                     <p>Sunday, October 25, 2026</p>
                     <p>Women's, Mixed &amp; Open Doubles 3.0 / 3.5 / 4.0</p>
                     <p>East Riverside Park / Sudduth Farms</p>
-                    <p><a href="#register">Register now →</a></p>
+                    <p><a href="#register">Contact organizers →</a></p>
                 </div>
                 <div class="foot-col">
                     <h4>Contact</h4>
@@ -1198,86 +1072,6 @@
     </footer>
 
     <script>
-        // Google Apps Script web app: GTS rows go to the "GTS Registrations" tab
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyWuUgzxJIhqS8FUDm8OyAif8fWI9XKygOFJ82KEaDLkV8FxiAZtsFJDDE30Yk8yRWV/exec';
-        const FEES = { 1: 25, 2: 40 };
-        const MAX_EVENTS = 2;
-
-        const form = document.getElementById('registrationForm');
-        const womensCheckbox = document.getElementById('event-womens');
-        const mixedCheckbox = document.getElementById('event-mixed');
-        const openRadios = Array.from(document.querySelectorAll('input[name="openCategory"]'));
-        const partners = {
-            womens: { box: document.getElementById('womensPartner'), input: document.getElementById('womensPartnerNameInput') },
-            mixed: { box: document.getElementById('mixedPartner'), input: document.getElementById('mixedPartnerNameInput') },
-            open: { box: document.getElementById('openPartner'), input: document.getElementById('openPartnerNameInput') }
-        };
-        const feeAmount = document.getElementById('feeAmount');
-        const feeBreakdown = document.getElementById('feeBreakdown');
-        const maxEventsNote = document.getElementById('maxEventsNote');
-        const submitBtn = document.getElementById('submitBtn');
-
-        function selectedOpen() {
-            return openRadios.find(r => r.checked) || null;
-        }
-
-        function selectedEvents() {
-            const events = [];
-            if (womensCheckbox.checked) events.push("Women's Doubles");
-            if (mixedCheckbox.checked) events.push('Mixed Doubles');
-            const open = selectedOpen();
-            if (open) events.push(open.value);
-            return events;
-        }
-
-        function refresh() {
-            const state = { womens: womensCheckbox.checked, mixed: mixedCheckbox.checked, open: !!selectedOpen() };
-            for (const key of Object.keys(partners)) {
-                const on = state[key];
-                partners[key].box.classList.toggle('show', on);
-                partners[key].input.required = on;
-                if (!on) partners[key].input.value = '';
-                document.querySelector(`.event[data-event="${key}"]`).classList.toggle('is-selected', on);
-            }
-
-            const events = selectedEvents();
-            const total = FEES[events.length] || 0;
-            feeAmount.textContent = `$${total}`;
-            feeBreakdown.innerHTML = events.length
-                ? events.map(e => `<li>${e}</li>`).join('')
-                : '<li class="empty">No events selected yet</li>';
-            submitBtn.textContent = total ? `Register · $${total}` : 'Complete registration';
-        }
-
-        // Undo a selection that would take the player past the 2-event limit
-        function withinLimit(input) {
-            const ok = selectedEvents().length <= MAX_EVENTS;
-            if (!ok) input.checked = false;
-            maxEventsNote.style.display = ok ? 'none' : 'block';
-            return ok;
-        }
-
-        [womensCheckbox, mixedCheckbox].forEach(cb => cb.addEventListener('change', () => {
-            withinLimit(cb);
-            refresh();
-        }));
-
-        // Open level radios: tap the chosen level again to clear it
-        let lastOpen = null;
-        openRadios.forEach(radio => {
-            radio.addEventListener('click', () => {
-                if (lastOpen === radio) {
-                    radio.checked = false;
-                    lastOpen = null;
-                } else if (withinLimit(radio)) {
-                    lastOpen = radio;
-                } else if (lastOpen) {
-                    lastOpen.checked = true;
-                }
-                refresh();
-            });
-        });
-
         // Copy Zelle email
         document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
             const text = btn.dataset.copy;
@@ -1295,45 +1089,6 @@
             btn.textContent = 'Copied!';
             setTimeout(() => { btn.textContent = label; }, 1500);
         }));
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const events = selectedEvents();
-
-            if (!events.length) {
-                alert('Please select at least one event to register.');
-                document.querySelector('.events').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                return;
-            }
-            if (events.length > MAX_EVENTS) {
-                alert('You can register for a maximum of 2 events.');
-                return;
-            }
-            if (!form.reportValidity()) return;
-
-            const total = FEES[events.length];
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting…';
-
-            try {
-                // no-cors: Apps Script doesn't send CORS headers, so the response can't be read
-                await fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form), mode: 'no-cors' });
-
-                document.getElementById('paymentAmount').textContent = `$${total}`;
-                document.getElementById('regGrid').style.display = 'none';
-                document.getElementById('regHead').style.display = 'none';
-                const success = document.getElementById('successMessage');
-                success.classList.add('show');
-                success.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } catch (error) {
-                console.error('Registration failed:', error);
-                submitBtn.disabled = false;
-                refresh();
-                alert('There was an error submitting your registration. Please try again or contact GTS directly at:\n\nPJ: (832) 436-3286\nHari: (774) 266-1319\nRajesh: (864) 498-8210\nSenthil: (616) 752-0992\nEmail: greenvilletamilsangam@gmail.com');
-            }
-        });
-
-        refresh();
     </script>
 </body>
 </html>
