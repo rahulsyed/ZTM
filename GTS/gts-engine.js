@@ -2,7 +2,9 @@
    League: one game (to 11, 10-minute cap). Semis: one game to 15. Finals: best of 3 to 7.
    Standings: wins, then point difference, then head-to-head (two-way ties), then points for. */
 (function (root) {
-  const MAX_POINTS = 99;
+  const MAX_POINTS = 21;
+  // Points to win a game. Finals use 11 so both "to 7" and "to 11" games are accepted.
+  const TARGET = { league: 11, semi: 15, final: 11 };
 
   function toInt(v) {
     if (v === "" || v === null || v === undefined) return null;
@@ -11,12 +13,17 @@
     return parseInt(s, 10);
   }
 
-  // One game: returns {ok, a, b, error}
-  function checkGame(a, b) {
+  // One game: returns {ok, a, b, error}.
+  // A winner below the target is allowed (time cap). Above the target the winner must lead by exactly 2.
+  function checkGame(a, b, target) {
+    target = target || 11;
     const x = toInt(a), y = toInt(b);
     if (x === null || y === null) return { ok: false, error: "Enter both scores" };
-    if (isNaN(x) || isNaN(y) || x < 0 || y < 0 || x > MAX_POINTS || y > MAX_POINTS) return { ok: false, error: "Scores must be whole numbers 0–99" };
+    if (isNaN(x) || isNaN(y) || x > MAX_POINTS || y > MAX_POINTS) return { ok: false, error: `Scores must be whole numbers from 0 to ${MAX_POINTS}` };
     if (x === y) return { ok: false, error: "A game can't end in a tie" };
+    const w = Math.max(x, y), l = Math.min(x, y);
+    if (w > target && w - l !== 2) return { ok: false, error: `Over ${target} points the winner must win by exactly 2 (e.g. ${target + 1}–${target - 1})` };
+    if (w === target && l === target - 1) return { ok: false, error: `${target}–${target - 1} isn't finished: play on until someone leads by 2 (e.g. ${target + 1}–${target - 1})` };
     return { ok: true, a: x, b: y };
   }
 
@@ -25,8 +32,9 @@
   // Validate what an organiser typed. games: [[a,b],[a,b],[a,b]] (empty strings allowed for unused games)
   // Returns {ok, value, error}; value is what gets stored.
   function validate(stage, games) {
+    const target = TARGET[stage] || 11;
     if (!isBestOf3(stage)) {
-      const g = checkGame(games[0][0], games[0][1]);
+      const g = checkGame(games[0][0], games[0][1], target);
       return g.ok ? { ok: true, value: { a: g.a, b: g.b } } : { ok: false, error: g.error };
     }
     const filled = games.map(g => !(toInt(g[0]) === null && toInt(g[1]) === null));
@@ -36,7 +44,7 @@
       if (!filled[i]) continue;
       if (i > 0 && !filled[i - 1]) return { ok: false, error: `Fill game ${i} before game ${i + 1}` };
       if (wa === 2 || wb === 2) return { ok: false, error: "Match was already won — remove the extra game" };
-      const g = checkGame(games[i][0], games[i][1]);
+      const g = checkGame(games[i][0], games[i][1], target);
       if (!g.ok) return { ok: false, error: `Game ${i + 1}: ${g.error}` };
       out.push([g.a, g.b]);
       g.a > g.b ? wa++ : wb++;
@@ -131,7 +139,7 @@
     return r.winner === "a" ? { champion: p.a, runnerUp: p.b } : { champion: p.b, runnerUp: p.a };
   }
 
-  const api = { checkGame, validate, result, standings, playoffs, podium, isBestOf3 };
+  const api = { checkGame, validate, result, standings, playoffs, podium, isBestOf3, TARGET, MAX_POINTS };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.GTSEngine = api;
 })(typeof window !== "undefined" ? window : globalThis);

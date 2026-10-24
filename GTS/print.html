@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTS Pickleball 2026 | Printable Schedules</title>
+<link rel="icon" type="image/png" href="gts-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0B1B33;--blue:#106EEA;--ball:#D7F34A;--line:#C9D2DE;--muted:#5B6B82;--bg:#EEF1F5;
+  --display:'Barlow Condensed','Arial Narrow',sans-serif;--body:'Inter',Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);color:var(--ink);background:var(--bg);font-size:13px}
+.controls{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid #E4E9F0;padding:12px max(16px,env(safe-area-inset-left,0px))}
+.controls .in{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.controls h1{font-family:var(--display);font-size:24px;margin-right:auto}
+.controls select,.controls button,.controls a{font:inherit;font-size:16px;border:1px solid #E4E9F0;border-radius:10px;padding:9px 12px;background:#fff;color:var(--ink);text-decoration:none;min-height:42px}
+.controls button.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;cursor:pointer}
+.controls label{display:inline-flex;gap:6px;align-items:center;font-size:14px}
+.hint{max-width:900px;margin:8px auto 0;color:var(--muted);font-size:13px}
+.sheets{padding:16px max(12px,env(safe-area-inset-left,0px)) 40px;display:grid;gap:16px;justify-content:center}
+.sheet{background:#fff;width:min(8.5in,100%);padding:0.45in 0.45in 0.4in;box-shadow:0 4px 18px rgba(0,0,0,.08);overflow-x:auto}
+.sh-head{display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--ink);padding-bottom:8px;margin-bottom:10px}
+.sh-head img{width:46px;height:46px;object-fit:contain}
+.sh-head .t{flex:1;min-width:0}
+.sh-head .t small{display:block;color:var(--muted);font-size:11px;letter-spacing:.6px;text-transform:uppercase}
+.sh-head h2{font-family:var(--display);font-size:34px;line-height:1}
+.sh-head .big{font-family:var(--display);font-size:64px;line-height:.9;font-weight:800;background:var(--ball);padding:4px 14px;border-radius:8px}
+.sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th,td{border:1px solid var(--line);padding:6px 6px;vertical-align:middle;text-align:left}
+th{background:#F3F5F8;font-size:10px;letter-spacing:.6px;text-transform:uppercase}
+td.tm{font-weight:700;white-space:nowrap;width:62px}
+td.ct{text-align:center;width:40px;font-weight:700}
+td.dv{width:70px;font-size:11px}
+td.st{width:74px;font-size:11px}
+td.team{font-weight:600}
+td.team small{display:block;font-weight:400;color:var(--muted);font-size:10px}
+td.box{width:44px;height:30px;text-align:center;font-family:var(--display);font-size:18px;font-weight:700}
+td.box.g{width:34px}
+tr.po td{background:#FAFBE9}
+h3{font-family:var(--display);font-size:20px;margin:14px 0 6px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.note{font-size:11px;color:var(--muted);margin-top:8px}
+.foot{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:10px;border-top:1px solid var(--line);padding-top:6px}
+@media (max-width:640px){.two{grid-template-columns:1fr}.sh-head .big{font-size:44px}.sheet{padding:16px}}
+@page{size:letter portrait;margin:0.35in}
+@media print{
+  body{background:#fff;font-size:11.5px}
+  .controls,.hint{display:none}
+  .sheets{padding:0;display:block}
+  .sheet{box-shadow:none;width:auto;padding:0;page-break-after:always;break-after:page;overflow:visible}
+  .sheet:last-child{page-break-after:auto;break-after:auto}
+  table{min-width:0}
+  tr{break-inside:avoid}
+  th,td{padding:2px 5px}
+  td.box{height:21px;font-size:15px}
+  td.team small{display:inline;margin-left:4px}
+  .sh-head{padding-bottom:5px;margin-bottom:6px}
+  .sh-head h2{font-size:28px}
+  .sh-head .big{font-size:48px}
+  h3{margin:8px 0 4px;font-size:17px}
+  th{background:#EEE !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  tr.po td,.sh-head .big{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="controls">
+  <div class="in">
+    <h1>Printable schedules</h1>
+    <select id="what" aria-label="Which sheets">
+      <option value="courts">All court sheets (6)</option>
+      <option value="divisions">All division sheets (5)</option>
+      <option value="all">Everything (11 sheets)</option>
+    </select>
+    <label><input type="checkbox" id="withScores"> Fill in scores entered so far</label>
+    <button type="button" class="primary" id="print">Print</button>
+    <a href="live.html">Live scores</a>
+  </div>
+  <div class="in" style="margin-top:8px">
+    <a href="printouts/GTS-courts-sheets.pdf" download>Court sheets PDF</a>
+    <a href="printouts/GTS-divisions-sheets.pdf" download>Division sheets PDF</a>
+    <a href="printouts/GTS-Pickleball-Offline-Backup.xlsx" download>Offline Excel backup</a>
+    <button type="button" id="xlsx">Excel with current scores</button>
+  </div>
+  <p class="hint">One sheet per page. Court sheets list every match on that court in order, with boxes to write scores. Division sheets have the full schedule, a standings grid and the playoffs. On a phone, use your browser's Share → Print to print or save as PDF.</p>
+</div>
+<main class="sheets" id="sheets"></main>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="gts-schedule.js?v=1024c"></script>
+<script src="gts-engine.js?v=1024c"></script>
+<script src="gts-core.js?v=1024c"></script>
+<script src="gts-export.js?v=1024c"></script>
+<script>
+(function () {
+  const D = window.GTS_DATA, E = window.GTSEngine, esc = GTS.esc;
+  const DIV = Object.fromEntries(D.divisions.map(d => [d.key, d]));
+  const SHORT = { o30: "Open 3.0", o35: "Open 3.5", mix: "Mixed", o40: "Open 4.0", soc: "Social" };
+  const STAGE = { league: "League", sf1: "Semi 1", sf2: "Semi 2", final: "Final" };
+  const COURTS = [...new Set(D.matches.map(m => m.court))].sort((a, b) => a - b);
+  const params = new URLSearchParams(location.search);
+  let scores = {}, seeds = {};
+  const fmt = m => { const h = Math.floor(m / 60), mm = m % 60; return `${((h + 11) % 12) + 1}:${String(mm).padStart(2, "0")}`; };
+  const stageOf = m => (m.stage === "league" ? "league" : m.stage === "final" ? "final" : "semi");
+  const withScores = () => document.getElementById("withScores").checked;
+
+  function teams(m, po) {
+    if (m.stage === "league") return [{ n: m.a }, { n: m.b }];
+    const p = po[m.id];
+    const side = k => p[k] && (withScores() || p.confirmed) ? { n: p[k] } : { n: "", hint: (p[k + "Note"] || "").split(" · ")[0] };
+    return [side("a"), side("b")];
+  }
+
+  function boxes(m, idx) {
+    const r = withScores() ? E.result(stageOf(m), scores[m.id]) : { games: [] };
+    if (m.stage === "final") return [0, 1, 2].map(g => `<td class="box g">${r.games[g] ? r.games[g][idx] : ""}</td>`).join("");
+    return `<td class="box" colspan="3">${r.games[0] ? r.games[0][idx] : ""}</td>`;
+  }
+
+  function rowHTML(m, po, showCourt) {
+    const [a, b] = teams(m, po);
+    const tcell = t => `<td class="team">${t.n ? esc(t.n) : "&nbsp;"}${t.hint ? `<small>${esc(t.hint)}</small>` : ""}</td>`;
+    return `<tr class="${m.stage !== "league" ? "po" : ""}">
+      <td class="tm" rowspan="2">${fmt(m.start)}</td>
+      ${showCourt ? `<td class="ct" rowspan="2">${m.court}</td>` : `<td class="dv" rowspan="2">${esc(SHORT[m.div])}</td>`}
+      <td class="st" rowspan="2">${STAGE[m.stage]}${m.stage === "final" ? "<br><small>best of 3</small>" : ""}</td>
+      ${tcell(a)}${boxes(m, 0)}</tr>
+      <tr class="${m.stage !== "league" ? "po" : ""}">${tcell(b)}${boxes(m, 1)}</tr>`;
+  }
+
+  const head = (big, title, sub) => `<div class="sh-head"><img src="gts-logo.png" alt=""><div class="t"><small>GTS Pickleball 2026 · Sun Oct 25 · East Riverside Park / Sudduth Farms</small><h2>${title}</h2></div>${big ? `<div class="big">${big}</div>` : ""}</div>${sub ? `<p class="sub">${sub}</p>` : ""}`;
+  const thead = first => `<thead><tr><th>Time</th><th>${first}</th><th>Stage</th><th>Team</th><th colspan="3">Score (finals: G1 · G2 · G3)</th></tr></thead>`;
+  const foot = () => `<div class="foot"><span>League: one game to 11 · Semis: to 15 · Finals: best of 3 · over the target, win by 2 · max 21</span><span>Printed ${new Date().toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}</span></div>`;
+
+  function courtSheet(c, po) {
+    const ms = D.matches.filter(m => m.court === c).sort((a, b) => a.start - b.start);
+    const divs = [...new Set(ms.map(m => DIV[m.div].name))].join(", ");
+    return `<section class="sheet">${head(c, `Court ${c}`, `${ms.length} matches · ${divs} · Play in this order. Write the score and hand the sheet to the organiser table.`)}
+      <table>${thead("Division")}<tbody>${ms.map(m => rowHTML(m, po, false)).join("")}</tbody></table>${foot()}</section>`;
+  }
+
+  function divisionSheet(d, po) {
+    const ms = D.matches.filter(m => m.div === d.key).sort((a, b) => a.start - b.start || a.court - b.court);
+    const league = ms.filter(m => m.stage === "league"), pl = ms.filter(m => m.stage !== "league");
+    const st = withScores() ? E.standings(d, D.matches, scores).rows : d.teams.map(t => ({ team: t }));
+    const show = v => (withScores() && v !== undefined ? v : "");
+    return `<section class="sheet">${head("", d.name, `${d.teams.length} teams · ${league.length} league games · ${d.qualify === 2 ? "top 2 play the final" : "top 4 play semis (1 v 4, 2 v 3), winners play the final"}`)}
+      <table>${thead("Court")}<tbody>${league.map(m => rowHTML(m, po, true)).join("")}</tbody></table>
+      <div class="two">
+        <div><h3>Standings</h3><table style="min-width:0"><thead><tr><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>+/-</th><th>Rank</th></tr></thead>
+          <tbody>${st.map((r, i) => `<tr><td class="team">${esc(r.team)}</td><td class="box">${show(r.w)}</td><td class="box">${show(r.l)}</td><td class="box">${show(r.pf)}</td><td class="box">${show(r.pa)}</td><td class="box">${show(r.diff)}</td><td class="box">${withScores() && r.p ? i + 1 : ""}</td></tr>`).join("")}</tbody></table>
+          <p class="note">Rank by wins, then point difference (+/-), then head-to-head, then points for.</p></div>
+        <div><h3>Playoffs</h3><table style="min-width:0">${thead("Court")}<tbody>${pl.map(m => rowHTML(m, po, true)).join("")}</tbody></table>
+          <p class="note">Champion: ______________________________<br><br>Runner-up: ____________________________</p></div>
+      </div>${foot()}</section>`;
+  }
+
+  function render() {
+    const po = {};
+    D.divisions.forEach(d => Object.assign(po, E.playoffs(d, D.matches, scores, seeds[d.key] || {})));
+    const what = document.getElementById("what").value;
+    const out = [];
+    if (what !== "divisions") COURTS.forEach(c => out.push(courtSheet(c, po)));
+    if (what !== "courts") D.divisions.forEach(d => out.push(divisionSheet(d, po)));
+    document.getElementById("sheets").innerHTML = out.join("");
+  }
+
+  const what = params.get("show");
+  if (what) document.getElementById("what").value = what;
+  if (params.get("scores") === "1") document.getElementById("withScores").checked = true;
+  document.getElementById("what").addEventListener("change", render);
+  document.getElementById("withScores").addEventListener("change", render);
+  document.getElementById("print").addEventListener("click", () => window.print());
+  document.getElementById("xlsx").addEventListener("click", () => GTSExport.download(D, E, scores, seeds).catch(() => alert("Could not create the Excel file. Check the connection.")));
+
+  GTS.init();
+  const sRef = GTS.ref("scores"), seedRef = GTS.ref("seeds");
+  if (sRef) {
+    sRef.on("value", s => { scores = s.val() || {}; render(); });
+    seedRef.on("value", s => { seeds = s.val() || {}; render(); });
+  }
+  render();
+})();
+</script>
+</body>
+</html>

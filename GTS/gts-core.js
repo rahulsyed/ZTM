@@ -152,7 +152,7 @@
   // A button that toggles organiser mode
   function bindAdminButton(btn) {
     const paint = () => {
-      btn.textContent = isAdmin ? "Lock organiser mode" : "Organiser login";
+      btn.textContent = isAdmin ? "Organiser: log out" : "Organiser login";
       btn.classList.toggle("on", isAdmin);
     };
     btn.addEventListener("click", () => (isAdmin ? lock() : askPin()));

@@ -181,8 +181,35 @@ tr.q .rank{background:var(--c);color:#fff}
 footer{border-top:1px solid var(--line);background:#fff;padding-block:18px;color:var(--muted);font-size:13px}
 footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
 
+.search input,.admin textarea,.admin select,.seed-pick select{font-size:16px}
+.edit .gbtn,.gbtn{min-height:40px}
+.sc-grid input{min-height:48px}
 @media (max-width:760px){
   .admin-grid{grid-template-columns:1fr}
+  .top .wrap{min-height:56px;flex-wrap:nowrap;gap:8px}
+  .brand img{width:34px;height:34px}
+  .brand b{font-size:18px}
+  .brand small,.top-actions .home{display:none}
+  .top-actions{flex-wrap:nowrap;gap:6px}
+  .top-actions .gbtn{padding:6px 10px;font-size:13px;min-height:36px}
+  .pill{padding:4px 8px}
+  table{min-width:0;font-size:14px}
+  th,td{padding:9px 6px}
+  .hide-sm{display:none}
+  td.team-cell{white-space:normal}
+  tr.q .qb{display:none}
+  .head{padding-block:14px 4px}
+  .head p{font-size:14px}
+  .match{padding:10px}
+  .score{font-size:22px}
+  .edit .gbtn{flex:1 1 auto;justify-content:center;min-height:44px;font-size:15px}
+  .gts-modal{align-items:flex-end;padding:0}
+  .gts-modal-card{max-width:none;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+  .gts-modal-actions .gbtn{flex:1 1 30%;justify-content:center;min-height:46px}
+  .sc-grid{grid-template-columns:minmax(0,1fr) repeat(3,58px)}
+  .sc-grid.single{grid-template-columns:minmax(0,1fr) 92px}
+  .courts{grid-template-columns:1fr}
+  .po-grid{grid-template-columns:1fr}
   .time-group{grid-template-columns:1fr;gap:4px}
   .time-group>.t{padding-top:6px;font-size:16px}
   .div-head .facts{margin-left:0}
@@ -200,7 +227,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     </a>
     <div class="top-actions">
       <span class="pill" id="status" data-state="connecting">Connecting…</span>
-      <a class="gbtn" href="./">Home</a>
+      <a class="gbtn home" href="./">Home</a>
       <button type="button" class="gbtn" id="admin-btn">Organiser login</button>
     </div>
   </div>
@@ -232,6 +259,12 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
           <button type="button" class="gbtn danger" id="reset-btn">Reset scores…</button>
         </div>
         <div class="admin-msg" id="reset-msg"></div>
+        <p style="margin-top:10px">Backups and printouts</p>
+        <div class="row">
+          <button type="button" class="gbtn" id="xlsx-btn">Download Excel (current scores)</button>
+          <a class="gbtn" href="print.html" target="_blank" rel="noopener">Printable sheets</a>
+        </div>
+        <div class="admin-msg" id="xlsx-msg"></div>
       </div>
     </div>
   </section>
@@ -251,7 +284,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Greenville Tamil Sangam</span>
+    <span>© 2026 Greenville Tamil Sangam · <a href="print.html">Printable schedules</a></span>
     <span>Questions? PJ (832) 436-3286 · Hari (774) 266-1319 · Rajesh (864) 498-8210 · Senthil (616) 752-0992</span>
   </div>
 </footer>
@@ -288,9 +321,10 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="gts-schedule.js"></script>
-<script src="gts-engine.js"></script>
-<script src="gts-core.js"></script>
+<script src="gts-schedule.js?v=1024c"></script>
+<script src="gts-engine.js?v=1024c"></script>
+<script src="gts-core.js?v=1024c"></script>
+<script src="gts-export.js?v=1024c"></script>
 <script>
 (function () {
   const D = window.GTS_DATA, E = window.GTSEngine, esc = GTS.esc;
@@ -396,7 +430,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
       const q = i < d.qualify, hit = query && r.team.toLowerCase().includes(query);
       return `<tr class="${q ? "q" : ""}${hit ? " hit" : ""}"><td><span class="rank">${i + 1}</span></td>
         <td class="team-cell">${esc(r.team)}${q ? `<span class="qb">${d.qualify === 2 ? "FINAL" : "SEMIS"}</span>` : ""}</td>
-        <td class="n">${r.p}</td><td class="n">${r.w}</td><td class="n">${r.l}</td><td class="n">${r.pf}</td><td class="n">${r.pa}</td>
+        <td class="n">${r.p}</td><td class="n">${r.w}</td><td class="n">${r.l}</td><td class="n hide-sm">${r.pf}</td><td class="n hide-sm">${r.pa}</td>
         <td class="n"><b>${r.diff > 0 ? "+" : ""}${r.diff}</b></td></tr>`;
     }).join("");
     return `
@@ -412,9 +446,9 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
       ${pd ? `<div class="champ"><div class="cup">🏆</div><div><small>${esc(d.name)} champions</small><b>${esc(pd.champion)}</b><small>Runners-up: ${esc(pd.runnerUp)}</small></div></div>` : ""}
       <div class="sec-title"><h2>Standings</h2><span>${d.qualify === 2 ? "Top 2 play the final" : "Top 4 go to the semis"} · ranked by wins, then point difference</span></div>
       <div class="tbl-wrap" style="${colorVars(k)}"><table>
-        <thead><tr><th>#</th><th>Team</th><th class="n">P</th><th class="n">W</th><th class="n">L</th><th class="n">PF</th><th class="n">PA</th><th class="n">+/-</th></tr></thead>
+        <thead><tr><th>#</th><th>Team</th><th class="n">P</th><th class="n">W</th><th class="n">L</th><th class="n hide-sm">PF</th><th class="n hide-sm">PA</th><th class="n">+/-</th></tr></thead>
         <tbody>${rows}</tbody></table></div>
-      <div class="sec-title"><h2>Playoffs</h2><span>${d.qualify === 2 ? "Final: seed 1 v 2, best of 3 to 7" : "Semis one game to 15 (1 v 4, 2 v 3) · Final best of 3 to 7"}</span></div>
+      <div class="sec-title"><h2>Playoffs</h2><span>${d.qualify === 2 ? "Final: seed 1 v 2, best of 3 games" : "Semis one game to 15 (1 v 4, 2 v 3) · Final best of 3 games"}</span></div>
       <div class="po-grid">${po.map(m => matchHTML(m)).join("")}</div>
       <p class="rules">${st.complete ? "League finished: playoff teams are set." : "Playoff teams fill in automatically when the league finishes. “now …” shows who holds that seed at the moment."}</p>
       <div class="sec-title"><h2>League games</h2><span>One game to 11 · 10-minute cap · ${league.length} games</span></div>
@@ -424,6 +458,10 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
 
   function render() {
     PO = poCache();
+    if (editing && !dlg.hidden && verOf(editing) !== editingV) {
+      document.getElementById("sd-err").textContent =
+        `Heads up: another organiser just changed this match to ${scoreText(MATCH[editing], scores[editing])}.`;
+    }
     renderTabs();
     const el = document.getElementById("view");
     el.innerHTML = view === "courts" ? courtsView() : divisionView(view);
@@ -453,17 +491,29 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
   const dlg = document.getElementById("score-dlg");
   let editing = null;
 
+  // Version of the score when the dialog opened; a save only goes through if nobody changed it meanwhile.
+  let editingV = 0;
+  // Every save stamps "at"; it identifies the stored version even if an older copy of this page wrote it.
+  const stamp = sc => (sc && (sc.at || sc.v)) || 0;
+  const verOf = id => stamp(scores[id]);
+  const scoreText = (m, sc) => {
+    const r = E.result(stageOf(m), sc);
+    return r.games.length ? r.games.map(g => g.join("–")).join(", ") : "no score";
+  };
+
   function openScore(id) {
     if (!GTS.isAdmin) { GTS.askPin(); return; }
     const m = MATCH[id], s = sides(m), bo3 = m.stage === "final";
     editing = id;
+    editingV = verOf(id);
     const stored = scores[id] || {};
     const games = bo3 ? (stored.g || []) : (typeof stored.a === "number" ? [[stored.a, stored.b]] : []);
     const v = (i, j) => (games[i] && games[i][j] !== undefined ? games[i][j] : "");
     const nameA = s.a || s.aNote.split(" · ")[0], nameB = s.b || s.bNote.split(" · ")[0];
     document.getElementById("sd-title").textContent = `${SHORT[m.div]} · ${STAGE[m.stage]}`;
-    document.getElementById("sd-sub").textContent = `${fmt(m.start)} · Court ${m.court} · ${m.stage === "league" ? "one game to 11 (10-min cap)" : bo3 ? "best of 3 games to 7 — fill game 3 only if it's 1–1" : "one game to 15"}`;
-    const inp = (i, j) => `<input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-g="${i}" data-s="${j}" value="${v(i, j)}" aria-label="Game ${i + 1} ${j ? "team B" : "team A"}">`;
+    const t = E.TARGET[stageOf(m)];
+    document.getElementById("sd-sub").textContent = `${fmt(m.start)} · Court ${m.court} · ${m.stage === "league" ? "one game to 11" : bo3 ? "best of 3 — fill game 3 only if it's 1–1" : "one game to 15"}. Over ${t}, win by 2. Max ${E.MAX_POINTS}.`;
+    const inp = (i, j) => `<input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" enterkeyhint="next" data-g="${i}" data-s="${j}" value="${v(i, j)}" aria-label="Game ${i + 1} ${j ? "team B" : "team A"}">`;
     document.getElementById("sd-grid").innerHTML = bo3
       ? `<div class="sc-grid"><span></span><span class="h">G1</span><span class="h">G2</span><span class="h">G3</span>
           <span class="nm">${esc(nameA)}</span>${inp(0, 0)}${inp(1, 0)}${inp(2, 0)}
@@ -522,16 +572,33 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     }
     try {
       if (Object.keys(upd).length) await GTS.ref("seeds/" + m.div).update(upd);
-      if (res) await GTS.ref("scores/" + m.id).set(Object.assign(res.value, { at: firebase.database.ServerValue.TIMESTAMP }));
+      if (res && !(await writeScore(m, Object.assign(res.value, { v: ((scores[m.id] && scores[m.id].v) || 0) + 1, at: Math.max(Date.now(), editingV + 1) })))) return;
       closeScore();
     } catch (x) { err.textContent = "Could not save. Check the connection and try again."; }
   });
 
+  // Save (or clear, when value is null) only if nobody else changed this match since the dialog opened.
+  async function writeScore(m, value) {
+    const base = editingV;
+    const r = await GTS.ref("scores/" + m.id).transaction(cur => {
+      if (stamp(cur) !== base) return;   // someone else saved first: abort
+      return value;
+    }, null, false);
+    if (!r.committed) {
+      const now = r.snapshot.val();
+      editingV = stamp(now);
+      document.getElementById("sd-err").textContent =
+        `Another organiser just changed this match to ${scoreText(m, now)}. Check it, then save again if yours is correct.`;
+      return false;
+    }
+    return true;
+  }
+
   document.getElementById("sd-clear").addEventListener("click", async () => {
     const m = MATCH[editing];
     if (!m || !GTS.isAdmin) return;
-    await GTS.ref("scores/" + m.id).remove();
-    closeScore();
+    try { if (await writeScore(m, null)) closeScore(); }
+    catch (x) { document.getElementById("sd-err").textContent = "Could not clear. Check the connection and try again."; }
   });
 
   /* ---------- organiser tools ---------- */
@@ -543,6 +610,14 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
       t.value = ""; document.getElementById("ann-pin").checked = false;
       msg.textContent = "Posted — everyone can see it now.";
     } catch (x) { msg.textContent = "Could not post. Check the connection."; }
+    setTimeout(() => { msg.textContent = ""; }, 4000);
+  });
+
+  document.getElementById("xlsx-btn").addEventListener("click", async () => {
+    const msg = document.getElementById("xlsx-msg");
+    msg.textContent = "Preparing Excel file…";
+    try { await GTSExport.download(D, E, scores, seeds); msg.textContent = "Downloaded."; }
+    catch (x) { msg.textContent = "Could not create the Excel file. Check the connection."; }
     setTimeout(() => { msg.textContent = ""; }, 4000);
   });
 
