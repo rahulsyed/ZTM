@@ -13,6 +13,8 @@
   };
   // SHA-256 of the organiser PIN (the PIN itself is not stored in the page)
   const PIN_HASH = "068d3a71f19af21bb4290ba57ce236acc974c9a5c6013a00c904aa95e88a3e4c";
+  // Separate PIN required to reset scores (SHA-256; must differ from the organiser PIN)
+  const RESET_PIN_HASH = "50a2f516a7b3d7dd7a38e03af50b4f92182b0093e5444d7be29a183e7cdb395c";
 
   // ?db=test points every read and write at a sandbox path (used for rehearsals)
   const ns = (new URLSearchParams(location.search).get("db") || "").replace(/[^a-z0-9]/gi, "");
@@ -49,6 +51,26 @@
       emit("admin", true);
     }
     return ok;
+  }
+
+  async function checkResetPin(pin) {
+    return isAdmin && (await sha256(String(pin).trim().toUpperCase())) === RESET_PIN_HASH;
+  }
+
+  /* ---------- Team names (organisers can correct a name; it shows everywhere) ---------- */
+  // Stored at teams/<division>/<key>, where key is the original name from the schedule.
+  let teamNames = {};
+  const teamKey = n => String(n).replace(/[.#$\[\]\/]/g, "_");
+  const teamName = (div, n) => (n && (teamNames[div] || {})[teamKey(n)]) || n;
+  function watchTeamNames(cb) {
+    const r = ref("teams");
+    if (r) r.on("value", s => { teamNames = s.val() || {}; if (cb) cb(); });
+  }
+  function renameTeam(div, original, newName) {
+    const r = ref(`teams/${div}/${teamKey(original)}`);
+    newName = String(newName || "").trim().slice(0, 80);
+    if (!r || !isAdmin) return Promise.reject(new Error("not allowed"));
+    return newName && newName !== original ? r.set(newName) : r.remove();
   }
 
   function lock() {
@@ -166,7 +188,8 @@
   }
 
   window.GTS = {
-    init, ref, esc, timeAgo, unlock, lock, askPin,
+    init, ref, esc, timeAgo, unlock, lock, askPin, checkResetPin,
+    teamName, watchTeamNames, renameTeam,
     get isAdmin() { return isAdmin; },
     get root() { return ROOT; },
     onAdmin: fn => listeners.admin.push(fn),

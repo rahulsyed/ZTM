@@ -15,6 +15,7 @@
   }
 
   const fmt = m => { const h = Math.floor(m / 60), mm = m % 60; return `${((h + 11) % 12) + 1}:${String(mm).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`; };
+  const TN = (div, n) => (n && window.GTS && GTS.teamName ? GTS.teamName(div, n) : n);
   const stageOf = m => (m.stage === "league" ? "league" : m.stage === "final" ? "final" : "semi");
 
   // rows for every match, using live scores and organiser seed picks
@@ -28,9 +29,9 @@
       const sc = scores[m.id] || {};
       return {
         Time: fmt(m.start), Court: m.court, Division: name[m.div], Stage: STAGE[m.stage],
-        "Team A": s.a || (s.aNote || "TBD").split(" · ")[0], "Team B": s.b || (s.bNote || "TBD").split(" · ")[0],
+        "Team A": TN(m.div, s.a) || (s.aNote || "TBD").split(" · ")[0], "Team B": TN(m.div, s.b) || (s.bNote || "TBD").split(" · ")[0],
         "Game 1": r.games[0] ? r.games[0].join("-") : "", "Game 2": r.games[1] ? r.games[1].join("-") : "", "Game 3": r.games[2] ? r.games[2].join("-") : "",
-        Winner: r.done ? (r.winner === "a" ? s.a : s.b) : "",
+        Winner: r.done ? TN(m.div, r.winner === "a" ? s.a : s.b) : "",
         "Last updated": sc.at ? new Date(sc.at).toLocaleString() : "",
         "Match ID": m.id
       };
@@ -46,7 +47,7 @@
     X.utils.book_append_sheet(wb, sheet(all, W), "All matches");
     D.divisions.forEach(d => {
       const st = E.standings(d, D.matches, scores).rows.map((r, i) => ({
-        Rank: i + 1, Team: r.team, Played: r.p, Won: r.w, Lost: r.l, "Points for": r.pf, "Points against": r.pa, "+/-": r.diff,
+        Rank: i + 1, Team: TN(d.key, r.team), Played: r.p, Won: r.w, Lost: r.l, "Points for": r.pf, "Points against": r.pa, "+/-": r.diff,
         Qualifies: i < d.qualify ? (d.qualify === 2 ? "Final" : "Semis") : ""
       }));
       const ws = sheet(st, [6, 34, 7, 6, 6, 11, 14, 6, 10]);

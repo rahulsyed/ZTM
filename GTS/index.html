@@ -897,6 +897,8 @@
         .promo-frame { position: relative; max-width: 980px; margin: 0 auto; border-radius: 22px; overflow: hidden; background: var(--ink); box-shadow: 0 24px 60px rgba(11, 27, 51, 0.22); aspect-ratio: 16 / 9; }
         .promo-video { display: block; width: 100%; height: 100%; object-fit: cover; }
         .promo-tag { position: absolute; left: 14px; top: 14px; background: var(--ball); color: var(--ink); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; }
+        .promo-sound { position: absolute; right: 14px; bottom: 14px; border: 0; border-radius: 999px; padding: 10px 16px; font: inherit; font-weight: 700; font-size: 0.9rem; background: rgba(11, 27, 51, 0.82); color: #fff; cursor: pointer; backdrop-filter: blur(6px); }
+        .promo-sound[aria-pressed="true"] { background: var(--ball); color: var(--ink); }
         .promo-links { text-align: center; margin-top: 12px; font-size: 0.9rem; color: var(--muted); }
         .promo-links a { color: var(--blue); font-weight: 600; text-decoration: none; }
         @media (max-width: 640px) { .promo { padding: 0 0 40px; } .promo-frame { border-radius: 16px; } }
@@ -1039,9 +1041,10 @@
     <section class="promo" aria-label="Tournament promo video">
         <div class="container">
             <div class="promo-frame">
-                <video class="promo-video" src="promo/gts-promo.mp4" poster="promo/gts-promo-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="GTS Pickleball 2026 promo"></video>
+                <video class="promo-video" src="promo/gts-promo.mp4?v=2" poster="promo/gts-promo-poster.jpg?v=2" autoplay muted loop playsinline preload="metadata" aria-label="GTS Pickleball 2026 promo"></video>
+                <button type="button" class="promo-sound" id="promo-sound" aria-pressed="false">🔊 Tap for sound</button>
             </div>
-            <p class="promo-links"><a href="promo/gts-promo.mp4" download>Download video</a> · <a href="promo/gts-promo-vertical.mp4" download>Phone / WhatsApp version</a></p>
+            <p class="promo-links"><a href="promo/gts-promo.mp4?v=2" download>Download video</a> · <a href="promo/gts-promo-vertical.mp4?v=2" download>Phone / WhatsApp version</a></p>
         </div>
     </section>
 
@@ -1077,6 +1080,7 @@
                 <a class="div-card" href="live.html#mix" style="--c:#B0306A"><b>Mixed Doubles</b><span>6 teams · 8:30 AM · courts 1–4</span></a>
                 <a class="div-card" href="live.html#o40" style="--c:#5E34A0"><b>Open 4.0</b><span>8 teams · after the Mixed final · courts 1–4</span></a>
                 <a class="div-card" href="live.html#soc" style="--c:#9A5B00"><b>Social Doubles</b><span>4 teams · 9:00 AM · courts 5–6</span></a>
+                <a class="div-card" href="live.html#rules" style="--c:#D7F34A"><b>Rules</b><span>Scoring, format, weather &amp; basic pickleball rules</span></a>
             </div>
             <p class="print-link"><a href="print.html">Printable court &amp; division schedules →</a></p>
         </div>
@@ -1176,7 +1180,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    <script src="gts-core.js?v=1024c"></script>
+    <script src="gts-core.js?v=1024d"></script>
     <script>
         // Announcements board + organiser login
         GTS.bindStatus(document.getElementById('status'));
@@ -1197,6 +1201,18 @@
         });
     </script>
     <script>
+        // Promo video sound toggle (browsers only autoplay muted)
+        (function () {
+            const v = document.querySelector('.promo-video'), b = document.getElementById('promo-sound');
+            if (!v || !b) return;
+            b.addEventListener('click', () => {
+                v.muted = !v.muted;
+                if (!v.muted) { v.currentTime = 0; v.volume = 1; v.play().catch(() => {}); }
+                b.setAttribute('aria-pressed', String(!v.muted));
+                b.textContent = v.muted ? '🔊 Tap for sound' : '🔇 Mute';
+            });
+        })();
+
         // Copy Zelle email
         document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
             const text = btn.dataset.copy;

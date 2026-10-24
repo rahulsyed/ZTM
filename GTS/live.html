@@ -178,6 +178,30 @@ tr.q .rank{background:var(--c);color:#fff}
 .seed-pick label{font-size:12px;font-weight:600;color:var(--muted);display:grid;gap:4px}
 .seed-pick select{border:1px solid var(--line);border-radius:10px;padding:8px}
 
+/* team links + team details */
+.tlink{background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:rgba(91,107,130,.35);text-underline-offset:3px}
+.tlink:hover{text-decoration-color:currentColor;color:var(--blue)}
+.team-card{max-width:560px}
+.td-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.td-head h3{margin-top:6px;overflow-wrap:anywhere}
+.td-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
+.td-stats div{background:#F6F8FB;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.td-stats b{display:block;font-family:var(--display);font-size:24px;color:var(--ink);line-height:1.1}
+.td-stats span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.td-sec{font-family:var(--display);font-size:20px;color:var(--ink);margin:16px 0 4px}
+.td-note{font-size:13px;color:var(--muted);margin-top:8px}
+.td-rename{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:none}
+body.is-admin .td-rename{display:block}
+.td-rename input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:16px;margin-top:6px}
+.td-rename .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+/* rules */
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:6px}
+.rule-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);border-top:5px solid var(--c,var(--ball))}
+.rule-card h3{font-family:var(--display);font-size:22px;color:var(--ink);margin-bottom:6px}
+.rule-card ul{padding-left:18px;display:grid;gap:6px;font-size:15px}
+.rule-card b{color:var(--ink)}
+.rule-key{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:15px;align-items:baseline}
+.rule-key b{font-family:var(--display);font-size:20px}
 footer{border-top:1px solid var(--line);background:#fff;padding-block:18px;color:var(--muted);font-size:13px}
 footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
 
@@ -289,6 +313,17 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
   </div>
 </footer>
 
+<!-- Team details -->
+<div class="gts-modal" id="team-dlg" hidden>
+  <div class="gts-modal-card team-card" role="dialog" aria-modal="true" aria-labelledby="td-name">
+    <div class="td-head">
+      <div style="min-width:0"><span class="tag" id="td-div"></span><h3 id="td-name"></h3></div>
+      <button type="button" class="gbtn ghost" id="td-close" aria-label="Close">✕</button>
+    </div>
+    <div id="td-body"></div>
+  </div>
+</div>
+
 <!-- Score entry dialog -->
 <div class="gts-modal" id="score-dlg" hidden>
   <form class="gts-modal-card" id="score-form" autocomplete="off">
@@ -310,7 +345,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
   <form class="gts-modal-card" id="reset-form" autocomplete="off">
     <h3>Reset scores?</h3>
     <p id="rd-sub"></p>
-    <input type="text" id="rd-input" placeholder="Type RESET" aria-label="Type RESET to confirm">
+    <input type="password" id="rd-input" placeholder="Reset PIN" aria-label="Reset PIN" autocomplete="off">
     <div class="gts-modal-err" id="rd-err" role="alert"></div>
     <div class="gts-modal-actions">
       <button type="button" class="gbtn ghost" id="rd-cancel">Cancel</button>
@@ -321,10 +356,10 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="gts-schedule.js?v=1024c"></script>
-<script src="gts-engine.js?v=1024c"></script>
-<script src="gts-core.js?v=1024c"></script>
-<script src="gts-export.js?v=1024c"></script>
+<script src="gts-schedule.js?v=1024d"></script>
+<script src="gts-engine.js?v=1024d"></script>
+<script src="gts-core.js?v=1024d"></script>
+<script src="gts-export.js?v=1024d"></script>
 <script>
 (function () {
   const D = window.GTS_DATA, E = window.GTSEngine, esc = GTS.esc;
@@ -353,6 +388,10 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     return PO[m.id];
   }
 
+  // Team names: the schedule's original name is the key; organisers can change how it's shown.
+  const TN = (div, n) => (n ? GTS.teamName(div, n) : "");
+  const teamLink = (div, n) => `<button type="button" class="tlink" data-team="${esc(div)}|${esc(n)}">${esc(TN(div, n))}</button>`;
+
   function matchHTML(m, opts) {
     opts = opts || {};
     const s = sides(m), r = E.result(stageOf(m), scores[m.id]);
@@ -363,12 +402,12 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
       if (!r.done) return "";
       return r.winner === side ? "win" : "lose";
     };
-    const name = side => s[side] ? esc(s[side]) : esc((s[side + "Note"] || "TBD").split(" · ")[0]);
+    const name = side => s[side] ? teamLink(m.div, s[side]) : esc((s[side + "Note"] || "TBD").split(" · ")[0]);
     const note = side => (s[side] && m.stage !== "league" && s[side + "Note"]) ? `<span class="note">${esc(s[side + "Note"].split(" · ")[0])}</span>` : (!s[side] && s[side + "Note"] && s[side + "Note"].includes(" · ") ? `<span class="note">${esc(s[side + "Note"].split(" · ")[1])}</span>` : "");
     const score = r.games.length
       ? r.games.map(([x, y]) => `<div class="gm"><span class="${x > y ? "w" : ""}">${x}</span><span class="${y > x ? "w" : ""}">${y}</span></div>`).join("")
       : `<span class="none">vs</span>`;
-    const hay = ((s.a || "") + " " + (s.b || "")).toLowerCase();
+    const hay = (TN(m.div, s.a) + " " + TN(m.div, s.b) + " " + (s.a || "") + " " + (s.b || "")).toLowerCase();
     const hit = query && hay.includes(query);
     const dim = query && !hit;
     return `
@@ -390,7 +429,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
 
   /* ---------- views ---------- */
   function renderTabs() {
-    const items = [["courts", "All courts", "#94A3B8"]].concat(D.divisions.map(d => [d.key, d.name, `var(--${d.key})`]));
+    const items = [["courts", "All courts", "#94A3B8"]].concat(D.divisions.map(d => [d.key, d.name, `var(--${d.key})`]), [["rules", "Rules", "var(--ball)"]]);
     document.getElementById("tabs").innerHTML = items.map(([k, label, c]) =>
       `<button type="button" class="tab" role="tab" aria-selected="${view === k}" data-view="${k}" style="--c:${c}"><span class="dot"></span>${esc(label)}</button>`).join("");
   }
@@ -427,9 +466,9 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     const last = Math.max(...D.matches.filter(m => m.div === k).map(m => m.end));
     const courts = [...new Set(D.matches.filter(m => m.div === k).map(m => m.court))].sort();
     const rows = st.rows.map((r, i) => {
-      const q = i < d.qualify, hit = query && r.team.toLowerCase().includes(query);
+      const q = i < d.qualify, hit = query && (TN(k, r.team) + " " + r.team).toLowerCase().includes(query);
       return `<tr class="${q ? "q" : ""}${hit ? " hit" : ""}"><td><span class="rank">${i + 1}</span></td>
-        <td class="team-cell">${esc(r.team)}${q ? `<span class="qb">${d.qualify === 2 ? "FINAL" : "SEMIS"}</span>` : ""}</td>
+        <td class="team-cell">${teamLink(k, r.team)}${q ? `<span class="qb">${d.qualify === 2 ? "FINAL" : "SEMIS"}</span>` : ""}</td>
         <td class="n">${r.p}</td><td class="n">${r.w}</td><td class="n">${r.l}</td><td class="n hide-sm">${r.pf}</td><td class="n hide-sm">${r.pa}</td>
         <td class="n"><b>${r.diff > 0 ? "+" : ""}${r.diff}</b></td></tr>`;
     }).join("");
@@ -443,7 +482,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
           <div><b>${fmt(first)}–${fmt(last)}</b>courts ${courts.join(", ")}</div>
         </div>
       </div>
-      ${pd ? `<div class="champ"><div class="cup">🏆</div><div><small>${esc(d.name)} champions</small><b>${esc(pd.champion)}</b><small>Runners-up: ${esc(pd.runnerUp)}</small></div></div>` : ""}
+      ${pd ? `<div class="champ"><div class="cup">🏆</div><div><small>${esc(d.name)} champions</small><b>${esc(TN(k, pd.champion))}</b><small>Runners-up: ${esc(TN(k, pd.runnerUp))}</small></div></div>` : ""}
       <div class="sec-title"><h2>Standings</h2><span>${d.qualify === 2 ? "Top 2 play the final" : "Top 4 go to the semis"} · ranked by wins, then point difference</span></div>
       <div class="tbl-wrap" style="${colorVars(k)}"><table>
         <thead><tr><th>#</th><th>Team</th><th class="n">P</th><th class="n">W</th><th class="n">L</th><th class="n hide-sm">PF</th><th class="n hide-sm">PA</th><th class="n">+/-</th></tr></thead>
@@ -451,7 +490,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
       <div class="sec-title"><h2>Playoffs</h2><span>${d.qualify === 2 ? "Final: seed 1 v 2, best of 3 games" : "Semis one game to 15 (1 v 4, 2 v 3) · Final best of 3 games"}</span></div>
       <div class="po-grid">${po.map(m => matchHTML(m)).join("")}</div>
       <p class="rules">${st.complete ? "League finished: playoff teams are set." : "Playoff teams fill in automatically when the league finishes. “now …” shows who holds that seed at the moment."}</p>
-      <div class="sec-title"><h2>League games</h2><span>One game to 11 · 10-minute cap · ${league.length} games</span></div>
+      <div class="sec-title"><h2>League games</h2><span>Tap a team for its full schedule · ${league.length} games</span></div>
       <div class="list">${league.sort((a, b) => a.start - b.start).map(m => matchHTML(m)).join("")}</div>
       <p class="rules">Ties in the standings: wins, then point difference, then head-to-head (two-way ties), then points scored.</p>`;
   }
@@ -464,8 +503,9 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     }
     renderTabs();
     const el = document.getElementById("view");
-    el.innerHTML = view === "courts" ? courtsView() : divisionView(view);
+    el.innerHTML = view === "courts" ? courtsView() : view === "rules" ? RULES_HTML : divisionView(view);
     el.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => openScore(b.dataset.edit)));
+    if (teamOpen && !tdlg.hidden) showTeam(teamOpen.div, teamOpen.name, true);
     const scope = document.getElementById("reset-scope");
     if (!scope.options.length) {
       scope.innerHTML = D.divisions.map(d => `<option value="${d.key}">${esc(d.name)} only</option>`).join("") + `<option value="all">All divisions</option>`;
@@ -473,7 +513,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
   }
 
   function setView(k, push) {
-    if (k !== "courts" && !DIV[k]) k = "courts";
+    if (k !== "courts" && k !== "rules" && !DIV[k]) k = "courts";
     view = k;
     if (push) history.replaceState(null, "", location.pathname + location.search + "#" + k);
     render();
@@ -486,6 +526,106 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
   });
   document.getElementById("q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); render(); });
   window.addEventListener("hashchange", () => setView(location.hash.slice(1), false));
+
+  /* ---------- rules ---------- */
+  const RULES_HTML = `
+    <div class="sec-title"><h2>Tournament rules</h2><span>GTS Pickleball 2026 · Sunday Oct 25</span></div>
+    <div class="rules-grid">
+      <div class="rule-card" style="--c:var(--blue)"><h3>Scoring at this tournament</h3>
+        <div class="rule-key">
+          <b>League</b><span>Games to <b>11</b>, win by 2. If it keeps going, <b>first to 15 wins</b>.</span>
+          <b>Semis</b><span>Games to <b>15</b>, win by 2. If it keeps going, <b>first to 21 wins</b>.</span>
+          <b>Finals</b><span>Best of 3 games. Each game to <b>11</b>, win by 2, first to 15 wins.</span>
+        </div></div>
+      <div class="rule-card" style="--c:var(--o35)"><h3>Format</h3><ul>
+        <li>League: every team plays <b>4 games</b> (Social: 3).</li>
+        <li>Top 4 go to the semis: <b>1 v 4</b> and <b>2 v 3</b>. Winners play the final. Social: top 2 play the final.</li>
+        <li>Standings: wins, then point difference, then head-to-head, then points scored.</li>
+        <li>Check the <b>All courts</b> tab for your court and time. Be ready on court before your match.</li></ul></div>
+      <div class="rule-card" style="--c:var(--o30)"><h3>Weather</h3><ul>
+        <li>Games go ahead <b>unless there is rain</b>.</li>
+        <li>Any delay or change is posted in <b>Announcements</b> on the home page and at the top of this page.</li></ul></div>
+      <div class="rule-card" style="--c:var(--mix)"><h3>Serving</h3><ul>
+        <li>Serve <b>underhand</b>, hitting the ball below your waist, from behind the baseline.</li>
+        <li>Serve <b>diagonally</b> into the opposite service box. It must clear the kitchen and its line.</li>
+        <li>Only the serving team scores a point.</li>
+        <li>Both partners serve before the serve passes to the other team, except at the very start of the game (only one server).</li></ul></div>
+      <div class="rule-card" style="--c:var(--o40)"><h3>Two-bounce rule &amp; the kitchen</h3><ul>
+        <li>The serve must bounce, and the return must bounce, before anyone can volley.</li>
+        <li>The <b>kitchen</b> is the 7-foot non-volley zone at the net. You can't volley while standing in it or on its line.</li>
+        <li>You may step into the kitchen to play a ball that has bounced.</li></ul></div>
+      <div class="rule-card" style="--c:var(--soc)"><h3>Calling the score &amp; faults</h3><ul>
+        <li>Call it as <b>server score – receiver score – server number</b>. The game starts at <b>0–0–2</b>.</li>
+        <li>A ball on the line is <b>in</b>, except a serve that lands on the kitchen line, which is out.</li>
+        <li>Fault: ball out, into the net, bounces twice, or a volley from the kitchen.</li>
+        <li>Make line calls on your own side, honestly. When in doubt, the ball is in. Have fun!</li></ul></div>
+    </div>`;
+
+  /* ---------- team details ---------- */
+  const tdlg = document.getElementById("team-dlg");
+  let teamOpen = null;
+
+  function showTeam(div, name, refresh) {
+    const d = DIV[div];
+    if (!d || !d.teams.includes(name)) return;
+    teamOpen = { div, name };
+    const st = E.standings(d, D.matches, scores);
+    const idx = st.rows.findIndex(r => r.team === name), row = st.rows[idx];
+    const mine = D.matches.filter(m => m.div === div && (() => { const s = sides(m); return s && (s.a === name || s.b === name); })())
+      .sort((a, b) => a.start - b.start);
+    const next = mine.find(m => !E.result(stageOf(m), scores[m.id]).done);
+    const others = D.divisions.filter(o => o.key !== div && o.teams.includes(name));
+    let seedNote = "";
+    if (!st.complete && idx < d.qualify) seedNote = `Currently in a playoff spot (seed ${idx + 1}). Playoff teams are confirmed when the league finishes.`;
+    else if (st.complete && idx >= d.qualify) seedNote = "League finished. This team did not reach the playoffs.";
+    const pd = E.podium(d, D.matches, scores, seeds[div] || {});
+    if (pd && pd.champion === name) seedNote = `🏆 ${d.name} champions!`;
+    else if (pd && pd.runnerUp === name) seedNote = `🥈 ${d.name} runners-up.`;
+    document.getElementById("td-div").textContent = d.name;
+    document.getElementById("td-div").style.cssText = colorVars(div);
+    document.getElementById("td-name").textContent = TN(div, name);
+    document.getElementById("td-body").innerHTML = `
+      <div class="td-stats">
+        <div><b>${idx + 1}<small style="font-size:14px">/${d.teams.length}</small></b><span>Rank</span></div>
+        <div><b>${row.w}–${row.l}</b><span>Won–Lost</span></div>
+        <div><b>${row.diff > 0 ? "+" : ""}${row.diff}</b><span>Point diff</span></div>
+        <div><b>${row.pf}–${row.pa}</b><span>Points</span></div>
+      </div>
+      ${seedNote ? `<p class="td-note">${esc(seedNote)}</p>` : ""}
+      ${next ? `<div class="td-sec">Next match</div>${matchHTML(next, { mini: true })}` : `<p class="td-note">All of this team's scheduled matches are finished.</p>`}
+      <div class="td-sec">All matches (${mine.length})</div>
+      <div class="list">${mine.map(m => matchHTML(m, { mini: true })).join("")}</div>
+      ${others.length ? `<p class="td-note">Also playing in: ${others.map(o => `<button type="button" class="tlink" data-team="${o.key}|${esc(name)}">${esc(o.name)}</button>`).join(", ")}</p>` : ""}
+      <div class="td-rename">
+        <label class="td-note" for="td-input">Organisers: correct this team's name (updates everywhere)</label>
+        <input id="td-input" maxlength="80" value="${esc(TN(div, name))}">
+        <div class="row">
+          <button type="button" class="gbtn primary" id="td-save">Save name</button>
+          ${TN(div, name) !== name ? `<button type="button" class="gbtn" id="td-orig">Back to original (${esc(name)})</button>` : ""}
+        </div>
+        <div class="admin-msg" id="td-msg" style="color:var(--ok)"></div>
+      </div>`;
+    const body = document.getElementById("td-body");
+    body.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => openScore(b.dataset.edit)));
+    const save = async v => {
+      const msg = document.getElementById("td-msg");
+      try { await GTS.renameTeam(div, name, v); msg.textContent = "Saved. The new name shows everywhere."; }
+      catch (x) { msg.style.color = "var(--danger)"; msg.textContent = "Could not save. Log in as organiser and check the connection."; }
+    };
+    const sv = document.getElementById("td-save"); if (sv) sv.addEventListener("click", () => save(document.getElementById("td-input").value));
+    const og = document.getElementById("td-orig"); if (og) og.addEventListener("click", () => save(name));
+    if (!refresh) { tdlg.hidden = false; tdlg.querySelector(".gts-modal-card").scrollTop = 0; }
+  }
+
+  function closeTeam() { tdlg.hidden = true; teamOpen = null; }
+  document.getElementById("td-close").addEventListener("click", closeTeam);
+  tdlg.addEventListener("click", e => { if (e.target === tdlg) closeTeam(); });
+  document.addEventListener("click", e => {
+    const b = e.target.closest(".tlink");
+    if (!b) return;
+    const [div, name] = b.dataset.team.split("|");
+    showTeam(div, name);
+  });
 
   /* ---------- score entry ---------- */
   const dlg = document.getElementById("score-dlg");
@@ -509,10 +649,10 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     const stored = scores[id] || {};
     const games = bo3 ? (stored.g || []) : (typeof stored.a === "number" ? [[stored.a, stored.b]] : []);
     const v = (i, j) => (games[i] && games[i][j] !== undefined ? games[i][j] : "");
-    const nameA = s.a || s.aNote.split(" · ")[0], nameB = s.b || s.bNote.split(" · ")[0];
+    const nameA = s.a ? TN(m.div, s.a) : s.aNote.split(" · ")[0], nameB = s.b ? TN(m.div, s.b) : s.bNote.split(" · ")[0];
     document.getElementById("sd-title").textContent = `${SHORT[m.div]} · ${STAGE[m.stage]}`;
     const t = E.TARGET[stageOf(m)];
-    document.getElementById("sd-sub").textContent = `${fmt(m.start)} · Court ${m.court} · ${m.stage === "league" ? "one game to 11" : bo3 ? "best of 3 — fill game 3 only if it's 1–1" : "one game to 15"}. Over ${t}, win by 2. Max ${E.MAX_POINTS}.`;
+    document.getElementById("sd-sub").textContent = `${fmt(m.start)} · Court ${m.court} · ${m.stage === "league" ? "one game to 11" : bo3 ? "best of 3 — fill game 3 only if it's 1–1" : "one game to 15"}. Win by 2 · first to ${E.CAP[stageOf(m)]} wins.`;
     const inp = (i, j) => `<input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" enterkeyhint="next" data-g="${i}" data-s="${j}" value="${v(i, j)}" aria-label="Game ${i + 1} ${j ? "team B" : "team A"}">`;
     document.getElementById("sd-grid").innerHTML = bo3
       ? `<div class="sc-grid"><span></span><span class="h">G1</span><span class="h">G2</span><span class="h">G3</span>
@@ -531,7 +671,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
       sd.innerHTML = `<div class="seed-pick"><p>Teams are filled in automatically. Change them only to fix a mistake or a forfeit.</p>
         ${keys.map((k, i) => `<label>${i ? "Team B" : "Team A"}<select data-seed="${k}">
           <option value="">Automatic (${auto[i]})</option>
-          ${d.teams.map(t => `<option ${ov[k] === t ? "selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`).join("")}</div>`;
+          ${d.teams.map(t => `<option value="${esc(t)}" ${ov[k] === t ? "selected" : ""}>${esc(TN(m.div, t))}</option>`).join("")}</select></label>`).join("")}</div>`;
     } else sd.innerHTML = "";
     document.getElementById("sd-err").textContent = "";
     dlg.hidden = false;
@@ -541,7 +681,11 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
   function closeScore() { dlg.hidden = true; editing = null; }
   document.getElementById("sd-cancel").addEventListener("click", closeScore);
   dlg.addEventListener("click", e => { if (e.target === dlg) closeScore(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape") { closeScore(); document.getElementById("reset-dlg").hidden = true; } });
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    if (!dlg.hidden) closeScore(); else if (!tdlg.hidden) closeTeam();
+    document.getElementById("reset-dlg").hidden = true;
+  });
 
   // Organiser team picks in the dialog → {changes, merged seeds for this division}
   function pickedSeeds(m) {
@@ -625,7 +769,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
   document.getElementById("reset-btn").addEventListener("click", () => {
     const k = document.getElementById("reset-scope").value;
     const n = D.matches.filter(m => k === "all" || m.div === k).filter(m => scores[m.id]).length;
-    document.getElementById("rd-sub").textContent = `This clears ${n} saved score${n === 1 ? "" : "s"} for ${k === "all" ? "ALL divisions" : DIV[k].name} and any playoff team changes. Everyone will see empty scores. Type RESET to confirm.`;
+    document.getElementById("rd-sub").textContent = `This clears ${n} saved score${n === 1 ? "" : "s"} for ${k === "all" ? "ALL divisions" : DIV[k].name} and any playoff team changes. Everyone will see empty scores. Enter the separate reset PIN to confirm.`;
     document.getElementById("rd-input").value = "";
     document.getElementById("rd-err").textContent = "";
     rdlg.hidden = false;
@@ -634,8 +778,12 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
   document.getElementById("rd-cancel").addEventListener("click", () => { rdlg.hidden = true; });
   document.getElementById("reset-form").addEventListener("submit", async e => {
     e.preventDefault();
-    if (document.getElementById("rd-input").value.trim().toUpperCase() !== "RESET") { document.getElementById("rd-err").textContent = "Type RESET to confirm"; return; }
     if (!GTS.isAdmin) return;
+    const pinBox = document.getElementById("rd-input");
+    if (!(await GTS.checkResetPin(pinBox.value))) {
+      document.getElementById("rd-err").textContent = "Incorrect reset PIN. This is different from the organiser login PIN.";
+      pinBox.value = ""; pinBox.focus(); return;
+    }
     const k = document.getElementById("reset-scope").value, upd = {};
     D.matches.filter(m => k === "all" || m.div === k).forEach(m => { upd["scores/" + m.id] = null; });
     (k === "all" ? D.divisions.map(d => d.key) : [k]).forEach(d => { upd["seeds/" + d] = null; });
@@ -654,6 +802,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
   document.body.classList.toggle("is-admin", GTS.isAdmin);
   GTS.init();
   GTS.mountAnnouncements(document.getElementById("ann"), { limit: 5 });
+  GTS.watchTeamNames(render);
   const sRef = GTS.ref("scores"), seedRef = GTS.ref("seeds");
   if (sRef) {
     sRef.on("value", s => { scores = s.val() || {}; render(); });
