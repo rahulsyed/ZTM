@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>GTS Pickleball 2026 | Live Scores &amp; Schedule</title>
+<meta name="description" content="Live scores, court schedule, standings and playoffs for the GTS Pickleball Tournament, Sunday October 25, 2026 at East Riverside Park / Sudduth Farms.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" type="image/png" href="gts-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B1B33;--blue:#106EEA;--blue-soft:#EEF4FE;--ball:#D7F34A;--ball-soft:#F5FBD6;
+  --bg:#F6F8FB;--card:#FFFFFF;--line:#E4E9F0;--text:#0F172A;--muted:#5B6B82;--danger:#DC2626;--ok:#0E8A5F;
+  --radius:16px;--shadow:0 1px 2px rgba(15,23,42,.04),0 10px 26px rgba(15,23,42,.06);
+  --display:'Barlow Condensed','Arial Narrow',sans-serif;--body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  /* division colours */
+  --o30:#0F766E;--o30-soft:#E3F4F2;--o35:#1F4FA3;--o35-soft:#E8EFFB;--mix:#B0306A;--mix-soft:#FBE8F1;
+  --o40:#5E34A0;--o40-soft:#EFE8FA;--soc:#9A5B00;--soc-soft:#FCF1DC;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;min-height:64px;flex-wrap:wrap;padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto;min-width:0}
+.brand img{width:40px;height:40px;object-fit:contain}
+.brand b{font-family:var(--display);font-size:20px;letter-spacing:.3px;line-height:1;display:block;color:var(--ink)}
+.brand small{display:block;font-size:12px;color:var(--muted)}
+.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:#F1F4F8;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.pill::before{content:"";width:8px;height:8px;border-radius:50%;background:#A3AEC0}
+.pill[data-state=live]{background:#E6F6EF;color:var(--ok)}.pill[data-state=live]::before{background:#16A34A;box-shadow:0 0 0 3px rgba(22,163,74,.18)}
+.pill[data-state=offline]{background:#FDECEC;color:var(--danger)}.pill[data-state=offline]::before{background:var(--danger)}
+.gbtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.gbtn:hover{border-color:#C9D3E0}
+.gbtn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.gbtn.ball{background:var(--ball);border-color:#C3DE33;color:var(--ink)}
+.gbtn.danger{background:#fff;border-color:#F3C2C2;color:var(--danger)}
+.gbtn.ghost{background:transparent}
+.gbtn.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.gbtn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* hero strip */
+.head{padding-block:22px 6px}
+.head h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1;color:var(--ink);text-wrap:balance}
+.head h1 span{background:linear-gradient(transparent 62%,var(--ball) 62%)}
+.head p{color:var(--muted);margin-top:6px;font-size:15px}
+
+/* announcements */
+.ann{margin-top:14px;display:grid;gap:8px}
+.ann-item{background:var(--ball-soft);border:1px solid #E3EFA8;border-left:5px solid var(--ball);border-radius:12px;padding:12px 14px}
+.ann-item.pinned{border-left-color:var(--blue);background:var(--blue-soft);border-color:#D3E2FB}
+.ann-text{font-weight:600;color:var(--ink);overflow-wrap:anywhere}
+.ann-meta{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-top:4px}
+.ann-del{border:0;background:none;color:var(--danger);font-weight:600;cursor:pointer;font-size:12px}
+.ann-empty{color:var(--muted);font-size:14px}
+
+/* organiser panel */
+.admin{display:none;margin-top:14px;background:#0B1B33;color:#E8EEF7;border-radius:var(--radius);padding:16px}
+body.is-admin .admin{display:block}
+.admin h2{font-family:var(--display);font-size:22px;letter-spacing:.3px;color:#fff}
+.admin p{font-size:13px;color:#A9B7CC}
+.admin-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;margin-top:10px}
+.admin textarea{width:100%;min-height:74px;border-radius:10px;border:1px solid #2A3B57;background:#13284A;color:#fff;padding:10px;resize:vertical}
+.admin .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.admin label{font-size:13px;display:inline-flex;gap:6px;align-items:center}
+.admin select{border-radius:10px;border:1px solid #2A3B57;background:#13284A;color:#fff;padding:8px 10px}
+.admin .gbtn{border-color:#2A3B57;background:#13284A;color:#fff}
+.admin .gbtn.ball{background:var(--ball);color:var(--ink);border-color:var(--ball)}
+.admin .gbtn.danger{background:transparent;color:#FCA5A5;border-color:#7F2A2A}
+.admin-msg{font-size:13px;color:var(--ball);min-height:18px}
+
+/* tabs */
+.tabs{position:sticky;top:64px;z-index:20;background:var(--bg);padding-block:12px 10px;margin-top:8px}
+.tab-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.tab-row::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.tab .dot{width:9px;height:9px;border-radius:50%;background:var(--c,#94A3B8)}
+.tab[aria-selected=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tools{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.search{flex:1 1 260px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 12px}
+.search input{border:0;outline:0;background:transparent;padding:10px 0;width:100%;min-width:0}
+.search svg{flex:0 0 auto;color:var(--muted)}
+
+/* sections */
+section.view{padding-bottom:40px}
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:22px 0 10px}
+.sec-title h2{font-family:var(--display);font-size:26px;color:var(--ink);letter-spacing:.2px}
+.sec-title span{font-size:13px;color:var(--muted)}
+.div-head{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-top:6px;border-top:5px solid var(--c)}
+.div-head h2{font-family:var(--display);font-size:30px;color:var(--ink);line-height:1}
+.div-head .facts{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-left:auto}
+.div-head .facts b{display:block;color:var(--ink);font-size:18px;font-family:var(--display)}
+.bar{height:6px;border-radius:99px;background:#EEF1F5;overflow:hidden;width:100%;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--c)}
+
+/* court board */
+.courts{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.court{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);min-width:0}
+.court h3{font-family:var(--display);font-size:22px;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+.court h3 small{font-family:var(--body);font-size:12px;font-weight:600;color:var(--muted)}
+.court .lbl{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.court .idle{color:var(--muted);font-size:14px;margin-top:8px}
+
+/* match cards */
+.list{display:grid;gap:8px}
+.time-group{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;align-items:start}
+.time-group>.t{font-family:var(--display);font-weight:700;font-size:18px;color:var(--ink);padding-top:10px}
+.match{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:12px;padding:10px 12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;min-width:0}
+.match.mini{box-shadow:none;margin-top:6px}
+.match .meta{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}
+.tag{font-weight:700;font-size:11px;letter-spacing:.4px;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--cs);color:var(--c)}
+.tag.po{background:var(--ink);color:#fff}
+.tag.done{background:#E6F6EF;color:var(--ok)}
+.teams{display:grid;gap:2px;min-width:0}
+.team{display:flex;gap:8px;align-items:baseline;min-width:0}
+.team .nm{font-weight:600;overflow-wrap:anywhere}
+.team .note{font-size:12px;color:var(--muted)}
+.team.win .nm{color:var(--ink);font-weight:800}
+.team.win .nm::after{content:" ✓";color:var(--ok)}
+.team.lose .nm{color:var(--muted);font-weight:500}
+.team.tbd .nm{color:var(--muted);font-style:italic;font-weight:500}
+.score{display:grid;gap:2px;text-align:right;font-family:var(--display);font-weight:700;font-size:20px;color:var(--ink);font-variant-numeric:tabular-nums}
+.score .gm{display:flex;gap:10px;justify-content:flex-end}
+.score .gm span{min-width:18px;text-align:center}
+.score .gm span.w{color:var(--blue)}
+.score .none{color:#A3AEC0;font-size:16px}
+.edit{grid-column:1/-1;display:none;margin-top:6px}
+body.is-admin .edit{display:flex;gap:8px;flex-wrap:wrap}
+.edit .gbtn{padding:6px 12px;font-size:13px}
+.match.hit{outline:3px solid var(--ball);outline-offset:1px}
+.match.dim{opacity:.35}
+
+/* standings */
+.tbl-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);background:#FAFBFD}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td.team-cell{white-space:normal;font-weight:600}
+tr.q td:first-child{box-shadow:inset 4px 0 0 var(--c)}
+tr.q .qb{font-size:10px;font-weight:700;color:var(--c);background:var(--cs);padding:1px 6px;border-radius:99px;margin-left:6px}
+tr.hit td{background:var(--ball-soft)}
+.rank{display:inline-flex;width:24px;height:24px;border-radius:50%;align-items:center;justify-content:center;font-weight:700;font-size:12px;background:#EEF1F5}
+tr.q .rank{background:var(--c);color:#fff}
+
+/* playoffs */
+.po-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.champ{margin-top:12px;border-radius:var(--radius);padding:18px;background:linear-gradient(135deg,var(--ball-soft),#fff);border:1px solid #E3EFA8;display:flex;gap:14px;align-items:center}
+.champ .cup{font-size:34px}
+.champ b{display:block;font-family:var(--display);font-size:26px;color:var(--ink)}
+.champ small{color:var(--muted)}
+.rules{font-size:13px;color:var(--muted);margin-top:10px}
+
+/* modal */
+.gts-modal{position:fixed;inset:0;z-index:60;background:rgba(11,27,51,.55);display:flex;align-items:center;justify-content:center;padding:16px}
+.gts-modal[hidden]{display:none}
+.gts-modal-card{background:#fff;border-radius:18px;padding:20px;width:100%;max-width:440px;box-shadow:0 30px 80px rgba(0,0,0,.25);max-height:92vh;overflow:auto}
+.gts-modal-card h3{font-family:var(--display);font-size:26px;color:var(--ink)}
+.gts-modal-card p{font-size:14px;color:var(--muted);margin-top:4px}
+.gts-modal-card input[type=password],.gts-modal-card input[type=text]{width:100%;margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:18px;letter-spacing:2px;text-align:center}
+.gts-modal-err{color:var(--danger);font-size:13px;min-height:20px;margin-top:6px}
+.gts-modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap}
+.sc-grid{display:grid;grid-template-columns:minmax(0,1fr) 64px 64px 64px;gap:8px;align-items:center;margin-top:14px}
+.sc-grid.single{grid-template-columns:minmax(0,1fr) 84px}
+.sc-grid .h{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);text-align:center}
+.sc-grid .nm{font-weight:600;overflow-wrap:anywhere}
+.sc-grid input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 4px;font-size:20px;text-align:center;font-family:var(--display);font-weight:700}
+.sc-grid input:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.seed-pick{display:grid;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+.seed-pick label{font-size:12px;font-weight:600;color:var(--muted);display:grid;gap:4px}
+.seed-pick select{border:1px solid var(--line);border-radius:10px;padding:8px}
+
+footer{border-top:1px solid var(--line);background:#fff;padding-block:18px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
+
+@media (max-width:760px){
+  .admin-grid{grid-template-columns:1fr}
+  .time-group{grid-template-columns:1fr;gap:4px}
+  .time-group>.t{padding-top:6px;font-size:16px}
+  .div-head .facts{margin-left:0}
+  .tabs{top:0;position:relative}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./">
+      <img src="gts-logo.png" alt="Greenville Tamil Sangam">
+      <span><b>GTS Pickleball 2026</b><small>Live scores · Sun Oct 25</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="pill" id="status" data-state="connecting">Connecting…</span>
+      <a class="gbtn" href="./">Home</a>
+      <button type="button" class="gbtn" id="admin-btn">Organiser login</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <h1>Live <span>scores</span> &amp; schedule</h1>
+    <p>East Riverside Park / Sudduth Farms · first serve 7:00 AM · scores update live for everyone</p>
+    <div class="ann" id="ann"></div>
+  </div>
+
+  <section class="admin" aria-label="Organiser tools">
+    <h2>Organiser tools</h2>
+    <p>You're in organiser mode. Tap <b>Enter score</b> on any match. Changes save instantly and show for everyone.</p>
+    <div class="admin-grid">
+      <div>
+        <textarea id="ann-text" maxlength="600" placeholder="Post an announcement for everyone, e.g. “Open 4.0 starts 10 minutes late on courts 1–4.”"></textarea>
+        <div class="row">
+          <label><input type="checkbox" id="ann-pin"> Pin to top</label>
+          <button type="button" class="gbtn ball" id="ann-post">Post announcement</button>
+        </div>
+        <div class="admin-msg" id="ann-msg"></div>
+      </div>
+      <div>
+        <p>Reset clears scores and organiser seed changes. Announcements are not affected.</p>
+        <div class="row">
+          <select id="reset-scope" aria-label="What to reset"></select>
+          <button type="button" class="gbtn danger" id="reset-btn">Reset scores…</button>
+        </div>
+        <div class="admin-msg" id="reset-msg"></div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tabs" aria-label="Divisions">
+    <div class="tab-row" role="tablist" id="tabs"></div>
+    <div class="tools">
+      <label class="search">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke-width="2"/><path stroke-linecap="round" stroke-width="2" d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" id="q" placeholder="Find your team or player name" aria-label="Find your team">
+      </label>
+    </div>
+  </nav>
+
+  <section class="view" id="view" aria-live="polite"></section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Greenville Tamil Sangam</span>
+    <span>Questions? PJ (832) 436-3286 · Hari (774) 266-1319 · Rajesh (864) 498-8210 · Senthil (616) 752-0992</span>
+  </div>
+</footer>
+
+<!-- Score entry dialog -->
+<div class="gts-modal" id="score-dlg" hidden>
+  <form class="gts-modal-card" id="score-form" autocomplete="off">
+    <h3 id="sd-title">Enter score</h3>
+    <p id="sd-sub"></p>
+    <div id="sd-grid"></div>
+    <div id="sd-seeds"></div>
+    <div class="gts-modal-err" id="sd-err" role="alert"></div>
+    <div class="gts-modal-actions">
+      <button type="button" class="gbtn danger" id="sd-clear">Clear score</button>
+      <button type="button" class="gbtn ghost" id="sd-cancel">Cancel</button>
+      <button type="submit" class="gbtn primary">Save</button>
+    </div>
+  </form>
+</div>
+
+<!-- Reset confirmation -->
+<div class="gts-modal" id="reset-dlg" hidden>
+  <form class="gts-modal-card" id="reset-form" autocomplete="off">
+    <h3>Reset scores?</h3>
+    <p id="rd-sub"></p>
+    <input type="text" id="rd-input" placeholder="Type RESET" aria-label="Type RESET to confirm">
+    <div class="gts-modal-err" id="rd-err" role="alert"></div>
+    <div class="gts-modal-actions">
+      <button type="button" class="gbtn ghost" id="rd-cancel">Cancel</button>
+      <button type="submit" class="gbtn danger">Reset</button>
+    </div>
+  </form>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="gts-schedule.js"></script>
+<script src="gts-engine.js"></script>
+<script src="gts-core.js"></script>
+<script>
+(function () {
+  const D = window.GTS_DATA, E = window.GTSEngine, esc = GTS.esc;
+  const DIV = Object.fromEntries(D.divisions.map(d => [d.key, d]));
+  const SHORT = { o30: "Open 3.0", o35: "Open 3.5", mix: "Mixed", o40: "Open 4.0", soc: "Social" };
+  const STAGE = { league: "League", sf1: "Semifinal 1", sf2: "Semifinal 2", final: "Final" };
+  const MATCH = Object.fromEntries(D.matches.map(m => [m.id, m]));
+  const COURTS = [...new Set(D.matches.map(m => m.court))].sort((a, b) => a - b);
+
+  let scores = {}, seeds = {}, view = "courts", query = "";
+
+  const fmt = m => { const h = Math.floor(m / 60), mm = m % 60; return `${((h + 11) % 12) + 1}:${String(mm).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`; };
+  const colorVars = k => `--c:var(--${k});--cs:var(--${k}-soft)`;
+  const stageOf = m => (m.stage === "league" ? "league" : m.stage === "final" ? "final" : "semi");
+
+  // Teams for a match (league teams are fixed; playoff teams come from standings or organiser picks)
+  function poCache() {
+    const out = {};
+    D.divisions.forEach(d => Object.assign(out, E.playoffs(d, D.matches, scores, seeds[d.key] || {})));
+    return out;
+  }
+  let PO = {};
+
+  function sides(m) {
+    if (m.stage === "league") return { a: m.a, b: m.b, aNote: "", bNote: "", confirmed: true };
+    return PO[m.id];
+  }
+
+  function matchHTML(m, opts) {
+    opts = opts || {};
+    const s = sides(m), r = E.result(stageOf(m), scores[m.id]);
+    const partial = !r.done && r.games.length;
+    const cls = side => {
+      const nm = s[side];
+      if (!nm) return "tbd";
+      if (!r.done) return "";
+      return r.winner === side ? "win" : "lose";
+    };
+    const name = side => s[side] ? esc(s[side]) : esc((s[side + "Note"] || "TBD").split(" · ")[0]);
+    const note = side => (s[side] && m.stage !== "league" && s[side + "Note"]) ? `<span class="note">${esc(s[side + "Note"].split(" · ")[0])}</span>` : (!s[side] && s[side + "Note"] && s[side + "Note"].includes(" · ") ? `<span class="note">${esc(s[side + "Note"].split(" · ")[1])}</span>` : "");
+    const score = r.games.length
+      ? r.games.map(([x, y]) => `<div class="gm"><span class="${x > y ? "w" : ""}">${x}</span><span class="${y > x ? "w" : ""}">${y}</span></div>`).join("")
+      : `<span class="none">vs</span>`;
+    const hay = ((s.a || "") + " " + (s.b || "")).toLowerCase();
+    const hit = query && hay.includes(query);
+    const dim = query && !hit;
+    return `
+      <article class="match${opts.mini ? " mini" : ""}${hit ? " hit" : ""}${dim ? " dim" : ""}" style="${colorVars(m.div)}" data-id="${m.id}">
+        <div class="meta">
+          ${opts.noTime ? "" : `<b>${fmt(m.start)}</b>`}<span>Court ${m.court}</span>
+          <span class="tag">${esc(SHORT[m.div])}</span>
+          ${m.stage !== "league" ? `<span class="tag po">${STAGE[m.stage]}${m.stage === "final" ? " · best of 3" : ""}</span>` : ""}
+          ${r.done ? `<span class="tag done">Final score</span>` : partial ? `<span class="tag">In progress ${r.wa}–${r.wb}</span>` : ""}
+        </div>
+        <div class="teams">
+          <div class="team ${cls("a")}"><span class="nm">${name("a")}</span>${note("a")}</div>
+          <div class="team ${cls("b")}"><span class="nm">${name("b")}</span>${note("b")}</div>
+        </div>
+        <div class="score">${score}</div>
+        <div class="edit"><button type="button" class="gbtn" data-edit="${m.id}">${r.games.length ? "Edit score" : "Enter score"}</button></div>
+      </article>`;
+  }
+
+  /* ---------- views ---------- */
+  function renderTabs() {
+    const items = [["courts", "All courts", "#94A3B8"]].concat(D.divisions.map(d => [d.key, d.name, `var(--${d.key})`]));
+    document.getElementById("tabs").innerHTML = items.map(([k, label, c]) =>
+      `<button type="button" class="tab" role="tab" aria-selected="${view === k}" data-view="${k}" style="--c:${c}"><span class="dot"></span>${esc(label)}</button>`).join("");
+  }
+
+  function courtsView() {
+    const board = COURTS.map(c => {
+      const list = D.matches.filter(m => m.court === c).sort((a, b) => a.start - b.start);
+      const open = list.filter(m => !E.result(stageOf(m), scores[m.id]).done);
+      const now = open[0], next = open[1];
+      return `<div class="court"><h3>Court ${c}<small>${list.length - open.length}/${list.length} done</small></h3>
+        ${now ? `<div class="lbl">On court / up now</div>${matchHTML(now, { mini: true })}` : `<div class="idle">All matches on this court are finished.</div>`}
+        ${next ? `<div class="lbl">Next</div>${matchHTML(next, { mini: true })}` : ""}
+      </div>`;
+    }).join("");
+    const times = [...new Set(D.matches.map(m => m.start))].sort((a, b) => a - b);
+    const timeline = times.map(t => {
+      const ms = D.matches.filter(m => m.start === t).sort((a, b) => a.court - b.court);
+      return `<div class="time-group"><div class="t">${fmt(t)}</div><div class="list">${ms.map(m => matchHTML(m, { noTime: true })).join("")}</div></div>`;
+    }).join("");
+    const done = D.matches.filter(m => E.result(stageOf(m), scores[m.id]).done).length;
+    return `
+      <div class="sec-title"><h2>Courts right now</h2><span>${done} of ${D.matches.length} matches finished · shows the next unfinished match on each court</span></div>
+      <div class="courts">${board}</div>
+      <div class="sec-title"><h2>Full day schedule</h2><span>Every match by start time</span></div>
+      <div class="list">${timeline}</div>`;
+  }
+
+  function divisionView(k) {
+    const d = DIV[k], st = E.standings(d, D.matches, scores);
+    const league = D.matches.filter(m => m.div === k && m.stage === "league");
+    const po = D.matches.filter(m => m.div === k && m.stage !== "league").sort((a, b) => a.start - b.start);
+    const pd = E.podium(d, D.matches, scores, seeds[k] || {});
+    const first = Math.min(...D.matches.filter(m => m.div === k).map(m => m.start));
+    const last = Math.max(...D.matches.filter(m => m.div === k).map(m => m.end));
+    const courts = [...new Set(D.matches.filter(m => m.div === k).map(m => m.court))].sort();
+    const rows = st.rows.map((r, i) => {
+      const q = i < d.qualify, hit = query && r.team.toLowerCase().includes(query);
+      return `<tr class="${q ? "q" : ""}${hit ? " hit" : ""}"><td><span class="rank">${i + 1}</span></td>
+        <td class="team-cell">${esc(r.team)}${q ? `<span class="qb">${d.qualify === 2 ? "FINAL" : "SEMIS"}</span>` : ""}</td>
+        <td class="n">${r.p}</td><td class="n">${r.w}</td><td class="n">${r.l}</td><td class="n">${r.pf}</td><td class="n">${r.pa}</td>
+        <td class="n"><b>${r.diff > 0 ? "+" : ""}${r.diff}</b></td></tr>`;
+    }).join("");
+    return `
+      <div class="div-head" style="${colorVars(k)}">
+        <div style="min-width:0;flex:1 1 220px"><h2>${esc(d.name)}</h2>
+          <div class="bar"><i style="width:${Math.round(100 * st.played / st.total)}%"></i></div></div>
+        <div class="facts">
+          <div><b>${d.teams.length}</b>teams</div>
+          <div><b>${st.played}/${st.total}</b>league games</div>
+          <div><b>${fmt(first)}–${fmt(last)}</b>courts ${courts.join(", ")}</div>
+        </div>
+      </div>
+      ${pd ? `<div class="champ"><div class="cup">🏆</div><div><small>${esc(d.name)} champions</small><b>${esc(pd.champion)}</b><small>Runners-up: ${esc(pd.runnerUp)}</small></div></div>` : ""}
+      <div class="sec-title"><h2>Standings</h2><span>${d.qualify === 2 ? "Top 2 play the final" : "Top 4 go to the semis"} · ranked by wins, then point difference</span></div>
+      <div class="tbl-wrap" style="${colorVars(k)}"><table>
+        <thead><tr><th>#</th><th>Team</th><th class="n">P</th><th class="n">W</th><th class="n">L</th><th class="n">PF</th><th class="n">PA</th><th class="n">+/-</th></tr></thead>
+        <tbody>${rows}</tbody></table></div>
+      <div class="sec-title"><h2>Playoffs</h2><span>${d.qualify === 2 ? "Final: seed 1 v 2, best of 3 to 7" : "Semis one game to 15 (1 v 4, 2 v 3) · Final best of 3 to 7"}</span></div>
+      <div class="po-grid">${po.map(m => matchHTML(m)).join("")}</div>
+      <p class="rules">${st.complete ? "League finished: playoff teams are set." : "Playoff teams fill in automatically when the league finishes. “now …” shows who holds that seed at the moment."}</p>
+      <div class="sec-title"><h2>League games</h2><span>One game to 11 · 10-minute cap · ${league.length} games</span></div>
+      <div class="list">${league.sort((a, b) => a.start - b.start).map(m => matchHTML(m)).join("")}</div>
+      <p class="rules">Ties in the standings: wins, then point difference, then head-to-head (two-way ties), then points scored.</p>`;
+  }
+
+  function render() {
+    PO = poCache();
+    renderTabs();
+    const el = document.getElementById("view");
+    el.innerHTML = view === "courts" ? courtsView() : divisionView(view);
+    el.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => openScore(b.dataset.edit)));
+    const scope = document.getElementById("reset-scope");
+    if (!scope.options.length) {
+      scope.innerHTML = D.divisions.map(d => `<option value="${d.key}">${esc(d.name)} only</option>`).join("") + `<option value="all">All divisions</option>`;
+    }
+  }
+
+  function setView(k, push) {
+    if (k !== "courts" && !DIV[k]) k = "courts";
+    view = k;
+    if (push) history.replaceState(null, "", location.pathname + location.search + "#" + k);
+    render();
+    if (push) window.scrollTo({ top: document.querySelector(".tabs").offsetTop - 70, behavior: "smooth" });
+  }
+
+  document.getElementById("tabs").addEventListener("click", e => {
+    const b = e.target.closest("[data-view]");
+    if (b) setView(b.dataset.view, true);
+  });
+  document.getElementById("q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); render(); });
+  window.addEventListener("hashchange", () => setView(location.hash.slice(1), false));
+
+  /* ---------- score entry ---------- */
+  const dlg = document.getElementById("score-dlg");
+  let editing = null;
+
+  function openScore(id) {
+    if (!GTS.isAdmin) { GTS.askPin(); return; }
+    const m = MATCH[id], s = sides(m), bo3 = m.stage === "final";
+    editing = id;
+    const stored = scores[id] || {};
+    const games = bo3 ? (stored.g || []) : (typeof stored.a === "number" ? [[stored.a, stored.b]] : []);
+    const v = (i, j) => (games[i] && games[i][j] !== undefined ? games[i][j] : "");
+    const nameA = s.a || s.aNote.split(" · ")[0], nameB = s.b || s.bNote.split(" · ")[0];
+    document.getElementById("sd-title").textContent = `${SHORT[m.div]} · ${STAGE[m.stage]}`;
+    document.getElementById("sd-sub").textContent = `${fmt(m.start)} · Court ${m.court} · ${m.stage === "league" ? "one game to 11 (10-min cap)" : bo3 ? "best of 3 games to 7 — fill game 3 only if it's 1–1" : "one game to 15"}`;
+    const inp = (i, j) => `<input inputmode="numeric" pattern="[0-9]*" maxlength="2" data-g="${i}" data-s="${j}" value="${v(i, j)}" aria-label="Game ${i + 1} ${j ? "team B" : "team A"}">`;
+    document.getElementById("sd-grid").innerHTML = bo3
+      ? `<div class="sc-grid"><span></span><span class="h">G1</span><span class="h">G2</span><span class="h">G3</span>
+          <span class="nm">${esc(nameA)}</span>${inp(0, 0)}${inp(1, 0)}${inp(2, 0)}
+          <span class="nm">${esc(nameB)}</span>${inp(0, 1)}${inp(1, 1)}${inp(2, 1)}</div>`
+      : `<div class="sc-grid single"><span></span><span class="h">Points</span>
+          <span class="nm">${esc(nameA)}</span>${inp(0, 0)}
+          <span class="nm">${esc(nameB)}</span>${inp(0, 1)}</div>`;
+    // playoff team override
+    const sd = document.getElementById("sd-seeds");
+    if (m.stage !== "league") {
+      const d = DIV[m.div], ov = seeds[m.div] || {};
+      const keys = m.stage === "final" ? ["fa", "fb"] : m.stage === "sf1" ? ["sf1a", "sf1b"] : ["sf2a", "sf2b"];
+      const auto = m.stage === "final" && d.qualify === 4 ? ["winner of SF1", "winner of SF2"]
+        : m.stage === "final" ? ["seed 1", "seed 2"] : m.stage === "sf1" ? ["seed 1", "seed 4"] : ["seed 2", "seed 3"];
+      sd.innerHTML = `<div class="seed-pick"><p>Teams are filled in automatically. Change them only to fix a mistake or a forfeit.</p>
+        ${keys.map((k, i) => `<label>${i ? "Team B" : "Team A"}<select data-seed="${k}">
+          <option value="">Automatic (${auto[i]})</option>
+          ${d.teams.map(t => `<option ${ov[k] === t ? "selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`).join("")}</div>`;
+    } else sd.innerHTML = "";
+    document.getElementById("sd-err").textContent = "";
+    dlg.hidden = false;
+    setTimeout(() => { const f = dlg.querySelector("input[data-g]"); if (f) f.focus(); }, 50);
+  }
+
+  function closeScore() { dlg.hidden = true; editing = null; }
+  document.getElementById("sd-cancel").addEventListener("click", closeScore);
+  dlg.addEventListener("click", e => { if (e.target === dlg) closeScore(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") { closeScore(); document.getElementById("reset-dlg").hidden = true; } });
+
+  // Organiser team picks in the dialog → {changes, merged seeds for this division}
+  function pickedSeeds(m) {
+    const upd = {};
+    document.querySelectorAll("#sd-seeds [data-seed]").forEach(s => { upd[s.dataset.seed] = s.value || null; });
+    const merged = Object.assign({}, seeds[m.div] || {}, upd);
+    Object.keys(merged).forEach(k => { if (!merged[k]) delete merged[k]; });
+    return { upd, merged };
+  }
+
+  document.getElementById("score-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const m = MATCH[editing], err = document.getElementById("sd-err");
+    if (!m || !GTS.isAdmin) return;
+    const g = [["", ""], ["", ""], ["", ""]];
+    dlg.querySelectorAll("input[data-g]").forEach(i => { g[+i.dataset.g][+i.dataset.s] = i.value.trim(); });
+    const blank = g.every(x => x[0] === "" && x[1] === "");
+    let res = null;
+    if (!blank) {
+      res = E.validate(stageOf(m), g);
+      if (!res.ok) { err.textContent = res.error; return; }
+    }
+    const { upd, merged } = pickedSeeds(m);
+    if (m.stage !== "league") {
+      const p = E.playoffs(DIV[m.div], D.matches, scores, merged)[m.id];
+      if (p.a && p.a === p.b) { err.textContent = "Pick two different teams"; return; }
+      if (res && !p.confirmed) { err.textContent = "The teams for this match aren't set yet. Finish the earlier games, or choose the teams below."; return; }
+    }
+    try {
+      if (Object.keys(upd).length) await GTS.ref("seeds/" + m.div).update(upd);
+      if (res) await GTS.ref("scores/" + m.id).set(Object.assign(res.value, { at: firebase.database.ServerValue.TIMESTAMP }));
+      closeScore();
+    } catch (x) { err.textContent = "Could not save. Check the connection and try again."; }
+  });
+
+  document.getElementById("sd-clear").addEventListener("click", async () => {
+    const m = MATCH[editing];
+    if (!m || !GTS.isAdmin) return;
+    await GTS.ref("scores/" + m.id).remove();
+    closeScore();
+  });
+
+  /* ---------- organiser tools ---------- */
+  document.getElementById("ann-post").addEventListener("click", async () => {
+    const t = document.getElementById("ann-text"), msg = document.getElementById("ann-msg");
+    if (!t.value.trim()) { msg.textContent = "Type an announcement first."; return; }
+    try {
+      await GTS.postAnnouncement(t.value, document.getElementById("ann-pin").checked);
+      t.value = ""; document.getElementById("ann-pin").checked = false;
+      msg.textContent = "Posted — everyone can see it now.";
+    } catch (x) { msg.textContent = "Could not post. Check the connection."; }
+    setTimeout(() => { msg.textContent = ""; }, 4000);
+  });
+
+  const rdlg = document.getElementById("reset-dlg");
+  document.getElementById("reset-btn").addEventListener("click", () => {
+    const k = document.getElementById("reset-scope").value;
+    const n = D.matches.filter(m => k === "all" || m.div === k).filter(m => scores[m.id]).length;
+    document.getElementById("rd-sub").textContent = `This clears ${n} saved score${n === 1 ? "" : "s"} for ${k === "all" ? "ALL divisions" : DIV[k].name} and any playoff team changes. Everyone will see empty scores. Type RESET to confirm.`;
+    document.getElementById("rd-input").value = "";
+    document.getElementById("rd-err").textContent = "";
+    rdlg.hidden = false;
+    setTimeout(() => document.getElementById("rd-input").focus(), 50);
+  });
+  document.getElementById("rd-cancel").addEventListener("click", () => { rdlg.hidden = true; });
+  document.getElementById("reset-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    if (document.getElementById("rd-input").value.trim().toUpperCase() !== "RESET") { document.getElementById("rd-err").textContent = "Type RESET to confirm"; return; }
+    if (!GTS.isAdmin) return;
+    const k = document.getElementById("reset-scope").value, upd = {};
+    D.matches.filter(m => k === "all" || m.div === k).forEach(m => { upd["scores/" + m.id] = null; });
+    (k === "all" ? D.divisions.map(d => d.key) : [k]).forEach(d => { upd["seeds/" + d] = null; });
+    try {
+      await GTS.ref().update(upd);
+      rdlg.hidden = true;
+      document.getElementById("reset-msg").textContent = `${k === "all" ? "All divisions" : DIV[k].name} reset.`;
+      setTimeout(() => { document.getElementById("reset-msg").textContent = ""; }, 4000);
+    } catch (x) { document.getElementById("rd-err").textContent = "Could not reset. Check the connection."; }
+  });
+
+  /* ---------- start ---------- */
+  GTS.bindStatus(document.getElementById("status"));
+  GTS.bindAdminButton(document.getElementById("admin-btn"));
+  GTS.onAdmin(on => { document.body.classList.toggle("is-admin", on); render(); });
+  document.body.classList.toggle("is-admin", GTS.isAdmin);
+  GTS.init();
+  GTS.mountAnnouncements(document.getElementById("ann"), { limit: 5 });
+  const sRef = GTS.ref("scores"), seedRef = GTS.ref("seeds");
+  if (sRef) {
+    sRef.on("value", s => { scores = s.val() || {}; render(); });
+    seedRef.on("value", s => { seeds = s.val() || {}; render(); });
+  }
+  setView(location.hash.slice(1) || "courts", false);
+})();
+</script>
+</body>
+</html>

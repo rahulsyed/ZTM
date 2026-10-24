@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTS Pickleball Tournament 2026 | Registration Closed</title>
+    <title>GTS Pickleball Tournament 2026 | Live Scores &amp; Announcements</title>
     <meta name="description" content="Registration is closed for the GTS Pickleball Tournament, Sunday October 25, 2026 at East Riverside Park / Sudduth Farms. Women's, Mixed and Open Doubles (3.0 / 3.5 / 4.0).">
     <meta name="theme-color" content="#FFFFFF">
     <meta property="og:title" content="GTS Pickleball Tournament 2026 — Registration Closed">
@@ -862,7 +862,7 @@
             .brand span { display: none; }
             .nav { gap: 2px; }
             .nav a, .nav span { padding: 7px 10px; font-size: 0.76rem; }
-            .nav .soon small { display: none; }
+            .nav .soon, .nav .nav-wide { display: none; }
             .lede { font-size: 1rem; }
             .schedule { grid-template-columns: 1fr; }
             .meta div { font-size: 0.88rem; padding: 8px 12px; }
@@ -891,6 +891,50 @@
             .mini-ball, .fade-up, .eyebrow .dot { animation: none; opacity: 1; transform: none; }
             html { scroll-behavior: auto; }
         }
+
+        /* ---------- Live: announcements + division links ---------- */
+        .live-sec { padding: 64px 0 56px; background: #fff; border-top: 1px solid var(--line); }
+        .live-sec .section-head { margin-bottom: 24px; }
+        .ann-card { max-width: 760px; margin: 0 auto; padding: 22px; }
+        .ann-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+        .live-pill { font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 999px; background: #F1F4F8; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+        .live-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #A3AEC0; }
+        .live-pill[data-state=live] { background: #E6F6EF; color: #0E8A5F; }
+        .live-pill[data-state=live]::before { background: #16A34A; box-shadow: 0 0 0 3px rgba(22,163,74,.18); }
+        .live-pill[data-state=offline] { background: #FDECEC; color: var(--danger); }
+        .ann { display: grid; gap: 10px; }
+        .ann-item { background: var(--ball-soft); border: 1px solid #E3EFA8; border-left: 5px solid var(--ball); border-radius: 12px; padding: 12px 14px; text-align: left; }
+        .ann-item.pinned { border-left-color: var(--blue); background: var(--blue-soft); border-color: #D3E2FB; }
+        .ann-text { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+        .ann-meta { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--muted); margin-top: 4px; }
+        .ann-del { border: 0; background: none; color: var(--danger); font-weight: 600; cursor: pointer; font-size: 12px; }
+        .ann-empty { color: var(--muted); font-size: 0.95rem; text-align: center; padding: 8px 0; }
+        .ann-post { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); }
+        body.is-admin .ann-post { display: block; }
+        .ann-post textarea { width: 100%; min-height: 80px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font: inherit; resize: vertical; }
+        .ann-post-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+        .ann-post-row label { font-size: 0.9rem; display: inline-flex; gap: 6px; align-items: center; }
+        .ann-msg { font-size: 0.85rem; color: #0E8A5F; min-height: 18px; margin-top: 6px; }
+        .gbtn { border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 8px 14px; font: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; color: var(--ink); }
+        .gbtn:hover { border-color: #C9D3E0; }
+        .gbtn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+        .gbtn.ball { background: var(--ball); border-color: #C3DE33; }
+        .gbtn.ghost { background: transparent; }
+        .gbtn.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+        .div-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; max-width: 980px; margin: 26px auto 0; }
+        .div-card { display: grid; gap: 4px; padding: 16px 18px; border: 1px solid var(--line); border-top: 5px solid var(--c); border-radius: 14px; text-decoration: none; background: #fff; box-shadow: var(--shadow); transition: transform .15s ease, border-color .15s ease; }
+        .div-card:hover { transform: translateY(-2px); border-color: var(--c); }
+        .div-card b { font-family: var(--display); font-size: 1.5rem; color: var(--ink); line-height: 1.05; }
+        .div-card b::after { content: " →"; color: var(--c); }
+        .div-card span { font-size: 0.86rem; color: var(--muted); }
+        .gts-modal { position: fixed; inset: 0; z-index: 60; background: rgba(11,27,51,.55); display: flex; align-items: center; justify-content: center; padding: 16px; }
+        .gts-modal[hidden] { display: none; }
+        .gts-modal-card { background: #fff; border-radius: 18px; padding: 22px; width: 100%; max-width: 400px; box-shadow: 0 30px 80px rgba(0,0,0,.25); }
+        .gts-modal-card h3 { font-family: var(--display); font-size: 1.7rem; color: var(--ink); }
+        .gts-modal-card p { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+        .gts-modal-card input { width: 100%; margin-top: 14px; border: 1px solid var(--line); border-radius: 12px; padding: 12px; font: inherit; font-size: 1.1rem; letter-spacing: 2px; text-align: center; }
+        .gts-modal-err { color: var(--danger); font-size: 0.85rem; min-height: 20px; margin-top: 6px; }
+        .gts-modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -903,8 +947,9 @@
                 <span>Greenville Tamil Sangam<small>GTS Pickleball 2026</small></span>
             </a>
             <nav class="nav" aria-label="Tournament">
-                <a class="active" href="#register">Contact</a>
-                <span class="soon" aria-disabled="true">Live Scores <small>Soon</small></span>
+                <a class="active" href="live.html">Live Scores</a>
+                <a class="nav-wide" href="#live">Announcements</a>
+                <a href="#register">Contact</a>
                 <span class="soon" aria-disabled="true">Live Stream <small>Soon</small></span>
             </nav>
         </div>
@@ -914,7 +959,7 @@
     <header class="hero">
         <div class="container hero-grid">
             <div>
-                <p class="eyebrow fade-up d1"><span class="dot off"></span>Registration closed · Greenville Tamil Sangam</p>
+                <p class="eyebrow fade-up d1"><span class="dot"></span>Tournament day · Greenville Tamil Sangam</p>
                 <h1 class="fade-up d2">GTS<br><span class="hl">Pickleball</span><br>Tournament<span class="year">2026</span></h1>
                 <p class="lede fade-up d3">A full day of competitive doubles across five divisions. See you on court!</p>
 
@@ -930,16 +975,16 @@
                 </div>
 
                 <div class="cta-row fade-up d4">
-                    <a class="btn btn-ball" href="#register">Contact organizers
+                    <a class="btn btn-ball" href="live.html">Live scores &amp; schedule
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14m-6-6l6 6-6 6"/></svg>
                     </a>
-                    <p class="cta-note"><strong>Registration is closed</strong></p>
+                    <p class="cta-note"><strong>Registration is closed</strong> · <a href="#register">contact organizers</a></p>
                 </div>
 
                 <div class="schedule fade-up d4">
                     <div class="day">
                         <div class="day-date"><small>Sun</small><b>25</b><small>Oct</small></div>
-                        <div class="day-events"><strong>Women's, Mixed &amp; Open Doubles 3.0 · 3.5 · 4.0</strong><span>All divisions play on Sunday</span></div>
+                        <div class="day-events"><strong>Open 3.0 · 3.5 · 4.0, Mixed &amp; Social Doubles</strong><span>All divisions play on Sunday · first serve 7:00 AM</span></div>
                     </div>
                 </div>
             </div>
@@ -978,6 +1023,42 @@
             </div>
         </div>
     </header>
+
+    <!-- ================= LIVE: announcements + divisions ================= -->
+    <section id="live" class="live-sec">
+        <div class="container">
+            <div class="section-head">
+                <div class="kicker">Tournament day</div>
+                <h2>Announcements</h2>
+                <p>Updates from the organizers appear here instantly. Pick your division below for live scores, standings and playoffs.</p>
+            </div>
+
+            <div class="card ann-card">
+                <div class="ann-head">
+                    <span class="live-pill" id="status" data-state="connecting">Connecting…</span>
+                    <button type="button" class="gbtn" id="admin-btn">Organiser login</button>
+                </div>
+                <div class="ann" id="ann"></div>
+                <div class="ann-post">
+                    <textarea id="ann-text" maxlength="600" placeholder="Write an announcement for everyone…"></textarea>
+                    <div class="ann-post-row">
+                        <label><input type="checkbox" id="ann-pin"> Pin to top</label>
+                        <button type="button" class="gbtn ball" id="ann-post">Post announcement</button>
+                    </div>
+                    <div class="ann-msg" id="ann-msg" role="status"></div>
+                </div>
+            </div>
+
+            <div class="div-cards">
+                <a class="div-card" href="live.html#courts" style="--c:#0B1B33"><b>All courts</b><span>Who's on court now and the full day</span></a>
+                <a class="div-card" href="live.html#o30" style="--c:#0F766E"><b>Open 3.0</b><span>6 teams · 7:00 AM · courts 5–6</span></a>
+                <a class="div-card" href="live.html#o35" style="--c:#1F4FA3"><b>Open 3.5</b><span>10 teams · 7:00 AM · courts 1–4</span></a>
+                <a class="div-card" href="live.html#mix" style="--c:#B0306A"><b>Mixed Doubles</b><span>6 teams · 8:30 AM · courts 1–4</span></a>
+                <a class="div-card" href="live.html#o40" style="--c:#5E34A0"><b>Open 4.0</b><span>8 teams · after the Mixed final · courts 1–4</span></a>
+                <a class="div-card" href="live.html#soc" style="--c:#9A5B00"><b>Social Doubles</b><span>4 teams · 9:00 AM · courts 5–6</span></a>
+            </div>
+        </div>
+    </section>
 
     <!-- ================= REGISTRATION ================= -->
     <main id="register" class="register">
@@ -1071,6 +1152,28 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="gts-core.js"></script>
+    <script>
+        // Announcements board + organiser login
+        GTS.bindStatus(document.getElementById('status'));
+        GTS.bindAdminButton(document.getElementById('admin-btn'));
+        GTS.onAdmin(on => document.body.classList.toggle('is-admin', on));
+        document.body.classList.toggle('is-admin', GTS.isAdmin);
+        GTS.init();
+        GTS.mountAnnouncements(document.getElementById('ann'), { limit: 10, emptyText: 'No announcements yet. Check back on tournament day.' });
+        document.getElementById('ann-post').addEventListener('click', async () => {
+            const t = document.getElementById('ann-text'), msg = document.getElementById('ann-msg');
+            if (!t.value.trim()) { msg.textContent = 'Type an announcement first.'; return; }
+            try {
+                await GTS.postAnnouncement(t.value, document.getElementById('ann-pin').checked);
+                t.value = ''; document.getElementById('ann-pin').checked = false;
+                msg.textContent = 'Posted. Everyone can see it now.';
+            } catch (err) { msg.textContent = 'Could not post. Check the connection.'; }
+            setTimeout(() => { msg.textContent = ''; }, 4000);
+        });
+    </script>
     <script>
         // Copy Zelle email
         document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
