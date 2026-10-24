@@ -892,6 +892,15 @@
             html { scroll-behavior: auto; }
         }
 
+        /* ---------- Promo video ---------- */
+        .promo { padding: 8px 0 56px; background: #fff; }
+        .promo-frame { position: relative; max-width: 980px; margin: 0 auto; border-radius: 22px; overflow: hidden; background: var(--ink); box-shadow: 0 24px 60px rgba(11, 27, 51, 0.22); aspect-ratio: 16 / 9; }
+        .promo-video { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .promo-tag { position: absolute; left: 14px; top: 14px; background: var(--ball); color: var(--ink); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; }
+        .promo-links { text-align: center; margin-top: 12px; font-size: 0.9rem; color: var(--muted); }
+        .promo-links a { color: var(--blue); font-weight: 600; text-decoration: none; }
+        @media (max-width: 640px) { .promo { padding: 0 0 40px; } .promo-frame { border-radius: 16px; } }
+
         /* ---------- Live: announcements + division links ---------- */
         .live-sec { padding: 64px 0 56px; background: #fff; border-top: 1px solid var(--line); }
         .live-sec .section-head { margin-bottom: 24px; }
@@ -1025,6 +1034,17 @@
             </div>
         </div>
     </header>
+
+    <!-- ================= PROMO VIDEO ================= -->
+    <section class="promo" aria-label="Tournament promo video">
+        <div class="container">
+            <div class="promo-frame">
+                <video class="promo-video" src="promo/gts-promo.mp4" poster="promo/gts-promo-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="GTS Pickleball 2026 promo"></video>
+                <span class="promo-tag">Get ready · Sunday Oct 25</span>
+            </div>
+            <p class="promo-links"><a href="promo/gts-promo.mp4" download>Download video</a> · <a href="promo/gts-promo-vertical.mp4" download>Phone / WhatsApp version</a></p>
+        </div>
+    </section>
 
     <!-- ================= LIVE: announcements + divisions ================= -->
     <section id="live" class="live-sec">
