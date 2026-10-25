@@ -30,7 +30,7 @@ window.GTS_DATA = {
     "Shari & Michelle",
     "Scott & Harshad"
    ],
-   "qualify": 4
+   "qualify": 8
   },
   {
    "key": "mix",
@@ -394,22 +394,6 @@ window.GTS_DATA = {
    "b": "Ramesh & Kelly"
   },
   {
-   "id": "o35-sf1",
-   "div": "o35",
-   "stage": "sf1",
-   "start": 485,
-   "end": 500,
-   "court": 1
-  },
-  {
-   "id": "o35-sf2",
-   "div": "o35",
-   "stage": "sf2",
-   "start": 485,
-   "end": 500,
-   "court": 2
-  },
-  {
    "id": "o30-sf1",
    "div": "o30",
    "stage": "sf1",
@@ -424,14 +408,6 @@ window.GTS_DATA = {
    "start": 495,
    "end": 510,
    "court": 6
-  },
-  {
-   "id": "o35-final",
-   "div": "o35",
-   "stage": "final",
-   "start": 510,
-   "end": 535,
-   "court": 1
   },
   {
    "id": "mix-L01",
@@ -460,6 +436,38 @@ window.GTS_DATA = {
    "court": 1,
    "a": "Elango & Ramya",
    "b": "Dwayne & Shari"
+  },
+  {
+   "id": "o35-qf1",
+   "div": "o35",
+   "stage": "qf1",
+   "start": 540,
+   "end": 555,
+   "court": 1
+  },
+  {
+   "id": "o35-qf2",
+   "div": "o35",
+   "stage": "qf2",
+   "start": 540,
+   "end": 555,
+   "court": 2
+  },
+  {
+   "id": "o35-qf3",
+   "div": "o35",
+   "stage": "qf3",
+   "start": 540,
+   "end": 555,
+   "court": 3
+  },
+  {
+   "id": "o35-qf4",
+   "div": "o35",
+   "stage": "qf4",
+   "start": 540,
+   "end": 555,
+   "court": 4
   },
   {
    "id": "soc-L01",
@@ -552,6 +560,22 @@ window.GTS_DATA = {
    "b": "Dwayne & Shari"
   },
   {
+   "id": "o35-sf1",
+   "div": "o35",
+   "stage": "sf1",
+   "start": 565,
+   "end": 580,
+   "court": 1
+  },
+  {
+   "id": "o35-sf2",
+   "div": "o35",
+   "stage": "sf2",
+   "start": 565,
+   "end": 580,
+   "court": 2
+  },
+  {
    "id": "mix-L08",
    "div": "mix",
    "stage": "league",
@@ -610,6 +634,14 @@ window.GTS_DATA = {
    "court": 3,
    "a": "Alexis & Chris",
    "b": "Tim & Martha"
+  },
+  {
+   "id": "o35-final",
+   "div": "o35",
+   "stage": "final",
+   "start": 590,
+   "end": 615,
+   "court": 1
   },
   {
    "id": "soc-L06",

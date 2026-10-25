@@ -122,16 +122,31 @@
       out[k + "-final"] = { a: a.team, b: b.team, aNote: a.note, bNote: b.note, confirmed: a.fixed && b.fixed };
       return out;
     }
-    const s1a = pick("sf1a", seed(1), "Seed 1"), s1b = pick("sf1b", seed(4), "Seed 4");
-    const s2a = pick("sf2a", seed(2), "Seed 2"), s2b = pick("sf2b", seed(3), "Seed 3");
-    out[k + "-sf1"] = { a: s1a.team, b: s1b.team, aNote: s1a.note, bNote: s1b.note, confirmed: s1a.fixed && s1b.fixed };
-    out[k + "-sf2"] = { a: s2a.team, b: s2b.team, aNote: s2a.note, bNote: s2b.note, confirmed: s2a.fixed && s2b.fixed };
     const w = id => {
       const p = out[id], r = result("semi", scores[id]);
       return p.confirmed && r.done ? (r.winner === "a" ? p.a : p.b) : null;
     };
-    const fa = seeds.fa ? { team: seeds.fa, note: "Set by organiser", fixed: true } : { team: w(k + "-sf1"), note: "Winner SF1", fixed: !!w(k + "-sf1") };
-    const fb = seeds.fb ? { team: seeds.fb, note: "Set by organiser", fixed: true } : { team: w(k + "-sf2"), note: "Winner SF2", fixed: !!w(k + "-sf2") };
+    const fromWinner = (key, id, note) => seeds[key] ? { team: seeds[key], note: "Set by organiser", fixed: true }
+      : { team: w(id), note, fixed: !!w(id) };
+    if (div.qualify === 8) {
+      // quarterfinals 1v8, 4v5, 2v7, 3v6; semis: QF1 v QF2 winners, QF3 v QF4 winners
+      [["qf1", 1, 8], ["qf2", 4, 5], ["qf3", 2, 7], ["qf4", 3, 6]].forEach(([q, x, y]) => {
+        const a = pick(q + "a", seed(x), "Seed " + x), b = pick(q + "b", seed(y), "Seed " + y);
+        out[k + "-" + q] = { a: a.team, b: b.team, aNote: a.note, bNote: b.note, confirmed: a.fixed && b.fixed };
+      });
+      [["sf1", "qf1", "qf2"], ["sf2", "qf3", "qf4"]].forEach(([s, q1, q2]) => {
+        const a = fromWinner(s + "a", k + "-" + q1, "Winner " + q1.toUpperCase()), b = fromWinner(s + "b", k + "-" + q2, "Winner " + q2.toUpperCase());
+        out[k + "-" + s] = { a: a.team, b: b.team, aNote: a.note, bNote: b.note, confirmed: a.fixed && b.fixed };
+      });
+      const fa = fromWinner("fa", k + "-sf1", "Winner SF1"), fb = fromWinner("fb", k + "-sf2", "Winner SF2");
+      out[k + "-final"] = { a: fa.team, b: fb.team, aNote: fa.note, bNote: fb.note, confirmed: fa.fixed && fb.fixed };
+      return out;
+    }
+    const s1a = pick("sf1a", seed(1), "Seed 1"), s1b = pick("sf1b", seed(4), "Seed 4");
+    const s2a = pick("sf2a", seed(2), "Seed 2"), s2b = pick("sf2b", seed(3), "Seed 3");
+    out[k + "-sf1"] = { a: s1a.team, b: s1b.team, aNote: s1a.note, bNote: s1b.note, confirmed: s1a.fixed && s1b.fixed };
+    out[k + "-sf2"] = { a: s2a.team, b: s2b.team, aNote: s2a.note, bNote: s2b.note, confirmed: s2a.fixed && s2b.fixed };
+    const fa = fromWinner("fa", k + "-sf1", "Winner SF1"), fb = fromWinner("fb", k + "-sf2", "Winner SF2");
     out[k + "-final"] = { a: fa.team, b: fb.team, aNote: fa.note, bNote: fb.note, confirmed: fa.fixed && fb.fixed };
     return out;
   }

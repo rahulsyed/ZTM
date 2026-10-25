@@ -92,16 +92,16 @@ h3{font-family:var(--display);font-size:20px;margin:14px 0 6px}
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="gts-schedule.js?v=1024e"></script>
-<script src="gts-engine.js?v=1024e"></script>
-<script src="gts-core.js?v=1024e"></script>
-<script src="gts-export.js?v=1024e"></script>
+<script src="gts-schedule.js?v=1025a"></script>
+<script src="gts-engine.js?v=1025a"></script>
+<script src="gts-core.js?v=1025a"></script>
+<script src="gts-export.js?v=1025a"></script>
 <script>
 (function () {
   const D = window.GTS_DATA, E = window.GTSEngine, esc = GTS.esc;
   const DIV = Object.fromEntries(D.divisions.map(d => [d.key, d]));
   const SHORT = { o30: "Open 3.0", o35: "Open 3.5", mix: "Mixed", o40: "Open 4.0", soc: "Social" };
-  const STAGE = { league: "League", sf1: "Semi 1", sf2: "Semi 2", final: "Final" };
+  const STAGE = { league: "League", qf1: "QF 1", qf2: "QF 2", qf3: "QF 3", qf4: "QF 4", sf1: "Semi 1", sf2: "Semi 2", final: "Final" };
   const COURTS = [...new Set(D.matches.map(m => m.court))].sort((a, b) => a - b);
   const params = new URLSearchParams(location.search);
   let scores = {}, seeds = {};
@@ -150,7 +150,7 @@ h3{font-family:var(--display);font-size:20px;margin:14px 0 6px}
     const league = ms.filter(m => m.stage === "league"), pl = ms.filter(m => m.stage !== "league");
     const st = withScores() ? E.standings(d, D.matches, scores).rows : d.teams.map(t => ({ team: t }));
     const show = v => (withScores() && v !== undefined ? v : "");
-    return `<section class="sheet">${head("", d.name, `${d.teams.length} teams · ${league.length} league games · ${d.qualify === 2 ? "top 2 play the final" : "top 4 play semis (1 v 4, 2 v 3), winners play the final"}`)}
+    return `<section class="sheet">${head("", d.name, `${d.teams.length} teams · ${league.length} league games · ${d.qualify === 2 ? "top 2 play the final" : d.qualify === 8 ? "top 8 play quarterfinals (1 v 8, 4 v 5, 2 v 7, 3 v 6), then semis and the final" : "top 4 play semis (1 v 4, 2 v 3), winners play the final"}`)}
       <table>${thead("Court")}<tbody>${league.map(m => rowHTML(m, po, true)).join("")}</tbody></table>
       <div class="two">
         <div><h3>Standings</h3><table style="min-width:0"><thead><tr><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>+/-</th><th>Rank</th></tr></thead>

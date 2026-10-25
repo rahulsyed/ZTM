@@ -1,7 +1,7 @@
 /* GTS Pickleball 2026 — Excel export of the live scores (SheetJS, loaded on demand). */
 (function () {
   const XLSX_URL = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
-  const STAGE = { league: "League", sf1: "Semifinal 1", sf2: "Semifinal 2", final: "Final (best of 3)" };
+  const STAGE = { league: "League", qf1: "Quarterfinal 1", qf2: "Quarterfinal 2", qf3: "Quarterfinal 3", qf4: "Quarterfinal 4", sf1: "Semifinal 1", sf2: "Semifinal 2", final: "Final (best of 3)" };
 
   function loadXLSX() {
     if (window.XLSX) return Promise.resolve(window.XLSX);
@@ -48,7 +48,7 @@
     D.divisions.forEach(d => {
       const st = E.standings(d, D.matches, scores).rows.map((r, i) => ({
         Rank: i + 1, Team: TN(d.key, r.team), Played: r.p, Won: r.w, Lost: r.l, "Points for": r.pf, "Points against": r.pa, "+/-": r.diff,
-        Qualifies: i < d.qualify ? (d.qualify === 2 ? "Final" : "Semis") : ""
+        Qualifies: i < d.qualify ? (d.qualify === 2 ? "Final" : d.qualify === 8 ? "Quarterfinals" : "Semis") : ""
       }));
       const ws = sheet(st, [6, 34, 7, 6, 6, 11, 14, 6, 10]);
       X.utils.sheet_add_aoa(ws, [[""], ["Matches"]], { origin: -1 });

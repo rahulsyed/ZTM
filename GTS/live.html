@@ -384,16 +384,16 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="gts-schedule.js?v=1024e"></script>
-<script src="gts-engine.js?v=1024e"></script>
-<script src="gts-core.js?v=1024e"></script>
-<script src="gts-export.js?v=1024e"></script>
+<script src="gts-schedule.js?v=1025a"></script>
+<script src="gts-engine.js?v=1025a"></script>
+<script src="gts-core.js?v=1025a"></script>
+<script src="gts-export.js?v=1025a"></script>
 <script>
 (function () {
   const D = window.GTS_DATA, E = window.GTSEngine, esc = GTS.esc;
   const DIV = Object.fromEntries(D.divisions.map(d => [d.key, d]));
   const SHORT = { o30: "Open 3.0", o35: "Open 3.5", mix: "Mixed", o40: "Open 4.0", soc: "Social" };
-  const STAGE = { league: "League", sf1: "Semifinal 1", sf2: "Semifinal 2", final: "Final" };
+  const STAGE = { league: "League", qf1: "Quarterfinal 1", qf2: "Quarterfinal 2", qf3: "Quarterfinal 3", qf4: "Quarterfinal 4", sf1: "Semifinal 1", sf2: "Semifinal 2", final: "Final" };
   const MATCH = Object.fromEntries(D.matches.map(m => [m.id, m]));
   const COURTS = [...new Set(D.matches.map(m => m.court))].sort((a, b) => a - b);
 
@@ -496,7 +496,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     const rows = st.rows.map((r, i) => {
       const q = i < d.qualify, hit = query && (TN(k, r.team) + " " + r.team).toLowerCase().includes(query);
       return `<tr class="${q ? "q" : ""}${hit ? " hit" : ""}"><td><span class="rank">${i + 1}</span></td>
-        <td class="team-cell">${teamLink(k, r.team)}${q ? `<span class="qb">${d.qualify === 2 ? "FINAL" : "SEMIS"}</span>` : ""}</td>
+        <td class="team-cell">${teamLink(k, r.team)}${q ? `<span class="qb">${d.qualify === 2 ? "FINAL" : d.qualify === 8 ? "QF" : "SEMIS"}</span>` : ""}</td>
         <td class="n">${r.p}</td><td class="n">${r.w}</td><td class="n">${r.l}</td><td class="n hide-sm">${r.pf}</td><td class="n hide-sm">${r.pa}</td>
         <td class="n"><b>${r.diff > 0 ? "+" : ""}${r.diff}</b></td></tr>`;
     }).join("");
@@ -511,11 +511,11 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
         </div>
       </div>
       ${pd ? `<div class="champ"><div class="cup">🏆</div><div><small>${esc(d.name)} champions</small><b>${esc(TN(k, pd.champion))}</b><small>Runners-up: ${esc(TN(k, pd.runnerUp))}</small></div></div>` : ""}
-      <div class="sec-title"><h2>Standings</h2><span>${d.qualify === 2 ? "Top 2 play the final" : "Top 4 go to the semis"} · ranked by wins, then point difference</span></div>
+      <div class="sec-title"><h2>Standings</h2><span>${d.qualify === 2 ? "Top 2 play the final" : d.qualify === 8 ? "Top 8 go to the quarterfinals" : "Top 4 go to the semis"} · ranked by wins, then point difference</span></div>
       <div class="tbl-wrap" style="${colorVars(k)}"><table>
         <thead><tr><th>#</th><th>Team</th><th class="n">P</th><th class="n">W</th><th class="n">L</th><th class="n hide-sm">PF</th><th class="n hide-sm">PA</th><th class="n">+/-</th></tr></thead>
         <tbody>${rows}</tbody></table></div>
-      <div class="sec-title"><h2>Playoffs</h2><span>${d.qualify === 2 ? "Final: seed 1 v 2, best of 3 games" : "Semis one game to 15 (1 v 4, 2 v 3) · Final best of 3 games"}</span></div>
+      <div class="sec-title"><h2>Playoffs</h2><span>${d.qualify === 2 ? "Final: seed 1 v 2, best of 3 games" : d.qualify === 8 ? "Quarters 1 v 8, 4 v 5, 2 v 7, 3 v 6 · semis and quarters one game to 15 · Final best of 3 games" : "Semis one game to 15 (1 v 4, 2 v 3) · Final best of 3 games"}</span></div>
       <div class="po-grid">${po.map(m => matchHTML(m)).join("")}</div>
       <p class="rules">${st.complete ? "League finished: playoff teams are set." : "Playoff teams fill in automatically when the league finishes. “now …” shows who holds that seed at the moment."}</p>
       <div class="sec-title"><h2>League games</h2><span>Tap a team for its full schedule · ${league.length} games</span></div>
@@ -569,6 +569,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
       <div class="rule-card" style="--c:var(--o35)"><h3>Format</h3><ul>
         <li>League: every team plays <b>4 games</b> (Social: 3).</li>
         <li>Top 4 go to the semis: <b>1 v 4</b> and <b>2 v 3</b>. Winners play the final. Social: top 2 play the final.</li>
+        <li><b>Open 3.5:</b> top 8 play quarterfinals (1 v 8, 4 v 5, 2 v 7, 3 v 6), then semis and the final. Quarters are played like semis (to 15).</li>
         <li>Standings: wins, then point difference, then head-to-head, then points scored.</li>
         <li>Check the <b>All courts</b> tab for your court and time. Be ready on court before your match.</li></ul></div>
       <div class="rule-card" style="--c:var(--o30)"><h3>Weather</h3><ul>
@@ -736,9 +737,9 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     const sd = document.getElementById("sd-seeds");
     if (m.stage !== "league") {
       const d = DIV[m.div], ov = seeds[m.div] || {};
-      const keys = m.stage === "final" ? ["fa", "fb"] : m.stage === "sf1" ? ["sf1a", "sf1b"] : ["sf2a", "sf2b"];
-      const auto = m.stage === "final" && d.qualify === 4 ? ["winner of SF1", "winner of SF2"]
-        : m.stage === "final" ? ["seed 1", "seed 2"] : m.stage === "sf1" ? ["seed 1", "seed 4"] : ["seed 2", "seed 3"];
+      const keys = m.stage === "final" ? ["fa", "fb"] : [m.stage + "a", m.stage + "b"];
+      const base = E.playoffs(d, D.matches, scores, {})[m.id];   // what "automatic" means for this slot
+      const auto = [base.aNote, base.bNote].map(n => n.split(" · ")[0].toLowerCase());
       sd.innerHTML = `<div class="seed-pick"><p>Teams are filled in automatically. Change them only to fix a mistake or a forfeit.</p>
         ${keys.map((k, i) => `<label>${i ? "Team B" : "Team A"}<select data-seed="${k}">
           <option value="">Automatic (${auto[i]})</option>
