@@ -194,6 +194,11 @@ tr.q .rank{background:var(--c);color:#fff}
 body.is-admin .td-rename{display:block}
 .td-rename input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:16px;margin-top:6px}
 .td-rename .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.tn-list{display:grid;gap:10px;margin-top:12px}
+.tn-row label{display:block;font-size:12px;color:var(--muted)}
+.tn-row input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:16px;margin-top:3px}
+.tn-row input.changed{border-color:var(--blue);background:var(--blue-soft)}
+.tn-also{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted);margin-top:12px}
 /* rules */
 .rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:6px}
 .rule-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);border-top:5px solid var(--c,var(--ball))}
@@ -283,6 +288,11 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
           <button type="button" class="gbtn danger" id="reset-btn">Reset scores…</button>
         </div>
         <div class="admin-msg" id="reset-msg"></div>
+        <p style="margin-top:10px">Team names: fix spelling or swap a player. The change shows everywhere for everyone, and scores stay attached.</p>
+        <div class="row">
+          <select id="tn-div" aria-label="Division to edit team names"></select>
+          <button type="button" class="gbtn" id="tn-open">Edit team names</button>
+        </div>
         <p style="margin-top:10px">Backups and printouts</p>
         <div class="row">
           <button type="button" class="gbtn" id="xlsx-btn">Download Excel (current scores)</button>
@@ -312,6 +322,24 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     <span>Questions? PJ (832) 436-3286 · Hari (774) 266-1319 · Rajesh (864) 498-8210 · Senthil (616) 752-0992</span>
   </div>
 </footer>
+
+<!-- Team names editor (organisers) -->
+<div class="gts-modal" id="tn-dlg" hidden>
+  <form class="gts-modal-card team-card" id="tn-form" autocomplete="off">
+    <div class="td-head">
+      <div><span class="tag" id="tn-tag"></span><h3>Edit team names</h3></div>
+      <button type="button" class="gbtn ghost" id="tn-close" aria-label="Close">✕</button>
+    </div>
+    <p>Change a name and press Save. Leave a box as it is to keep the name. Scores and the schedule are not affected.</p>
+    <div id="tn-list" class="tn-list"></div>
+    <label class="tn-also"><input type="checkbox" id="tn-also" checked> Also rename the same team in its other division (e.g. a pair in both Open 3.0 and Mixed)</label>
+    <div class="gts-modal-err" id="tn-err" role="alert"></div>
+    <div class="gts-modal-actions">
+      <button type="button" class="gbtn ghost" id="tn-cancel">Cancel</button>
+      <button type="submit" class="gbtn primary">Save names</button>
+    </div>
+  </form>
+</div>
 
 <!-- Team details -->
 <div class="gts-modal" id="team-dlg" hidden>
@@ -356,10 +384,10 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="gts-schedule.js?v=1024d"></script>
-<script src="gts-engine.js?v=1024d"></script>
-<script src="gts-core.js?v=1024d"></script>
-<script src="gts-export.js?v=1024d"></script>
+<script src="gts-schedule.js?v=1024e"></script>
+<script src="gts-engine.js?v=1024e"></script>
+<script src="gts-core.js?v=1024e"></script>
+<script src="gts-export.js?v=1024e"></script>
 <script>
 (function () {
   const D = window.GTS_DATA, E = window.GTSEngine, esc = GTS.esc;
@@ -509,6 +537,7 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     const scope = document.getElementById("reset-scope");
     if (!scope.options.length) {
       scope.innerHTML = D.divisions.map(d => `<option value="${d.key}">${esc(d.name)} only</option>`).join("") + `<option value="all">All divisions</option>`;
+      document.getElementById("tn-div").innerHTML = D.divisions.map(d => `<option value="${d.key}">${esc(d.name)}</option>`).join("");
     }
   }
 
@@ -625,6 +654,48 @@ footer .wrap{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
     if (!b) return;
     const [div, name] = b.dataset.team.split("|");
     showTeam(div, name);
+  });
+
+  /* ---------- team names editor (organisers) ---------- */
+  const tnDlg = document.getElementById("tn-dlg");
+  let tnDiv = null;
+  function openNames(div) {
+    if (!GTS.isAdmin) { GTS.askPin(); return; }
+    tnDiv = div;
+    const d = DIV[div];
+    document.getElementById("tn-tag").textContent = d.name;
+    document.getElementById("tn-tag").style.cssText = colorVars(div);
+    document.getElementById("tn-list").innerHTML = d.teams.map((t, i) => `
+      <div class="tn-row"><label for="tn-${i}">Team ${i + 1}${TN(div, t) !== t ? ` · originally “${esc(t)}”` : ""}</label>
+        <input id="tn-${i}" data-orig="${esc(t)}" maxlength="80" value="${esc(TN(div, t))}"></div>`).join("");
+    document.getElementById("tn-list").querySelectorAll("input").forEach(inp => inp.addEventListener("input", () =>
+      inp.classList.toggle("changed", inp.value.trim() !== TN(div, inp.dataset.orig))));
+    document.getElementById("tn-err").textContent = "";
+    tnDlg.hidden = false;
+  }
+  document.getElementById("tn-open").addEventListener("click", () => openNames(document.getElementById("tn-div").value));
+  document.getElementById("tn-close").addEventListener("click", () => { tnDlg.hidden = true; });
+  document.getElementById("tn-cancel").addEventListener("click", () => { tnDlg.hidden = true; });
+  document.getElementById("tn-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const err = document.getElementById("tn-err");
+    const changes = [...document.querySelectorAll("#tn-list input")]
+      .map(i => ({ orig: i.dataset.orig, name: i.value.trim() }))
+      .filter(c => c.name !== TN(tnDiv, c.orig));
+    if (changes.some(c => !c.name)) { err.textContent = "A team name can't be empty. Use the original name instead."; return; }
+    const finals = DIV[tnDiv].teams.map(t => (changes.find(c => c.orig === t) || {}).name || TN(tnDiv, t));
+    if (new Set(finals.map(n => n.toLowerCase())).size !== finals.length) { err.textContent = "Two teams in this division would have the same name."; return; }
+    const also = document.getElementById("tn-also").checked;
+    try {
+      for (const c of changes) {
+        await GTS.renameTeam(tnDiv, c.orig, c.name);
+        if (also) for (const o of D.divisions) if (o.key !== tnDiv && o.teams.includes(c.orig)) await GTS.renameTeam(o.key, c.orig, c.name);
+      }
+      tnDlg.hidden = true;
+      const msg = document.getElementById("reset-msg");
+      msg.textContent = changes.length ? `${changes.length} team name${changes.length > 1 ? "s" : ""} updated.` : "No names changed.";
+      setTimeout(() => { msg.textContent = ""; }, 4000);
+    } catch (x) { err.textContent = "Could not save. Check the connection and that you're logged in as organiser."; }
   });
 
   /* ---------- score entry ---------- */
